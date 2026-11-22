@@ -24,13 +24,19 @@ for (const match of zhSource.matchAll(/^\s*"((?:[^"\\]|\\.)*)"\s*:/gm))
   zh.add(JSON.parse('"' + match[1] + '"'));
 
 const provenance = readJson(path.join(messages, 'provenance.json'));
-if (!provenance.default || !provenance.sources?.[provenance.default]) {
-  errors.push(`provenance.json: default source "${provenance.default}" is not declared`);
+if (provenance.default) {
+  errors.push('provenance.json: a default source is not allowed; every key needs explicit provenance');
 }
 const counts = new Map();
+const originCounts = new Map();
 let vueOverrides = 0;
+let vscodeMatches = 0;
 for (const key of zh) {
-  const entry = provenance.keys?.[key] ?? provenance.default;
+  const entry = provenance.keys?.[key];
+  if (!entry) {
+    errors.push(`provenance.json: key "${key}" has no explicit provenance`);
+    continue;
+  }
   const source = typeof entry === 'string' ? entry : entry?.source;
   if (!source) {
     errors.push(`provenance.json: key "${key}" has no source`);
@@ -43,6 +49,20 @@ for (const key of zh) {
       errors.push(`provenance.json: key "${key}" replaces unknown source "${entry.replaces}"`);
     vueOverrides++;
   }
+  if (typeof entry === 'object' && entry.origin) {
+    if (!provenance.origins?.[entry.origin])
+      errors.push(`provenance.json: key "${key}" uses undeclared origin "${entry.origin}"`);
+    else
+      originCounts.set(entry.origin, (originCounts.get(entry.origin) ?? 0) + 1);
+  } else if (source === 'community') {
+    errors.push(`provenance.json: community key "${key}" has no origin`);
+  }
+  if (typeof entry === 'object' && entry.vscodeMatch !== undefined) {
+    if (typeof entry.vscodeMatch !== 'boolean')
+      errors.push(`provenance.json: key "${key}" vscodeMatch must be a boolean`);
+    else if (entry.vscodeMatch)
+      vscodeMatches++;
+  }
   if (!provenance.sources?.[source]) {
     errors.push(`provenance.json: key "${key}" uses undeclared source "${source}"`);
     continue;
@@ -54,6 +74,8 @@ for (const [key, entry] of Object.entries(provenance.keys ?? {})) {
   const source = typeof entry === 'string' ? entry : entry?.source;
   if (!source || !provenance.sources?.[source])
     errors.push(`provenance.json: key "${key}" has an undeclared source`);
+  if (typeof entry === 'object' && entry.origin && !provenance.origins?.[entry.origin])
+    errors.push(`provenance.json: key "${key}" has an undeclared origin`);
 }
 
 const monacoSources = readJson(path.join(monaco, 'SOURCES.json'));
@@ -132,7 +154,13 @@ if (errors.length) {
   process.exitCode = 1;
 } else {
   const summary = [...counts].map(([source, count]) => `${count} ${source}`).join(', ');
-  console.log(`Vue zh: ${zh.size} keys (${summary}; ${vueOverrides} overrides)`);
+  const topOrigins = [...originCounts]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 4)
+    .map(([origin, count]) => `${origin} (${count})`)
+    .join(', ');
+  console.log(`Vue zh: ${zh.size} keys (${summary}; ${vscodeMatches} VS Code matches; ${vueOverrides} overrides)`);
+  console.log(`Origins: ${topOrigins}`);
   console.log(`Monaco: ${Object.keys(monacoSources.maps).length} maps from ${monacoSources.source} ${monacoSources.tag} (vscode-monaco; ${monacoOverrides} overrides)`);
   console.log('Provenance OK');
 }
