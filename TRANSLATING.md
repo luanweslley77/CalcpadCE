@@ -19,7 +19,7 @@ A `vscode` entry also records `vscodeSource`: `vscode-monaco` or `vscode-shared-
 
 ## Where provenance lives
 
-- **Shared UI catalogs:** `Calcpad.Web/frontend/calcpad-frontend/src/i18n/messages/provenance.json`.
+- **Shared UI catalogs:** `Calcpad.Web/frontend/calcpad-frontend/src/i18n/messages/provenance.zh.json`.
   Every key has an explicit entry; there is no blanket default.
   `origins` records the commit, author and date that last changed the string.
   A partial catalog uses its own manifest, such as `provenance.pt-BR.json`.

@@ -26,9 +26,9 @@ function parseKeys(file) {
   return keys;
 }
 
-const zhProvenance = readJson(path.join(messages, 'provenance.json'));
+const zhProvenance = readJson(path.join(messages, 'provenance.zh.json'));
 if (zhProvenance.default) {
-  errors.push('provenance.json: a default source is not allowed; every key needs explicit provenance');
+  errors.push('provenance.zh.json: a default source is not allowed; every key needs explicit provenance');
 }
 const sources = zhProvenance.sources ?? {};
 const catalogs = [

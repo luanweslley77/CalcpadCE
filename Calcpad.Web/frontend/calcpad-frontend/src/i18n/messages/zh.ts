@@ -1,4 +1,4 @@
-// Provenance: see provenance.json. Every key has an explicit source and origin.
+// Provenance: see provenance.zh.json. Every key has an explicit source and origin.
 const zh: Record<string, string> = {
     "Files": "文件",
     "Insert": "插入",
