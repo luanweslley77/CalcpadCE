@@ -286,7 +286,7 @@
             title="Output channel"
           >
             <option v-for="ch in (['app', 'preview', 'server', 'html'] as OutputChannel[])" :key="ch" :value="ch">
-              {{ OUTPUT_CHANNEL_LABELS[ch] }}
+              {{ outputChannelLabel(ch) }}
             </option>
           </select>
           <span v-if="isSplit" class="panel-scope" :title="'Showing the active editor group'">
@@ -1486,11 +1486,13 @@ export interface OutputLine {
   groupId?: string
 }
 
-const OUTPUT_CHANNEL_LABELS: Record<OutputChannel, string> = {
-  app: 'CalcpadCE',
-  preview: 'Preview Console',
-  server: 'Server',
-  html: 'HTML Preview Output',
+function outputChannelLabel(channel: OutputChannel): string {
+  switch (channel) {
+    case 'preview': return t('Preview Console')
+    case 'server': return t('Server')
+    case 'html': return t('HTML Preview Output')
+    default: return 'CalcpadCE'
+  }
 }
 
 const outputLines = ref<OutputLine[]>([])
