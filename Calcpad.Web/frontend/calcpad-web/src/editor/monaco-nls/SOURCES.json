@@ -1,0 +1,29 @@
+{
+  "generator": "../../../../scripts/generate-monaco-nls-maps.mjs",
+  "source": "microsoft/vscode-loc",
+  "tag": "v1.96.2024121109",
+  "commit": "110df563b65cd2a1f9d8b58e3bdcadce90427f6d",
+  "license": "MIT",
+  "maps": {
+    "zh.json": {
+      "source": "vscode-monaco",
+      "pack": "vscode-language-pack-zh-hans"
+    },
+    "pt-BR.json": {
+      "source": "vscode-monaco",
+      "pack": "vscode-language-pack-pt-BR"
+    }
+  },
+  "overrides": {
+    "zh": {
+      "source": "community",
+      "replaces": "vscode-monaco",
+      "path": "overrides/zh.json"
+    },
+    "pt-BR": {
+      "source": "community",
+      "replaces": "vscode-monaco",
+      "path": "overrides/pt-BR.json"
+    }
+  }
+}

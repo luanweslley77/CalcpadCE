@@ -1,0 +1,23 @@
+{
+  "default": "community",
+  "sources": {
+    "community": {
+      "description": "Translations contributed by the CalcpadCE community, including the initial Chinese catalog and future locales."
+    },
+    "vscode-monaco": {
+      "description": "Generated from a Microsoft VS Code language pack into Monaco NLS.",
+      "source": "microsoft/vscode-loc",
+      "tag": "v1.96.2024121109",
+      "commit": "110df563b65cd2a1f9d8b58e3bdcadce90427f6d",
+      "license": "MIT"
+    },
+    "vscode-vue": {
+      "description": "Reused from a Microsoft VS Code language pack in the Vue UI.",
+      "source": "microsoft/vscode-loc",
+      "tag": "v1.96.2024121109",
+      "commit": "110df563b65cd2a1f9d8b58e3bdcadce90427f6d",
+      "license": "MIT"
+    }
+  },
+  "keys": {}
+}

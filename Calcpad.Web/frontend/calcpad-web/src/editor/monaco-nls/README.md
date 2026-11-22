@@ -20,3 +20,10 @@ npm run generate:monaco-nls
 The Vite plugin in `calcpad-web/vite.config.ts` matches the `(module, key)`
 pairs of Monaco's `localize()` calls and falls back to English when an entry
 is missing.
+
+Every entry is generated from the pinned pack; see `SOURCES.json`.
+None of the entries are hand-written.
+
+Community overrides live in `overrides/<locale>.json` and are declared in
+`SOURCES.json` with `replaces: vscode-monaco`.
+The Vite plugin merges them over the generated map at build time.

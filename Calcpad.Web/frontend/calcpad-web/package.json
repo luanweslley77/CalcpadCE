@@ -13,7 +13,8 @@
     "preview": "vite preview",
     "check:contrast": "node ../scripts/check-contrast.mjs",
     "generate:monaco-nls": "node ../scripts/generate-monaco-nls-maps.mjs",
-    "generate:monaco-nls:check": "node ../scripts/generate-monaco-nls-maps.mjs --check"
+    "generate:monaco-nls:check": "node ../scripts/generate-monaco-nls-maps.mjs --check",
+    "check:i18n-provenance": "node ../scripts/check-i18n-provenance.mjs"
   },
   "dependencies": {
     "@tauri-apps/api": "^2",
