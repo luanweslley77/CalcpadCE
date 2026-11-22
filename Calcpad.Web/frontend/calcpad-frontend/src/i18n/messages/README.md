@@ -2,7 +2,9 @@
 
 - `en.ts` is the English source.
   Keys are the English text, so the file is intentionally empty.
-- `zh.ts` is the Chinese catalog.
+- `zh.ts` is the complete Chinese catalog, with `provenance.json`.
+- `pt-BR.ts` is the partial Portuguese catalog, with `provenance.pt-BR.json`.
+  Missing keys fall back to English.
 - `provenance.json` records every key's source and origin; there is no default.
 - A community entry is `{ source: "community", origin: "<commit>" }`.
   `origin` is the short commit that last changed the translation.

@@ -19,6 +19,7 @@ A translated key has one of three sources.
 - **Vue UI:** `Calcpad.Web/frontend/calcpad-frontend/src/i18n/messages/provenance.json`.
   Every key has an explicit entry; there is no blanket default.
   `origins` records the commit, author and date that last changed the string.
+  A partial catalog uses its own manifest, such as `provenance.pt-BR.json`.
 - **Monaco:** `Calcpad.Web/frontend/calcpad-web/src/editor/monaco-nls/SOURCES.json`.
   Every map comes from one pinned pack; entries are generated, not hand-written.
 - **.NET messages:** `Calcpad.Core/Messages.PROVENANCE.md`.
@@ -47,6 +48,13 @@ A translated key has one of three sources.
 A `vscode-vue` entry uses the pack pin in `sources` and does not need a commit origin.
 `vscodeMatch: true` means the English key and the Chinese value exactly match a pinned VS Code pack.
 It is an observation, not proof that the translator copied the pack, so the source stays `community` unless a contributor confirms it.
+
+## Partial catalogs
+
+A catalog may start partial.
+Missing keys fall back to English; every key that is present must have explicit provenance.
+`pt-BR.ts` is currently partial: it contains only strings verified against the pinned VS Code pack, marked `vscode-vue`.
+Community translations are added as new entries with `source: "community"` and an `origin`.
 
 ## Community overrides
 
@@ -94,6 +102,7 @@ The Vite plugin merges the overrides at build time.
 8. Machine translation is not a source.
    A machine draft must be reworked and reviewed as a community contribution before merging.
 9. Language names are endonyms; never translate them.
-10. Run the provenance check before merging.
+10. A partial catalog falls back to English; do not fill gaps with unreviewed text.
+11. Run the provenance check before merging.
 
 The check lives at `Calcpad.Web/frontend/scripts/check-i18n-provenance.mjs`.
