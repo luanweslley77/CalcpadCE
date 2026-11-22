@@ -78,6 +78,26 @@ When a key exists in both sources the importer uses Monaco first and records `vs
 Community overrides use `source: "community"` and `replaces: "vscode"`; the review workflow is not defined yet.
 Do not edit the generated catalog by hand.
 
+### Why one English word can have several translations
+
+The pack is keyed by `module::key`, not by English text.
+The same English word can appear in several modules, and each module may use a different Portuguese word for its context.
+`vscode.index.json` groups those entries by the English text.
+
+| English | `module::key` | Portuguese |
+|---|---|---|
+| `Preview` | `extensions/browser/extensionEditor::preview` | Visualizar (verb) |
+| `Preview` | `userDataProfile/.../userDataProfilesEditorModel::preview` | Visualização (noun) |
+| `Reset` | `mergeEditor/.../commands::...` | Redefinir |
+| `Reset` | `workbench/electron-sandbox/window::zoomReset` | Reiniciar |
+| `Save As...` | `files/browser/fileConstants::saveAs` | Salvar como... |
+| `Save As...` | `workingCopy/.../storedFileWorkingCopy::saveAs` | SalvarComo... |
+
+`Save As...` shows why the importer does not pick the first variant: one module contains a concatenated `SalvarComo...`.
+When the grouped values differ, the importer skips the key and leaves it English.
+That is not missing data; it is waiting for a community decision.
+The module/key evidence stays in the index for that decision.
+
 ## Community overrides
 
 A community translation can replace a string that came from VS Code.

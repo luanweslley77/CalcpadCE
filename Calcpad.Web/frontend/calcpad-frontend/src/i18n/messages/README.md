@@ -7,8 +7,9 @@
   `provenance.pt-BR.json` is generated alongside it.
 - The generator reads `scripts/vscode.index.json` (English to VS Code module/key)
   and `scripts/vscode.langpack.pt-BR.json` (pinned pack subset).
-  It imports only keys with one unique translation; keys with multiple variants
-  stay English until the community decides.
+  A word can have several pack translations because it appears in different modules.
+  The importer imports only unique single translations; multi-variant keys stay
+  English until the community decides. See `TRANSLATING.md`.
 - Community overrides use `source: "community"` and `replaces: "vscode"`.
   The review workflow is not defined yet.
 - Keys missing from a catalog fall back to English.
