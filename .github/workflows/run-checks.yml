@@ -63,6 +63,9 @@ jobs:
       - name: Monaco NLS maps are up to date
         if: ${{ !cancelled() }}
         run: node scripts/generate-monaco-nls-maps.mjs --check
+      - name: Translation provenance is valid
+        if: ${{ !cancelled() }}
+        run: node scripts/check-i18n-provenance.mjs
       - name: Test navigation history
         working-directory: .
         run: node --test tools/navigation-history.test.mjs

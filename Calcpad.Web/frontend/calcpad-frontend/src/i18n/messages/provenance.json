@@ -1,0 +1,28 @@
+{
+  "default": "upstream-community",
+  "sources": {
+    "upstream-community": {
+      "description": "Translations that predate the provenance convention.",
+      "review": "unknown"
+    },
+    "ours-reviewed": {
+      "description": "Authored by CalcpadCE contributors and reviewed by a native speaker.",
+      "review": "complete"
+    },
+    "ours-unreviewed": {
+      "description": "Authored by CalcpadCE contributors; native review pending.",
+      "review": "pending"
+    },
+    "vscode-vue": {
+      "description": "Reused from a Microsoft VS Code language pack in the Vue UI.",
+      "source": "microsoft/vscode-loc",
+      "tag": "v1.96.2024121109",
+      "commit": "110df563b65cd2a1f9d8b58e3bdcadce90427f6d",
+      "license": "MIT"
+    }
+  },
+  "keys": {
+    "Auto": "ours-unreviewed",
+    "English": "ours-unreviewed"
+  }
+}

@@ -1,3 +1,4 @@
+// Provenance: see provenance.json. Default: upstream-community; Auto/English: ours-unreviewed.
 const zh: Record<string, string> = {
     "Auto": "自动",
     "English": "英语",
