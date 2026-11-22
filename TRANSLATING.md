@@ -65,6 +65,7 @@ The Vite plugin merges the overrides at build time.
 4. Do not copy VS Code wording blindly; check context and terminology.
 5. Machine translation is not a source.
    A machine draft must be reworked and reviewed as a community contribution before merging.
-6. Run the provenance check before merging.
+6. Language names are endonyms; never translate them.
+7. Run the provenance check before merging.
 
 The check lives at `Calcpad.Web/frontend/scripts/check-i18n-provenance.mjs`.

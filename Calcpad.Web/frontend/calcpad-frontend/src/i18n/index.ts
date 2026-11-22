@@ -16,6 +16,7 @@ export type LocaleSetting = 'auto' | CalcpadLocale
 
 export const LOCALE_STORAGE_KEY = 'calcpad.locale'
 
+// Endonyms: language names are never translated.
 const LOCALE_LABELS: Record<CalcpadLocale, string> = {
     en: 'English',
     zh: '中文',
