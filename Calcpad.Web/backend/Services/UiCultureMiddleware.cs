@@ -19,17 +19,17 @@ namespace Calcpad.Server.Services
                 await next();
             });
 
-        private static CultureInfo? Match(string header)
+        internal static CultureInfo? Match(string header)
         {
             foreach (var part in header.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
             {
                 var tag = part.Split(';')[0].Trim();
                 if (tag.Length == 0 || tag == "*") continue;
                 var normalized = tag.Replace('_', '-');
+                // Bare "pt" is ambiguous (Portugal vs Brazil); require an explicit pt-BR tag.
                 var match = Supported.FirstOrDefault(candidate =>
                     string.Equals(normalized, candidate, StringComparison.OrdinalIgnoreCase) ||
-                    normalized.StartsWith(candidate + "-", StringComparison.OrdinalIgnoreCase) ||
-                    (candidate == "pt-BR" && string.Equals(normalized, "pt", StringComparison.OrdinalIgnoreCase)));
+                    normalized.StartsWith(candidate + "-", StringComparison.OrdinalIgnoreCase));
                 if (match is not null)
                     return CultureInfo.GetCultureInfo(match);
             }
