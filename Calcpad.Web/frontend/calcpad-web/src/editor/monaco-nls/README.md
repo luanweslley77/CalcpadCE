@@ -1,7 +1,7 @@
 # Monaco NLS maps
 
 Generated from the VS Code language packs pinned in
-`Calcpad.Web/frontend/scripts/generate-monaco-nls-maps.mjs`:
+`Calcpad.Web/frontend/scripts/i18n/generate-monaco-nls.mjs`:
 
 - `vscode-language-pack-zh-hans`
 - `vscode-language-pack-pt-BR`

@@ -1,5 +1,5 @@
 {
-  "generator": "../../../../scripts/generate-monaco-nls-maps.mjs",
+  "generator": "../../../../scripts/i18n/generate-monaco-nls.mjs",
   "source": "microsoft/vscode-loc",
   "tag": "v1.96.2024121109",
   "commit": "110df563b65cd2a1f9d8b58e3bdcadce90427f6d",

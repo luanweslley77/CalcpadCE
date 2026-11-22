@@ -12,11 +12,11 @@
     "build:watch": "vite build --watch",
     "preview": "vite preview",
     "check:contrast": "node ../scripts/check-contrast.mjs",
-    "generate:monaco-nls": "node ../scripts/generate-monaco-nls-maps.mjs",
-    "generate:monaco-nls:check": "node ../scripts/generate-monaco-nls-maps.mjs --check",
-    "import:vscode": "node ../scripts/import-vscode.mjs",
-    "import:vscode:check": "node ../scripts/import-vscode.mjs --check",
-    "check:i18n-provenance": "node ../scripts/check-i18n-provenance.mjs"
+    "generate:monaco-nls": "node ../scripts/i18n/generate-monaco-nls.mjs",
+    "generate:monaco-nls:check": "node ../scripts/i18n/generate-monaco-nls.mjs --check",
+    "import:vscode": "node ../scripts/i18n/import-vscode.mjs",
+    "import:vscode:check": "node ../scripts/i18n/import-vscode.mjs --check",
+    "check:i18n-provenance": "node ../scripts/i18n/check-provenance.mjs"
   },
   "dependencies": {
     "@tauri-apps/api": "^2",

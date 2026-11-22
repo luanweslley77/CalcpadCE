@@ -3,10 +3,10 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const frontend = path.resolve(here, '..');
+const frontend = path.resolve(here, '../..');
 const messages = path.join(frontend, 'calcpad-frontend/src/i18n/messages');
 const monaco = path.join(frontend, 'calcpad-web/src/editor/monaco-nls');
-const generator = path.join(here, 'generate-monaco-nls-maps.mjs');
+const generator = path.join(here, 'generate-monaco-nls.mjs');
 const errors = [];
 
 function readJson(file) {
@@ -116,7 +116,7 @@ const generatorSource = fs.readFileSync(generator, 'utf8');
 const generatorTag = generatorSource.match(/const VSCODE_LOC_TAG = '([^']+)'/)?.[1];
 const generatorCommit = generatorSource.match(/const VSCODE_LOC_COMMIT = '([^']+)'/)?.[1];
 if (!generatorTag || !generatorCommit) {
-  errors.push('generate-monaco-nls-maps.mjs: tag or commit constant is missing');
+  errors.push('generate-monaco-nls.mjs: tag or commit constant is missing');
 }
 if (monacoSources.tag !== generatorTag || monacoSources.commit !== generatorCommit)
   errors.push('SOURCES.json: tag/commit do not match the generator');
