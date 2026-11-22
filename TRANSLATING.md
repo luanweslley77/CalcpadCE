@@ -69,12 +69,13 @@ The pack is keyed by `module::key`, not by English text, so the repo also carrie
 
 - `scripts/vscode.index.json` — English string to `module`/`key`.
 - `scripts/vscode.langpack.pt-BR.json` — pinned pack subset.
-- `scripts/vscode.exceptions.json` — context overrides and exclusions.
 
 Run `node scripts/import-vscode.mjs` to write `pt-BR.ts` and `provenance.pt-BR.json`.
 `--check` verifies the committed output.
 No network access or VS Code source checkout is needed at build time.
+The importer includes only keys with one unique translation; keys with multiple variants stay English until the community decides.
 When a key exists in both sources the importer uses Monaco first and records `vscode-monaco`; otherwise it records `vscode-shared-ui`.
+Community overrides use `source: "community"` and `replaces: "vscode"`; the review workflow is not defined yet.
 Do not edit the generated catalog by hand.
 
 ## Community overrides

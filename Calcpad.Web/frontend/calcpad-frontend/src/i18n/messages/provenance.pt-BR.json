@@ -23,6 +23,10 @@
       "source": "vscode",
       "vscodeSource": "vscode-shared-ui"
     },
+    "Close Others": {
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
+    },
     "Collapse": {
       "source": "vscode",
       "vscodeSource": "vscode-shared-ui"
@@ -75,6 +79,10 @@
       "source": "vscode",
       "vscodeSource": "vscode-shared-ui"
     },
+    "New Tab": {
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
+    },
     "New Window": {
       "source": "vscode",
       "vscodeSource": "vscode-shared-ui"
@@ -83,19 +91,7 @@
       "source": "vscode",
       "vscodeSource": "vscode-monaco"
     },
-    "None": {
-      "source": "vscode",
-      "vscodeSource": "vscode-shared-ui"
-    },
-    "Open Containing Folder": {
-      "source": "vscode",
-      "vscodeSource": "vscode-shared-ui"
-    },
-    "Open Folder": {
-      "source": "vscode",
-      "vscodeSource": "vscode-shared-ui"
-    },
-    "Open Recent": {
+    "Off": {
       "source": "vscode",
       "vscodeSource": "vscode-shared-ui"
     },
@@ -104,10 +100,6 @@
       "vscodeSource": "vscode-shared-ui"
     },
     "Output": {
-      "source": "vscode",
-      "vscodeSource": "vscode-shared-ui"
-    },
-    "Preview": {
       "source": "vscode",
       "vscodeSource": "vscode-shared-ui"
     },
@@ -127,10 +119,6 @@
       "source": "vscode",
       "vscodeSource": "vscode-shared-ui"
     },
-    "Reset": {
-      "source": "vscode",
-      "vscodeSource": "vscode-shared-ui"
-    },
     "Restore": {
       "source": "vscode",
       "vscodeSource": "vscode-shared-ui"
@@ -143,10 +131,6 @@
       "source": "vscode",
       "vscodeSource": "vscode-monaco"
     },
-    "Save As...": {
-      "source": "vscode",
-      "vscodeSource": "vscode-shared-ui"
-    },
     "Settings": {
       "source": "vscode",
       "vscodeSource": "vscode-shared-ui"
@@ -156,6 +140,10 @@
       "vscodeSource": "vscode-shared-ui"
     },
     "Title": {
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
+    },
+    "Type": {
       "source": "vscode",
       "vscodeSource": "vscode-shared-ui"
     },

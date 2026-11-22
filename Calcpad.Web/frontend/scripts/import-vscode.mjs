@@ -12,25 +12,18 @@ const frontend = path.resolve(here, '..');
 const messages = path.join(frontend, 'calcpad-frontend/src/i18n/messages');
 const indexFile = path.join(here, 'vscode.index.json');
 const packFile = path.join(here, 'vscode.langpack.pt-BR.json');
-const exceptionsFile = path.join(here, 'vscode.exceptions.json');
 const catalogFile = path.join(messages, 'pt-BR.ts');
 const provenanceFile = path.join(messages, 'provenance.pt-BR.json');
 
 const check = process.argv.includes('--check');
 const index = JSON.parse(fs.readFileSync(indexFile, 'utf8'));
 const pack = JSON.parse(fs.readFileSync(packFile, 'utf8'));
-const exceptions = JSON.parse(fs.readFileSync(exceptionsFile, 'utf8'));
-const overrides = exceptions.overrides ?? {};
-const exclude = exceptions.exclude ?? {};
 const errors = [];
 
 const SOURCES = ['vscode-monaco', 'vscode-shared-ui'];
 const selected = {};
+const skipped = [];
 for (const [english, entries] of Object.entries(index.keys ?? {})) {
-    if (english in exclude) {
-        if (english in overrides) errors.push(`"${english}" is both overridden and excluded`);
-        continue;
-    }
     const bySource = Object.fromEntries(SOURCES.map(source => [source, new Set()]));
     for (const { source, module, key } of entries) {
         const value = pack.contents?.[source]?.[module]?.[key];
@@ -39,17 +32,6 @@ for (const [english, entries] of Object.entries(index.keys ?? {})) {
     const all = new Set(SOURCES.flatMap(source => [...bySource[source]]));
     if (all.size === 0) {
         errors.push(`"${english}" has no translation in the committed langpack subset`);
-        continue;
-    }
-    const choose = value => {
-        const source = SOURCES.find(candidate => bySource[candidate].has(value));
-        return source ? { value, vscodeSource: source } : null;
-    };
-    if (english in overrides) {
-        const picked = choose(overrides[english]);
-        if (!picked)
-            errors.push(`"${english}" override "${overrides[english]}" is not one of: ${[...all].join(', ')}`);
-        else selected[english] = picked;
         continue;
     }
     const single = SOURCES.find(source => bySource[source].size === 1);
@@ -61,14 +43,7 @@ for (const [english, entries] of Object.entries(index.keys ?? {})) {
         .filter(source => bySource[source].size)
         .map(source => `${source}: ${[...bySource[source]].join(', ')}`)
         .join('; ');
-    errors.push(`"${english}" has multiple translations and needs an override or exclude (${detail})`);
-}
-
-for (const key of Object.keys(overrides)) {
-    if (!(key in (index.keys ?? {}))) errors.push(`override "${key}" is not in the index`);
-}
-for (const key of Object.keys(exclude)) {
-    if (!(key in (index.keys ?? {}))) errors.push(`exclude "${key}" is not in the index`);
+    skipped.push({ english, detail });
 }
 
 const sorted = {};
@@ -120,6 +95,10 @@ if (errors.length) {
     fs.writeFileSync(provenanceFile, provenanceText);
     console.log(
         `VS Code pt-BR: ${Object.keys(sorted).length} keys ` +
-        `(${monacoCount} vscode-monaco, ${sharedCount} vscode-shared-ui, ${Object.keys(exclude).length} excluded).`,
+        `(${monacoCount} vscode-monaco, ${sharedCount} vscode-shared-ui).`,
     );
+    if (skipped.length) {
+        console.log(`Skipped ${skipped.length} keys with multiple translations:`);
+        for (const item of skipped) console.log(`- ${item.english} (${item.detail})`);
+    }
 }
