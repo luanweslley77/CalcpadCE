@@ -7,6 +7,7 @@ import type { ParseMode, ExtractedPlot, MetadataCommentBlock, MetadataCommentDat
 import { CalcpadSettingsManager } from './calcpadSettings';
 import { CalcpadInsertManager } from './calcpadInsertManager';
 import { VSCodeLogger } from './adapters';
+import { currentCulture, setUiLocale } from './uiLocale';
 
 export class CalcpadVueUIProvider implements vscode.WebviewViewProvider {
     public static readonly viewType = 'calcpadVueUI';
@@ -95,6 +96,10 @@ export class CalcpadVueUIProvider implements vscode.WebviewViewProvider {
         webviewView.webview.onDidReceiveMessage(async (data) => {
             this._outputChannel.appendLine(`Received message: ${data.type}`, 'verbose');
             switch (data.type) {
+                case 'uiLocale':
+                    setUiLocale(data.locale);
+                    break;
+
                 case 'insertText': {
                     const insertEditor = this.getSourceEditor?.() ?? vscode.window.activeTextEditor;
                     if (insertEditor) {
@@ -994,7 +999,7 @@ export class CalcpadVueUIProvider implements vscode.WebviewViewProvider {
             <br><small>If this message persists, check the developer console for errors</small>
         </div>
     </div>
-    <script nonce="${nonce}">window.__CALCPAD_HOST_LOCALE__ = ${JSON.stringify(vscode.env.language)};</script>
+    <script nonce="${nonce}">window.__CALCPAD_HOST_LOCALE__ = ${JSON.stringify(vscode.env.language)}; window.__CALCPAD_CURRENT_CULTURE__ = ${JSON.stringify(currentCulture())};</script>
     <script nonce="${nonce}" src="${scriptUri}"></script>
 </body>
 </html>`;

@@ -31,10 +31,13 @@ const monacoNls = {
 const MONACO_NLS_HELPER =
     "const __calcpadLocale=()=>{try{const s=localStorage.getItem('calcpad.locale');" +
     "if(s==='en'||s==='zh'||s==='pt-BR')return s}catch(e){}" +
+    "const c=typeof window!=='undefined'?window.__CALCPAD_CURRENT_CULTURE__:'';" +
     "const h=typeof window!=='undefined'?window.__CALCPAD_HOST_LOCALE__:'';" +
-    "const n=(h||(typeof navigator!=='undefined'?navigator.language:'en')).replace('_','-').toLowerCase();" +
+    "const tags=c?[c]:h?[h]:[...(typeof navigator!=='undefined'&&navigator.languages||[])," +
+    "typeof navigator!=='undefined'?navigator.language:''];" +
+    "for(const t of tags){if(!t)continue;const n=String(t).replace('_','-').toLowerCase();" +
     "if(n==='zh'||n.startsWith('zh-'))return 'zh';" +
-    "if(n==='pt-br'||n.startsWith('pt-br-'))return 'pt-BR';" +
+    "if(n==='pt-br'||n.startsWith('pt-br-'))return 'pt-BR'}" +
     "return 'en'};" +
     "const __calcpadTr=(en,zh,pt)=>{const l=__calcpadLocale();" +
     "return l==='zh'?(zh||en):l==='pt-BR'?(pt||en):en};";

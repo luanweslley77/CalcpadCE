@@ -26,6 +26,7 @@ import { CommentFormatter } from './commentFormatter';
 import { CalcpadServerManager } from './calcpadServerManager';
 import { DotnetRuntimeManager } from './dotnetRuntimeManager';
 import { VSCodeLogger, VSCodeFileSystem } from './adapters';
+import { getUiLocale } from './uiLocale';
 import { expandEnvVars } from './calcpadLocationResolver';
 import { installJuliaMonoCommand, maybePromptInstall } from './installFont';
 import { MetadataFooterView } from './metadataFooterView';
@@ -2015,7 +2016,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
         // Create shared API client (uses remote URL initially, switches to local when server starts)
         const apiClient = new CalcpadApiClient(settingsManager.getServerUrl(), serverDebugChannel);
-        apiClient.setLocaleProvider(() => vscode.env.language);
+        apiClient.setLocaleProvider(getUiLocale);
         sharedApiClient = apiClient;
         const syncMacroCalls = () => apiClient.setMacroCalls(settingsManager.getSettings().macroCalls);
         syncMacroCalls();

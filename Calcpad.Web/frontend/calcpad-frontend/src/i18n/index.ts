@@ -2,7 +2,8 @@
  * UI translations for the shared CalcpadCE frontend.
  *
  * Keys are the English source strings, so a missing translation falls back to the
- * English text. "auto" follows the host language; a manual choice overrides it.
+ * English text. "auto" follows the current culture, then the host language; a
+ * manual choice overrides both.
  */
 import { createI18n, type I18n } from 'vue-i18n'
 import en from './messages/en'
@@ -32,11 +33,16 @@ export const LOCALE_OPTIONS: { value: LocaleSetting; label: string; translatable
 ]
 
 let hostLocale: string | undefined
+let currentCulture: string | undefined
 let activeI18n: I18n | null = null
 let activeLocale: CalcpadLocale = 'en'
 
 export function setHostLocale(locale: string | undefined): void {
     hostLocale = locale
+}
+
+export function setCurrentCulture(locale: string | undefined): void {
+    currentCulture = locale?.trim() || undefined
 }
 
 export function matchLocale(tag: string): CalcpadLocale | null {
@@ -50,10 +56,27 @@ export function matchLocale(tag: string): CalcpadLocale | null {
     return null
 }
 
+function browserLocaleTags(): string[] {
+    if (typeof navigator === 'undefined') return []
+    const tags = [...(navigator.languages ?? [])]
+    if (navigator.language && !tags.includes(navigator.language)) tags.push(navigator.language)
+    return tags
+}
+
 export function resolveLocale(setting: LocaleSetting, fallbackTag?: string): CalcpadLocale {
     if (setting !== 'auto') return setting
-    const tag = fallbackTag ?? hostLocale ?? (typeof navigator !== 'undefined' ? navigator.language : 'en')
-    return matchLocale(tag) ?? 'en'
+    const tags = fallbackTag
+        ? [fallbackTag]
+        : currentCulture
+            ? [currentCulture]
+            : hostLocale
+                ? [hostLocale]
+                : browserLocaleTags()
+    for (const tag of tags) {
+        const locale = matchLocale(tag)
+        if (locale) return locale
+    }
+    return 'en'
 }
 
 export function readLocaleSetting(): LocaleSetting {

@@ -2,8 +2,9 @@ import * as monaco from 'monaco-editor';
 import { createApp, nextTick, watch, type Ref } from 'vue';
 import type { Composer } from 'vue-i18n';
 import App from './App.vue';
-import { createCalcpadI18n, readLocaleSetting, menuLabels, LOCALE_CHANGED_EVENT } from 'calcpad-frontend/i18n';
+import { createCalcpadI18n, readLocaleSetting, menuLabels, LOCALE_CHANGED_EVENT, setCurrentCulture } from 'calcpad-frontend/i18n';
 import { invoke } from '@tauri-apps/api/core';
+import { locale as osLocale } from '@tauri-apps/plugin-os';
 import CalcpadAppVue from 'calcpad-frontend/vue/components/CalcpadApp.vue';
 import { initMessaging } from 'calcpad-frontend/vue/services/messaging';
 import { discardMetadataDraft } from 'calcpad-frontend/vue/metadata-drafts';
@@ -314,6 +315,15 @@ async function bootstrap(): Promise<void> {
     // window.monaco (matches the vscode-webview convention). Expose it here so
     // sidebar tabs (TOC) can post `goToLine` and reach Monaco.
     (window as any).monaco = monaco;
+
+    // Auto follows the OS culture on desktop; the webview language is the fallback.
+    if (isTauri) {
+        try {
+            setCurrentCulture((await osLocale()) ?? undefined);
+        } catch {
+            // Keep the browser/navigator fallback.
+        }
+    }
 
     // Mount the main app layout
     const app = createApp(App, { isDesktop: isTauri });
