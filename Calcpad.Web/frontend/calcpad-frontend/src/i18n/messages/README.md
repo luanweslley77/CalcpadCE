@@ -27,4 +27,6 @@
 - Native Tauri menu labels live in the same catalogs.
   `i18n/menu.ts` lists the keys and filters untranslated entries.
 - `Auto` is looked up as `tt('Auto')`; each catalog can add its own reviewed entry.
+  It resolves the current culture first, then the host language, then the browser list;
+  a culture without a catalog falls back to English.
 - Add new `zh.ts` keys with explicit provenance in `provenance.zh.json`.

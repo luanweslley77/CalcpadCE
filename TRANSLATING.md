@@ -56,6 +56,13 @@ A `vscode` entry uses the pack pin in `sources`, records `vscodeSource`, and doe
 `vscodeMatch: true` means the English key and the Chinese value exactly match a pinned VS Code pack.
 It is an observation, not proof that the translator copied the pack, so the source stays `community` unless a contributor confirms it.
 
+## Automatic locale
+
+`Auto` uses the current culture first: the OS locale on desktop, the extension
+host's locale in VS Code, and the browser language list on the web. If that
+culture has no catalog, it falls back to English. The host language and browser
+list are only used when the current culture is unavailable.
+
 ## Catalog coverage
 
 A catalog may contain only the keys that have been translated.
