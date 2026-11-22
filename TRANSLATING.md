@@ -11,15 +11,15 @@ A translated key has one of three sources.
 | Label | Meaning |
 |---|---|
 | `community` | Translations contributed by the CalcpadCE community, including the initial Chinese catalog and future locales. |
-| `vscode-monaco` | Generated from a `microsoft/vscode-loc` pack into Monaco NLS. |
-| `vscode-shared-ui` | Reused from a `microsoft/vscode-loc` pack in a shared Calcpad UI surface: Vue sidebar, Tauri menu, webview. |
+| `vscode` | Reused from the pinned `microsoft/vscode-loc` pack, in Monaco or a shared Calcpad UI surface: Vue sidebar, Tauri menu, webview. |
 
-`vscode-shared-ui` describes the origin, not the surface.
-The same source label applies whether the string lands in Vue, the native menu, or a webview.
+`vscode` describes the origin, not the surface.
+The same source label applies whether the string lands in Monaco, Vue, the native menu, or a webview.
+A `vscode` entry also records `vscodeSource`: `vscode-monaco` or `vscode-shared-ui`.
 
 ## Where provenance lives
 
-- **Shared UI catalogs:** `Calcpad.Web/frontend/calcpad-frontend/src/i18n/messages/provenance.json`.
+- **Shared UI catalogs:** `Calcpad.Web/frontend/calcpad-frontend/src/i18n/messages/provenance.zh.json`.
   Every key has an explicit entry; there is no blanket default.
   `origins` records the commit, author and date that last changed the string.
   A partial catalog uses its own manifest, such as `provenance.pt-BR.json`.
@@ -39,7 +39,8 @@ The same source label applies whether the string lands in Vue, the native menu, 
     "origin": "3e486ccf"
   },
   "Find": {
-    "source": "vscode-shared-ui"
+    "source": "vscode",
+    "vscodeSource": "vscode-shared-ui"
   },
   "Copy": {
     "source": "community",
@@ -50,7 +51,7 @@ The same source label applies whether the string lands in Vue, the native menu, 
 ```
 
 `origin` for a community key is the short commit that last changed the line, as reported by `git blame`.
-A `vscode-shared-ui` entry uses the pack pin in `sources` and does not need a commit origin.
+A `vscode` entry uses the pack pin in `sources`, records `vscodeSource`, and does not need a commit origin.
 `vscodeMatch: true` means the English key and the Chinese value exactly match a pinned VS Code pack.
 It is an observation, not proof that the translator copied the pack, so the source stays `community` unless a contributor confirms it.
 
@@ -58,14 +59,50 @@ It is an observation, not proof that the translator copied the pack, so the sour
 
 A catalog may contain only the keys that have been translated.
 Missing keys fall back to English; every key that is present must have explicit provenance.
-`pt-BR.ts` currently contains the strings verified against the pinned VS Code pack, marked `vscode-shared-ui`.
+`pt-BR.ts` currently contains the strings verified against the pinned VS Code pack, marked `vscode`.
 Community translations are added as new entries with `source: "community"` and an `origin`.
+
+## Shared UI from VS Code
+
+The shared UI catalog imports exact matches from the pinned VS Code UI pack.
+The pack is keyed by `module::key`, not by English text, so the repo also carries an index:
+
+- `scripts/vscode.index.json` — English string to `module`/`key`.
+- `scripts/vscode.langpack.pt-BR.json` — pinned pack subset.
+
+Run `node scripts/import-vscode.mjs` to write `pt-BR.ts` and `provenance.pt-BR.json`.
+`--check` verifies the committed output.
+No network access or VS Code source checkout is needed at build time.
+The importer includes only keys with one unique translation; keys with multiple variants stay English until the community decides.
+When a key exists in both sources the importer uses Monaco first and records `vscode-monaco`; otherwise it records `vscode-shared-ui`.
+Community overrides use `source: "community"` and `replaces: "vscode"`; the review workflow is not defined yet.
+Do not edit the generated catalog by hand.
+
+### Why one English word can have several translations
+
+The pack is keyed by `module::key`, not by English text.
+The same English word can appear in several modules, and each module may use a different Portuguese word for its context.
+`vscode.index.json` groups those entries by the English text.
+
+| English | `module::key` | Portuguese |
+|---|---|---|
+| `Preview` | `extensions/browser/extensionEditor::preview` | Visualizar (verb) |
+| `Preview` | `userDataProfile/.../userDataProfilesEditorModel::preview` | Visualização (noun) |
+| `Reset` | `mergeEditor/.../commands::...` | Redefinir |
+| `Reset` | `workbench/electron-sandbox/window::zoomReset` | Reiniciar |
+| `Save As...` | `files/browser/fileConstants::saveAs` | Salvar como... |
+| `Save As...` | `workingCopy/.../storedFileWorkingCopy::saveAs` | SalvarComo... |
+
+`Save As...` shows why the importer does not pick the first variant: one module contains a concatenated `SalvarComo...`.
+When the grouped values differ, the importer skips the key and leaves it English.
+That is not missing data; it is waiting for a community decision.
+The module/key evidence stays in the index for that decision.
 
 ## Community overrides
 
 A community translation can replace a string that came from VS Code.
 Record the replaced source in `replaces`.
-The only valid values are `vscode-shared-ui` and `vscode-monaco`.
+The only valid value is `vscode`.
 
 In a shared UI catalog, a per-key entry becomes an object:
 
@@ -73,7 +110,7 @@ In a shared UI catalog, a per-key entry becomes an object:
 "keys": {
   "Find": {
     "source": "community",
-    "replaces": "vscode-shared-ui",
+    "replaces": "vscode",
     "note": "Calcpad uses its own wording here."
   }
 }
@@ -86,7 +123,7 @@ In Monaco, put the replacement in `monaco-nls/overrides/<locale>.json`.
 "overrides": {
   "zh": {
     "source": "community",
-    "replaces": "vscode-monaco",
+    "replaces": "vscode",
     "path": "overrides/zh.json"
   }
 }
@@ -97,10 +134,10 @@ The Vite plugin merges the overrides at build time.
 
 ## Rules
 
-1. Every translated key is `community`, `vscode-monaco`, or `vscode-shared-ui`.
+1. Every translated key is `community` or `vscode`.
 2. Every shared UI key has an explicit entry; there is no default source.
 3. Every `community` shared UI key records its `origin` commit.
-4. `vscode-*` entries record the pack, tag, commit and license.
+4. `vscode` entries record `vscodeSource` plus the pack, tag, commit and license.
 5. `vscodeMatch` does not change the source by itself.
 6. Do not edit generated Monaco maps by hand; regenerate them.
 7. Do not copy VS Code wording blindly; check context and terminology.

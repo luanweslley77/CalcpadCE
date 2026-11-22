@@ -26,9 +26,9 @@ function parseKeys(file) {
   return keys;
 }
 
-const zhProvenance = readJson(path.join(messages, 'provenance.json'));
+const zhProvenance = readJson(path.join(messages, 'provenance.zh.json'));
 if (zhProvenance.default) {
-  errors.push('provenance.json: a default source is not allowed; every key needs explicit provenance');
+  errors.push('provenance.zh.json: a default source is not allowed; every key needs explicit provenance');
 }
 const sources = zhProvenance.sources ?? {};
 const catalogs = [
@@ -40,6 +40,7 @@ for (const catalog of catalogs) {
   const keys = parseKeys(catalog.file);
   const counts = new Map();
   const originCounts = new Map();
+  const vscodeSourceCounts = new Map();
   let overrides = 0;
   let vscodeMatches = 0;
   for (const key of keys) {
@@ -53,10 +54,17 @@ for (const catalog of catalogs) {
       errors.push(`${catalog.label}: key "${key}" has no source`);
       continue;
     }
+    if (source === 'vscode') {
+      const vscodeSource = typeof entry === 'string' ? undefined : entry.vscodeSource;
+      if (!['vscode-monaco', 'vscode-shared-ui'].includes(vscodeSource))
+        errors.push(`${catalog.label}: key "${key}" has invalid vscodeSource "${vscodeSource}"`);
+      else
+        vscodeSourceCounts.set(vscodeSource, (vscodeSourceCounts.get(vscodeSource) ?? 0) + 1);
+    }
     if (typeof entry === 'object' && entry.replaces) {
       if (source !== 'community')
         errors.push(`${catalog.label}: key "${key}" can only replace from community`);
-      if (!['vscode-monaco', 'vscode-shared-ui'].includes(entry.replaces))
+      if (entry.replaces !== 'vscode')
         errors.push(`${catalog.label}: key "${key}" replaces unknown source "${entry.replaces}"`);
       overrides++;
     }
@@ -97,6 +105,7 @@ for (const catalog of catalogs) {
     total: keys.size,
     counts,
     originCounts,
+    vscodeSourceCounts,
     overrides,
     vscodeMatches,
   });
@@ -132,7 +141,9 @@ for (const [file, info] of Object.entries(monacoSources.maps ?? {})) {
   }
   if (packs.get(output) !== info.pack)
     errors.push(`SOURCES.json: pack for "${file}" does not match the generator`);
-  if (info.source !== 'vscode-monaco')
+  if (info.source !== 'vscode')
+    errors.push(`SOURCES.json: map "${file}" must be vscode`);
+  if (info.vscodeSource !== 'vscode-monaco')
     errors.push(`SOURCES.json: map "${file}" must be vscode-monaco`);
   baseMaps[output] = readJson(path.join(monaco, file));
 }
@@ -143,8 +154,8 @@ let monacoOverrides = 0;
 for (const [locale, info] of Object.entries(monacoSources.overrides ?? {})) {
   if (info.source !== 'community')
     errors.push(`SOURCES.json: override "${locale}" must be community`);
-  if (info.replaces !== 'vscode-monaco')
-    errors.push(`SOURCES.json: override "${locale}" must replace vscode-monaco`);
+  if (info.replaces !== 'vscode')
+    errors.push(`SOURCES.json: override "${locale}" must replace vscode`);
   const file = path.join(monaco, info.path);
   if (!fs.existsSync(file)) {
     errors.push(`SOURCES.json: override "${info.path}" does not exist`);
@@ -179,7 +190,10 @@ if (errors.length) {
 } else {
   for (const result of catalogResults) {
     const summary = [...result.counts].map(([source, count]) => `${count} ${source}`).join(', ');
-    console.log(`Shared UI ${result.label} catalog: ${result.total} keys (${summary}; ${result.vscodeMatches} VS Code matches; ${result.overrides} overrides)`);
+    const vscodeDetail = result.vscodeSourceCounts.size
+      ? ` (${[...result.vscodeSourceCounts].map(([source, count]) => `${count} ${source}`).join(', ')})`
+      : '';
+    console.log(`Shared UI ${result.label} catalog: ${result.total} keys (${summary}; ${result.vscodeMatches} VS Code matches; ${result.overrides} overrides)${vscodeDetail}`);
     if (result.originCounts.size) {
       const topOrigins = [...result.originCounts]
         .sort((a, b) => b[1] - a[1])
@@ -190,6 +204,6 @@ if (errors.length) {
     }
   }
   console.log('Catalog counts only; missing keys fall back to English; hardcoded UI strings are not measured.');
-  console.log(`Monaco: ${Object.keys(monacoSources.maps).length} maps from ${monacoSources.source} ${monacoSources.tag} (vscode-monaco; ${monacoOverrides} overrides)`);
+  console.log(`Monaco: ${Object.keys(monacoSources.maps).length} maps from ${monacoSources.source} ${monacoSources.tag} (vscode; ${monacoOverrides} overrides)`);
   console.log('Provenance OK');
 }

@@ -6,23 +6,25 @@
   "license": "MIT",
   "maps": {
     "zh.json": {
-      "source": "vscode-monaco",
-      "pack": "vscode-language-pack-zh-hans"
+      "source": "vscode",
+      "pack": "vscode-language-pack-zh-hans",
+      "vscodeSource": "vscode-monaco"
     },
     "pt-BR.json": {
-      "source": "vscode-monaco",
-      "pack": "vscode-language-pack-pt-BR"
+      "source": "vscode",
+      "pack": "vscode-language-pack-pt-BR",
+      "vscodeSource": "vscode-monaco"
     }
   },
   "overrides": {
     "zh": {
       "source": "community",
-      "replaces": "vscode-monaco",
+      "replaces": "vscode",
       "path": "overrides/zh.json"
     },
     "pt-BR": {
       "source": "community",
-      "replaces": "vscode-monaco",
+      "replaces": "vscode",
       "path": "overrides/pt-BR.json"
     }
   }
