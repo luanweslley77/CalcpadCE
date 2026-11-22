@@ -29,10 +29,15 @@ const monacoNls = {
 };
 
 const MONACO_NLS_HELPER =
-    "const __calcpadTr=(en,zh,pt)=>{try{const l=localStorage.getItem('calcpad.locale');" +
-    "if(l==='en')return en;if(l==='zh')return zh||en;if(l==='pt-BR')return pt||en}catch(e){}" +
-    "const n=typeof navigator!=='undefined'?navigator.language.toLowerCase():'';" +
-    "return n.startsWith('zh')?zh||en:en};";
+    "const __calcpadLocale=()=>{try{const s=localStorage.getItem('calcpad.locale');" +
+    "if(s==='en'||s==='zh'||s==='pt-BR')return s}catch(e){}" +
+    "const h=typeof window!=='undefined'?window.__CALCPAD_HOST_LOCALE__:'';" +
+    "const n=(h||(typeof navigator!=='undefined'?navigator.language:'en')).replace('_','-').toLowerCase();" +
+    "if(n==='zh'||n.startsWith('zh-'))return 'zh';" +
+    "if(n==='pt-br'||n.startsWith('pt-br-'))return 'pt-BR';" +
+    "return 'en'};" +
+    "const __calcpadTr=(en,zh,pt)=>{const l=__calcpadLocale();" +
+    "return l==='zh'?(zh||en):l==='pt-BR'?(pt||en):en};";
 
 const MONACO_LOCALIZE =
     /(\blocalize2?\s*\(\s*(?:'((?:[^'\\]|\\.)*)'|"((?:[^"\\]|\\.)*)")\s*,\s*)(?:'((?:[^'\\]|\\.)*)'|"((?:[^"\\]|\\.)*)")/g;
