@@ -26,15 +26,20 @@ function parseKeys(file) {
   return keys;
 }
 
-const zhProvenance = readJson(path.join(messages, 'provenance.zh.json'));
-if (zhProvenance.default) {
-  errors.push('provenance.zh.json: a default source is not allowed; every key needs explicit provenance');
+const sources = readJson(path.join(messages, 'sources.json'));
+const catalogs = fs.readdirSync(messages)
+  .filter(file => file.endsWith('.ts') && file !== 'en.ts')
+  .map(file => file.slice(0, -3))
+  .sort()
+  .map(label => ({
+    label,
+    file: `${label}.ts`,
+    manifest: readJson(path.join(messages, `provenance.${label}.json`)),
+  }));
+for (const catalog of catalogs) {
+  if (catalog.manifest.default)
+    errors.push(`provenance.${catalog.label}.json: a default source is not allowed`);
 }
-const sources = zhProvenance.sources ?? {};
-const catalogs = [
-  { label: 'zh', file: 'zh.ts', manifest: zhProvenance },
-  { label: 'pt-BR', file: 'pt-BR.ts', manifest: readJson(path.join(messages, 'provenance.pt-BR.json')) },
-];
 const catalogResults = [];
 for (const catalog of catalogs) {
   const keys = parseKeys(catalog.file);
@@ -69,7 +74,7 @@ for (const catalog of catalogs) {
       overrides++;
     }
     if (typeof entry === 'object' && entry.origin) {
-      const origins = catalog.manifest.origins ?? zhProvenance.origins ?? {};
+      const origins = catalog.manifest.origins ?? {};
       if (!origins[entry.origin])
         errors.push(`${catalog.label}: key "${key}" uses undeclared origin "${entry.origin}"`);
       else
@@ -95,7 +100,7 @@ for (const catalog of catalogs) {
     if (!source || !sources[source])
       errors.push(`${catalog.label}: key "${key}" has an undeclared source`);
     if (typeof entry === 'object' && entry.origin) {
-      const origins = catalog.manifest.origins ?? zhProvenance.origins ?? {};
+      const origins = catalog.manifest.origins ?? {};
       if (!origins[entry.origin])
         errors.push(`${catalog.label}: key "${key}" has an undeclared origin`);
     }

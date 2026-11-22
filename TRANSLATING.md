@@ -19,10 +19,11 @@ A `vscode` entry also records `vscodeSource`: `vscode-monaco` or `vscode-shared-
 
 ## Where provenance lives
 
-- **Shared UI catalogs:** `Calcpad.Web/frontend/calcpad-frontend/src/i18n/messages/provenance.zh.json`.
-  Every key has an explicit entry; there is no blanket default.
+- **Shared UI catalogs:** `Calcpad.Web/frontend/calcpad-frontend/src/i18n/messages/`.
+  `sources.json` declares the source labels and the VS Code pack pin.
+  Each locale catalog has its own `provenance.<locale>.json`; every key has an
+  explicit entry and there is no blanket default.
   `origins` records the commit, author and date that last changed the string.
-  A partial catalog uses its own manifest, such as `provenance.pt-BR.json`.
 - **Native menu:** the same shared catalogs.
   `Calcpad.Web/frontend/calcpad-frontend/src/i18n/menu.ts` lists the keys the Rust menu uses.
 - **Monaco:** `Calcpad.Web/frontend/calcpad-web/src/editor/monaco-nls/SOURCES.json`.
@@ -68,9 +69,11 @@ The shared UI catalog imports exact matches from the pinned VS Code UI pack.
 The pack is keyed by `module::key`, not by English text, so the repo also carries an index:
 
 - `scripts/i18n/data/vscode.index.json` — English string to `module`/`key`.
-- `scripts/i18n/data/vscode.langpack.pt-BR.json` — pinned pack subset.
+- `scripts/i18n/data/vscode.langpack.<locale>.json` — pinned pack subset.
 
-Run `node scripts/i18n/import-vscode.mjs` to write `pt-BR.ts` and `provenance.pt-BR.json`.
+Run `node scripts/i18n/import-vscode.mjs` to process every langpack, or
+`--locale=<tag>` for one.
+It writes `messages/<locale>.ts` and `provenance.<locale>.json`.
 `--check` verifies the committed output.
 No network access or VS Code source checkout is needed at build time.
 The importer includes only keys with one unique translation; keys with multiple variants stay English until the community decides.
