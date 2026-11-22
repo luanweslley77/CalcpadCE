@@ -1,0 +1,14 @@
+{
+  "locale": "pt-BR",
+  "keys": {
+    "Cancel": { "source": "vscode-vue" },
+    "Close": { "source": "vscode-vue" },
+    "Copy": { "source": "vscode-vue" },
+    "Error": { "source": "vscode-vue" },
+    "File": { "source": "vscode-vue" },
+    "Insert": { "source": "vscode-vue" },
+    "Next": { "source": "vscode-vue" },
+    "Previous": { "source": "vscode-vue" },
+    "Warning": { "source": "vscode-vue" }
+  }
+}

@@ -7,10 +7,11 @@
 import { createI18n, type I18n } from 'vue-i18n'
 import en from './messages/en'
 import zh from './messages/zh'
+import ptBR from './messages/pt-BR'
 
 export { menuLabelsFor } from './menu'
 
-export const SUPPORTED_LOCALES = ['en', 'zh'] as const
+export const SUPPORTED_LOCALES = ['en', 'zh', 'pt-BR'] as const
 export type CalcpadLocale = (typeof SUPPORTED_LOCALES)[number]
 export type LocaleSetting = 'auto' | CalcpadLocale
 
@@ -22,11 +23,12 @@ export const LOCALE_CHANGED_EVENT = 'calcpad:locale-changed'
 const LOCALE_LABELS: Record<CalcpadLocale, string> = {
     en: 'English',
     zh: '中文',
+    'pt-BR': 'Português (Brasil)',
 }
 
-export const LOCALE_OPTIONS: { value: LocaleSetting; label: string }[] = [
-    { value: 'auto', label: 'Auto' },
-    ...SUPPORTED_LOCALES.map(value => ({ value, label: LOCALE_LABELS[value] })),
+export const LOCALE_OPTIONS: { value: LocaleSetting; label: string; translatable: boolean }[] = [
+    { value: 'auto', label: 'Auto', translatable: true },
+    ...SUPPORTED_LOCALES.map(value => ({ value, label: LOCALE_LABELS[value], translatable: false })),
 ]
 
 let hostLocale: string | undefined
@@ -40,9 +42,11 @@ export function setHostLocale(locale: string | undefined): void {
 export function matchLocale(tag: string): CalcpadLocale | null {
     const normalized = tag.replace('_', '-').toLowerCase()
     for (const locale of SUPPORTED_LOCALES) {
-        if (normalized === locale || normalized.startsWith(`${locale}-`)) return locale
+        const candidate = locale.toLowerCase()
+        if (normalized === candidate || normalized.startsWith(`${candidate}-`)) return locale
     }
     if (normalized.startsWith('zh')) return 'zh'
+    // Bare "pt" is ambiguous (Portugal vs Brazil); require an explicit pt-BR tag.
     return null
 }
 
@@ -98,7 +102,7 @@ export function createCalcpadI18n(setting: LocaleSetting = readLocaleSetting()):
         legacy: false,
         locale,
         fallbackLocale: 'en',
-        messages: { en, zh },
+        messages: { en, zh, 'pt-BR': ptBR },
         missingWarn: false,
         fallbackFormat: true,
         fallbackWarn: false,

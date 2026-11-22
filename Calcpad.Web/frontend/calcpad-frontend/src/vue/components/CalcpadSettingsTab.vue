@@ -19,7 +19,7 @@
           <div class="setting-group">
             <label for="uiLanguage">{{ t('Language:') }}</label>
             <select id="uiLanguage" v-model="localeSetting" @change="changeLocale">
-              <option v-for="opt in LOCALE_OPTIONS" :key="opt.value" :value="opt.value">{{ opt.value === 'auto' ? tt(opt.label) : opt.label }}</option>
+              <option v-for="opt in LOCALE_OPTIONS" :key="opt.value" :value="opt.value">{{ opt.translatable ? tt(opt.label) : opt.label }}</option>
             </select>
           </div>
         </div>
