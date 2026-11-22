@@ -19,7 +19,7 @@ The same source label applies whether the string lands in Vue, the native menu, 
 
 ## Where provenance lives
 
-- **Vue UI:** `Calcpad.Web/frontend/calcpad-frontend/src/i18n/messages/provenance.json`.
+- **Shared UI catalogs:** `Calcpad.Web/frontend/calcpad-frontend/src/i18n/messages/provenance.json`.
   Every key has an explicit entry; there is no blanket default.
   `origins` records the commit, author and date that last changed the string.
   A partial catalog uses its own manifest, such as `provenance.pt-BR.json`.
@@ -65,7 +65,7 @@ A community translation can replace a string that came from VS Code.
 Record the replaced source in `replaces`.
 The only valid values are `vscode-shared-ui` and `vscode-monaco`.
 
-In the Vue catalog, a per-key entry becomes an object:
+In a shared UI catalog, a per-key entry becomes an object:
 
 ```json
 "keys": {
@@ -96,8 +96,8 @@ The Vite plugin merges the overrides at build time.
 ## Rules
 
 1. Every translated key is `community`, `vscode-monaco`, or `vscode-shared-ui`.
-2. Every Vue key has an explicit entry; there is no default source.
-3. Every `community` Vue key records its `origin` commit.
+2. Every shared UI key has an explicit entry; there is no default source.
+3. Every `community` shared UI key records its `origin` commit.
 4. `vscode-*` entries record the pack, tag, commit and license.
 5. `vscodeMatch` does not change the source by itself.
 6. Do not edit generated Monaco maps by hand; regenerate them.

@@ -179,7 +179,7 @@ if (errors.length) {
 } else {
   for (const result of catalogResults) {
     const summary = [...result.counts].map(([source, count]) => `${count} ${source}`).join(', ');
-    console.log(`Vue ${result.label} catalog: ${result.total} keys (${summary}; ${result.vscodeMatches} VS Code matches; ${result.overrides} overrides)`);
+    console.log(`Shared UI ${result.label} catalog: ${result.total} keys (${summary}; ${result.vscodeMatches} VS Code matches; ${result.overrides} overrides)`);
     if (result.originCounts.size) {
       const topOrigins = [...result.originCounts]
         .sort((a, b) => b[1] - a[1])
