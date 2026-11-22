@@ -49,11 +49,11 @@ A `vscode-vue` entry uses the pack pin in `sources` and does not need a commit o
 `vscodeMatch: true` means the English key and the Chinese value exactly match a pinned VS Code pack.
 It is an observation, not proof that the translator copied the pack, so the source stays `community` unless a contributor confirms it.
 
-## Partial catalogs
+## Catalog coverage
 
-A catalog may start partial.
+A catalog may contain only the keys that have been translated.
 Missing keys fall back to English; every key that is present must have explicit provenance.
-`pt-BR.ts` is currently partial: it contains only strings verified against the pinned VS Code pack, marked `vscode-vue`.
+`pt-BR.ts` currently contains the strings verified against the pinned VS Code pack, marked `vscode-vue`.
 Community translations are added as new entries with `source: "community"` and an `origin`.
 
 ## Community overrides
@@ -102,7 +102,7 @@ The Vite plugin merges the overrides at build time.
 8. Machine translation is not a source.
    A machine draft must be reworked and reviewed as a community contribution before merging.
 9. Language names are endonyms; never translate them.
-10. A partial catalog falls back to English; do not fill gaps with unreviewed text.
+10. A catalog may omit keys; missing keys fall back to English. Do not fill gaps with unreviewed text.
 11. Run the provenance check before merging.
 
 The check lives at `Calcpad.Web/frontend/scripts/check-i18n-provenance.mjs`.

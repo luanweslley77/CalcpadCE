@@ -46,7 +46,7 @@ export function matchLocale(tag: string): CalcpadLocale | null {
         if (normalized === candidate || normalized.startsWith(`${candidate}-`)) return locale
     }
     if (normalized.startsWith('zh')) return 'zh'
-    if (normalized.startsWith('pt')) return 'pt-BR'
+    // Bare "pt" is ambiguous (Portugal vs Brazil); require an explicit pt-BR tag.
     return null
 }
 

@@ -32,8 +32,8 @@ if (zhProvenance.default) {
 }
 const sources = zhProvenance.sources ?? {};
 const catalogs = [
-  { label: 'zh', file: 'zh.ts', manifest: zhProvenance, strict: true },
-  { label: 'pt-BR', file: 'pt-BR.ts', manifest: readJson(path.join(messages, 'provenance.pt-BR.json')), strict: false },
+  { label: 'zh', file: 'zh.ts', manifest: zhProvenance },
+  { label: 'pt-BR', file: 'pt-BR.ts', manifest: readJson(path.join(messages, 'provenance.pt-BR.json')) },
 ];
 const catalogResults = [];
 for (const catalog of catalogs) {
@@ -99,7 +99,6 @@ for (const catalog of catalogs) {
     originCounts,
     overrides,
     vscodeMatches,
-    strict: catalog.strict,
   });
 }
 
@@ -178,12 +177,9 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exitCode = 1;
 } else {
-  const canonicalTotal = catalogResults[0]?.total ?? 0;
   for (const result of catalogResults) {
     const summary = [...result.counts].map(([source, count]) => `${count} ${source}`).join(', ');
-    const fallback = result.strict ? 0 : canonicalTotal - result.total;
-    const fallbackNote = fallback > 0 ? `; ${fallback} fall back to English` : '';
-    console.log(`Vue ${result.label}: ${result.total} keys (${summary}; ${result.vscodeMatches} VS Code matches; ${result.overrides} overrides${fallbackNote})`);
+    console.log(`Vue ${result.label} catalog: ${result.total} keys (${summary}; ${result.vscodeMatches} VS Code matches; ${result.overrides} overrides)`);
     if (result.originCounts.size) {
       const topOrigins = [...result.originCounts]
         .sort((a, b) => b[1] - a[1])
@@ -193,6 +189,7 @@ if (errors.length) {
       console.log(`  Origins: ${topOrigins}`);
     }
   }
+  console.log('Catalog counts only; missing keys fall back to English; hardcoded UI strings are not measured.');
   console.log(`Monaco: ${Object.keys(monacoSources.maps).length} maps from ${monacoSources.source} ${monacoSources.tag} (vscode-monaco; ${monacoOverrides} overrides)`);
   console.log('Provenance OK');
 }
