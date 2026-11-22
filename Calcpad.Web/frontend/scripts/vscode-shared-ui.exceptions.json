@@ -1,0 +1,17 @@
+{
+  "overrides": {
+    "None": "Nenhum",
+    "Open Containing Folder": "Abrir pasta que contém",
+    "Open Folder": "Abrir Pasta",
+    "Open Recent": "Abrir itens usados recentemente",
+    "Preview": "Visualização",
+    "Reset": "Redefinir",
+    "Save As...": "Salvar como..."
+  },
+  "exclude": {
+    "Close Others": "The pack says 'Fechar Outros'; Calcpad tabs use 'aba' (feminine), so this needs a reviewed term.",
+    "New Tab": "The pack says 'Nova Guia'; Calcpad may prefer 'Nova Aba'. Needs a terminology decision.",
+    "Off": "The pack says 'Desligar' (verb); Calcpad uses 'Off' as a state.",
+    "Type": "The pack says 'Digitar' (verb); the Calcpad label means 'Tipo' (kind)."
+  }
+}

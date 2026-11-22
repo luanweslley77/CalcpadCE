@@ -1,0 +1,1026 @@
+{
+  "vscode": {
+    "tag": "1.96.2",
+    "locTag": "v1.96.2024121109",
+    "locCommit": "110df563b65cd2a1f9d8b58e3bdcadce90427f6d",
+    "pack": "vscode-language-pack-pt-BR"
+  },
+  "keys": {
+    "Error": [
+      {
+        "module": "vs/base/browser/ui/dialog/dialog",
+        "key": "dialogErrorMessage"
+      },
+      {
+        "module": "vs/editor/contrib/gotoError/browser/gotoErrorWidget",
+        "key": "Error"
+      },
+      {
+        "module": "vs/platform/accessibilitySignal/browser/accessibilitySignalService",
+        "key": "accessibility.signals.positionHasError"
+      },
+      {
+        "module": "vs/platform/log/common/log",
+        "key": "error"
+      },
+      {
+        "module": "vs/platform/markers/common/markers",
+        "key": "sev.error"
+      },
+      {
+        "module": "vs/workbench/contrib/extensions/browser/extensionsViewer",
+        "key": "error"
+      }
+    ],
+    "Warning": [
+      {
+        "module": "vs/base/browser/ui/dialog/dialog",
+        "key": "dialogWarningMessage"
+      },
+      {
+        "module": "vs/editor/contrib/gotoError/browser/gotoErrorWidget",
+        "key": "Warning"
+      },
+      {
+        "module": "vs/platform/accessibilitySignal/browser/accessibilitySignalService",
+        "key": "accessibility.signals.positionHasWarning"
+      },
+      {
+        "module": "vs/platform/log/common/log",
+        "key": "warn"
+      },
+      {
+        "module": "vs/platform/markers/common/markers",
+        "key": "sev.warning"
+      }
+    ],
+    "Close": [
+      {
+        "module": "vs/base/browser/ui/tree/abstractTree",
+        "key": "close"
+      },
+      {
+        "module": "vs/editor/browser/widget/diffEditor/components/accessibleDiffViewer",
+        "key": "label.close"
+      },
+      {
+        "module": "vs/editor/contrib/find/browser/findWidget",
+        "key": "label.closeButton"
+      },
+      {
+        "module": "vs/editor/contrib/peekView/browser/peekView",
+        "key": "label.close"
+      },
+      {
+        "module": "vs/editor/contrib/suggest/browser/suggestWidgetDetails",
+        "key": "details.close"
+      },
+      {
+        "module": "vs/workbench/browser/actions/layoutActions",
+        "key": "close"
+      },
+      {
+        "module": "vs/workbench/browser/parts/editor/editor.contribution",
+        "key": "close"
+      },
+      {
+        "module": "vs/workbench/browser/parts/editor/editor.contribution",
+        "key": "close"
+      },
+      {
+        "module": "vs/workbench/browser/parts/editor/editor.contribution",
+        "key": "close"
+      },
+      {
+        "module": "vs/workbench/browser/parts/editor/editor.contribution",
+        "key": "close"
+      },
+      {
+        "module": "vs/workbench/browser/parts/editor/editor.contribution",
+        "key": "close"
+      },
+      {
+        "module": "vs/workbench/browser/parts/editor/editor.contribution",
+        "key": "close"
+      },
+      {
+        "module": "vs/workbench/browser/parts/editor/editorActions",
+        "key": "closeOneEditor"
+      },
+      {
+        "module": "vs/workbench/contrib/callHierarchy/browser/callHierarchy.contribution",
+        "key": "close"
+      },
+      {
+        "module": "vs/workbench/contrib/codeEditor/browser/find/simpleFindWidget",
+        "key": "label.closeButton"
+      },
+      {
+        "module": "vs/workbench/contrib/debug/browser/exceptionWidget",
+        "key": "close"
+      },
+      {
+        "module": "vs/workbench/contrib/extensions/browser/extensionsActions",
+        "key": "close"
+      },
+      {
+        "module": "vs/workbench/contrib/files/browser/fileActions.contribution",
+        "key": "close"
+      },
+      {
+        "module": "vs/workbench/contrib/inlineChat/browser/inlineChatActions",
+        "key": "close"
+      },
+      {
+        "module": "vs/workbench/contrib/notebook/browser/contrib/find/notebookFindReplaceWidget",
+        "key": "label.closeButton"
+      },
+      {
+        "module": "vs/workbench/contrib/scm/browser/dirtydiffDecorator",
+        "key": "label.close"
+      },
+      {
+        "module": "vs/workbench/contrib/scm/browser/scmViewPane",
+        "key": "label.close"
+      },
+      {
+        "module": "vs/workbench/contrib/share/browser/share.contribution",
+        "key": "close"
+      },
+      {
+        "module": "vs/workbench/contrib/terminalContrib/chat/browser/terminalChatActions",
+        "key": "closeChat"
+      },
+      {
+        "module": "vs/workbench/contrib/testing/browser/testingOutputPeek",
+        "key": "close"
+      },
+      {
+        "module": "vs/workbench/contrib/typeHierarchy/browser/typeHierarchy.contribution",
+        "key": "close"
+      },
+      {
+        "module": "vs/workbench/services/userDataProfile/browser/userDataProfileImportExportService",
+        "key": "close"
+      }
+    ],
+    "Collapse All": [
+      {
+        "module": "vs/base/browser/ui/tree/treeDefaults",
+        "key": "collapse all"
+      },
+      {
+        "module": "vs/workbench/browser/parts/views/treeView",
+        "key": "collapseAll"
+      },
+      {
+        "module": "vs/workbench/contrib/comments/browser/comments.contribution",
+        "key": "collapseAll"
+      },
+      {
+        "module": "vs/workbench/contrib/debug/browser/callStackView",
+        "key": "collapse"
+      },
+      {
+        "module": "vs/workbench/contrib/debug/browser/loadedScriptsView",
+        "key": "collapse"
+      },
+      {
+        "module": "vs/workbench/contrib/debug/browser/repl",
+        "key": "collapse"
+      },
+      {
+        "module": "vs/workbench/contrib/debug/browser/variablesView",
+        "key": "collapse"
+      },
+      {
+        "module": "vs/workbench/contrib/debug/browser/watchExpressionsView",
+        "key": "collapse"
+      },
+      {
+        "module": "vs/workbench/contrib/markers/browser/markers.contribution",
+        "key": "collapseAll"
+      },
+      {
+        "module": "vs/workbench/contrib/outline/browser/outlineActions",
+        "key": "collapse"
+      },
+      {
+        "module": "vs/workbench/contrib/search/browser/searchActionsTopBar",
+        "key": "CollapseDeepestExpandedLevelAction.label"
+      }
+    ],
+    "Copy": [
+      {
+        "module": "vs/code/electron-sandbox/processExplorer/processExplorerMain",
+        "key": "copy"
+      },
+      {
+        "module": "vs/editor/contrib/clipboard/browser/clipboard",
+        "key": "actions.clipboard.copyLabel"
+      },
+      {
+        "module": "vs/editor/contrib/clipboard/browser/clipboard",
+        "key": "actions.clipboard.copyLabel"
+      },
+      {
+        "module": "vs/editor/contrib/clipboard/browser/clipboard",
+        "key": "actions.clipboard.copyLabel"
+      },
+      {
+        "module": "vs/workbench/browser/actions/textInputActions",
+        "key": "copy"
+      },
+      {
+        "module": "vs/workbench/contrib/chat/browser/actions/chatCodeblockActions",
+        "key": "interactive.copyCodeBlock.label"
+      },
+      {
+        "module": "vs/workbench/contrib/chat/browser/actions/chatCopyActions",
+        "key": "interactive.copyItem.label"
+      },
+      {
+        "module": "vs/workbench/contrib/chat/browser/chatInlineAnchorWidget",
+        "key": "actions.copy.label"
+      },
+      {
+        "module": "vs/workbench/contrib/debug/browser/repl",
+        "key": "copy"
+      },
+      {
+        "module": "vs/workbench/contrib/extensions/browser/extensions.contribution",
+        "key": "workbench.extensions.action.copyExtension"
+      },
+      {
+        "module": "vs/workbench/contrib/files/browser/fileActions",
+        "key": "copyFile"
+      },
+      {
+        "module": "vs/workbench/contrib/markers/browser/markers.contribution",
+        "key": "copyMarker"
+      },
+      {
+        "module": "vs/workbench/contrib/preferences/browser/keybindingsEditor",
+        "key": "copyLabel"
+      },
+      {
+        "module": "vs/workbench/contrib/search/browser/searchActionsCopy",
+        "key": "copyMatchLabel"
+      },
+      {
+        "module": "vs/workbench/contrib/terminal/browser/terminalMenus",
+        "key": "workbench.action.terminal.copySelection.short"
+      },
+      {
+        "module": "vs/workbench/contrib/terminal/browser/terminalMenus",
+        "key": "workbench.action.terminal.copySelection.short"
+      },
+      {
+        "module": "vs/workbench/contrib/terminalContrib/find/browser/textInputContextMenu",
+        "key": "copy"
+      },
+      {
+        "module": "vs/workbench/contrib/userDataProfile/browser/userDataProfilesEditor",
+        "key": "copy description"
+      },
+      {
+        "module": "vs/workbench/contrib/webview/browser/webview.contribution",
+        "key": "copy"
+      }
+    ],
+    "Copy All": [
+      {
+        "module": "vs/code/electron-sandbox/processExplorer/processExplorerMain",
+        "key": "copyAll"
+      },
+      {
+        "module": "vs/workbench/contrib/chat/browser/actions/chatCopyActions",
+        "key": "interactive.copyAll.label"
+      },
+      {
+        "module": "vs/workbench/contrib/debug/browser/repl",
+        "key": "copyAll"
+      },
+      {
+        "module": "vs/workbench/contrib/search/browser/searchActionsCopy",
+        "key": "copyAllLabel"
+      }
+    ],
+    "Previous": [
+      {
+        "module": "vs/editor/contrib/inlineCompletions/browser/hintsWidget/inlineCompletionsHintsWidget",
+        "key": "previous"
+      }
+    ],
+    "Next": [
+      {
+        "module": "vs/editor/contrib/inlineCompletions/browser/hintsWidget/inlineCompletionsHintsWidget",
+        "key": "next"
+      }
+    ],
+    "Cancel": [
+      {
+        "module": "vs/editor/contrib/rename/browser/renameWidget",
+        "key": "cancelRenameSuggestionsButton"
+      },
+      {
+        "module": "vs/platform/dialogs/common/dialogs",
+        "key": "cancelButton"
+      },
+      {
+        "module": "vs/platform/dialogs/common/dialogs",
+        "key": "cancelButton"
+      },
+      {
+        "module": "vs/platform/dialogs/common/dialogs",
+        "key": "cancelButton"
+      },
+      {
+        "module": "vs/platform/dialogs/common/dialogs",
+        "key": "cancelButton"
+      },
+      {
+        "module": "vs/platform/menubar/electron-main/menubar",
+        "key": "cancel"
+      },
+      {
+        "module": "vs/platform/native/electron-main/nativeHostMainService",
+        "key": "cancel"
+      },
+      {
+        "module": "vs/platform/native/electron-main/nativeHostMainService",
+        "key": "cancel"
+      },
+      {
+        "module": "vs/workbench/api/browser/mainThreadMessageService",
+        "key": "cancel"
+      },
+      {
+        "module": "vs/workbench/contrib/authentication/browser/actions/manageTrustedExtensionsForAccountAction",
+        "key": "manageTrustedExtensions.cancel"
+      },
+      {
+        "module": "vs/workbench/contrib/chat/browser/actions/chatExecuteActions",
+        "key": "interactive.cancel.label"
+      },
+      {
+        "module": "vs/workbench/contrib/chat/browser/chatContentParts/chatToolInvocationPart",
+        "key": "cancel"
+      },
+      {
+        "module": "vs/workbench/contrib/chat/browser/chatEditorSaving",
+        "key": "discard"
+      },
+      {
+        "module": "vs/workbench/contrib/chat/browser/chatEditorSaving",
+        "key": "discard"
+      },
+      {
+        "module": "vs/workbench/contrib/extensions/browser/extensionFeaturesTab",
+        "key": "cancel"
+      },
+      {
+        "module": "vs/workbench/contrib/extensions/browser/extensionsActions",
+        "key": "cancel"
+      },
+      {
+        "module": "vs/workbench/contrib/extensions/browser/extensionsActions",
+        "key": "cancel"
+      },
+      {
+        "module": "vs/workbench/contrib/inlineChat/browser/inlineChat.contribution",
+        "key": "cancelShort"
+      },
+      {
+        "module": "vs/workbench/contrib/inlineChat/browser/inlineChatSavingServiceImpl",
+        "key": "discard"
+      },
+      {
+        "module": "vs/workbench/contrib/issue/browser/issueFormService",
+        "key": "cancel"
+      },
+      {
+        "module": "vs/workbench/contrib/issue/browser/issueFormService",
+        "key": "cancel"
+      },
+      {
+        "module": "vs/workbench/contrib/preferences/browser/settingsWidgets",
+        "key": "cancelButton"
+      },
+      {
+        "module": "vs/workbench/contrib/preferences/browser/settingsWidgets",
+        "key": "cancelButton"
+      },
+      {
+        "module": "vs/workbench/contrib/scm/browser/scmViewPane",
+        "key": "scmInputCancelAction"
+      },
+      {
+        "module": "vs/workbench/contrib/terminal/browser/terminalProfileQuickpick",
+        "key": "cancel"
+      },
+      {
+        "module": "vs/workbench/contrib/themes/browser/themes.contribution",
+        "key": "button.cancel"
+      },
+      {
+        "module": "vs/workbench/contrib/userDataProfile/browser/userDataProfilesEditorModel",
+        "key": "cancel"
+      },
+      {
+        "module": "vs/workbench/contrib/userDataProfile/browser/userDataProfilesEditorModel",
+        "key": "cancel"
+      },
+      {
+        "module": "vs/workbench/contrib/userDataProfile/browser/userDataProfilesEditorModel",
+        "key": "cancel"
+      },
+      {
+        "module": "vs/workbench/contrib/userDataSync/browser/userDataSync",
+        "key": "cancel turning on sync"
+      },
+      {
+        "module": "vs/workbench/contrib/workspace/browser/workspace.contribution",
+        "key": "cancelWorkspaceTrustButton"
+      },
+      {
+        "module": "vs/workbench/services/dialogs/browser/simpleFileDialog",
+        "key": "remoteFileDialog.cancel"
+      },
+      {
+        "module": "vs/workbench/services/progress/browser/progressService",
+        "key": "cancel"
+      },
+      {
+        "module": "vs/workbench/services/progress/browser/progressService",
+        "key": "cancel"
+      }
+    ],
+    "Insert": [
+      {
+        "module": "vs/editor/contrib/suggest/browser/suggestController",
+        "key": "accept.insert"
+      },
+      {
+        "module": "vs/editor/contrib/suggest/browser/suggestController",
+        "key": "accept.insert"
+      },
+      {
+        "module": "vs/editor/contrib/suggest/browser/suggestController",
+        "key": "accept.insert"
+      },
+      {
+        "module": "vs/workbench/contrib/terminalContrib/chat/browser/terminalChatActions",
+        "key": "insert"
+      }
+    ],
+    "Save": [
+      {
+        "module": "vs/platform/accessibilitySignal/browser/accessibilitySignalService",
+        "key": "accessibilitySignals.save"
+      },
+      {
+        "module": "vs/platform/accessibilitySignal/browser/accessibilitySignalService",
+        "key": "accessibility.signals.save"
+      },
+      {
+        "module": "vs/workbench/contrib/chat/browser/chatEditorSaving",
+        "key": "save"
+      },
+      {
+        "module": "vs/workbench/contrib/files/browser/fileConstants",
+        "key": "save"
+      },
+      {
+        "module": "vs/workbench/contrib/inlineChat/browser/inlineChatSavingServiceImpl",
+        "key": "save"
+      },
+      {
+        "module": "vs/workbench/services/userDataSync/browser/userDataSyncWorkbenchService",
+        "key": "download sync activity dialog open label"
+      },
+      {
+        "module": "vs/workbench/services/workspaces/browser/abstractWorkspaceEditingService",
+        "key": "save"
+      }
+    ],
+    "File": [
+      {
+        "module": "vs/platform/action/common/actionCommonCategories",
+        "key": "file"
+      },
+      {
+        "module": "vs/workbench/contrib/chat/browser/chatDragAndDrop",
+        "key": "file"
+      },
+      {
+        "module": "vs/workbench/contrib/chat/browser/chatDragAndDrop",
+        "key": "file"
+      },
+      {
+        "module": "vs/workbench/contrib/files/electron-sandbox/fileActions.contribution",
+        "key": "filesCategory"
+      },
+      {
+        "module": "vs/workbench/contrib/markers/browser/markersTable",
+        "key": "fileColumnLabel"
+      },
+      {
+        "module": "vs/workbench/contrib/terminalContrib/links/browser/terminalLinkQuickpick",
+        "key": "terminal.integrated.localFileLinks"
+      },
+      {
+        "module": "vs/workbench/contrib/terminalContrib/links/browser/terminalLinkQuickpick",
+        "key": "terminal.integrated.localFileLinks"
+      },
+      {
+        "module": "vs/workbench/contrib/welcomeViews/common/newFile.contribution",
+        "key": "file"
+      }
+    ],
+    "Open Folder": [
+      {
+        "module": "vs/platform/dialogs/electron-main/dialogMainService",
+        "key": "openFolder"
+      },
+      {
+        "module": "vs/workbench/browser/parts/editor/editorGroupWatermark",
+        "key": "watermark.openFolder"
+      },
+      {
+        "module": "vs/workbench/contrib/files/browser/editors/textFileEditor",
+        "key": "openFolder"
+      },
+      {
+        "module": "vs/workbench/contrib/files/browser/explorerViewlet",
+        "key": "openFolder"
+      },
+      {
+        "module": "vs/workbench/contrib/search/browser/searchView",
+        "key": "openFolder"
+      },
+      {
+        "module": "vs/workbench/contrib/userDataSync/electron-sandbox/userDataSync.contribution",
+        "key": "open"
+      },
+      {
+        "module": "vs/workbench/contrib/welcomeGettingStarted/common/gettingStartedContent",
+        "key": "openFolder"
+      },
+      {
+        "module": "vs/workbench/services/dialogs/browser/abstractFileDialogService",
+        "key": "openFolder.title"
+      }
+    ],
+    "Off": [
+      {
+        "module": "vs/platform/log/common/log",
+        "key": "off"
+      }
+    ],
+    "Minimize": [
+      {
+        "module": "vs/platform/menubar/electron-main/menubar",
+        "key": "mMinimize"
+      }
+    ],
+    "New Tab": [
+      {
+        "module": "vs/platform/menubar/electron-main/menubar",
+        "key": "mNewTab"
+      }
+    ],
+    "New Window": [
+      {
+        "module": "vs/platform/workspaces/electron-main/workspacesHistoryMainService",
+        "key": "newWindow"
+      },
+      {
+        "module": "vs/workbench/browser/actions/windowActions",
+        "key": "newWindow"
+      },
+      {
+        "module": "vs/workbench/browser/parts/editor/editor.contribution",
+        "key": "newWindow"
+      },
+      {
+        "module": "vs/workbench/contrib/preferences/browser/settingsLayout",
+        "key": "newWindow"
+      }
+    ],
+    "Title": [
+      {
+        "module": "vs/workbench/api/browser/viewsExtensionPoint",
+        "key": "view container title"
+      },
+      {
+        "module": "vs/workbench/contrib/issue/browser/issueReporterPage",
+        "key": "issueTitleLabel"
+      },
+      {
+        "module": "vs/workbench/contrib/welcomeGettingStarted/browser/gettingStartedExtensionPoint",
+        "key": "title"
+      },
+      {
+        "module": "vs/workbench/services/actions/common/menusExtensionPoint",
+        "key": "command title"
+      }
+    ],
+    "Description": [
+      {
+        "module": "vs/workbench/api/common/configurationExtensionPoint",
+        "key": "description"
+      },
+      {
+        "module": "vs/workbench/contrib/issue/browser/baseIssueReporterService",
+        "key": "description"
+      },
+      {
+        "module": "vs/workbench/services/themes/common/colorExtensionPoint",
+        "key": "description"
+      }
+    ],
+    "Settings": [
+      {
+        "module": "vs/workbench/api/common/configurationExtensionPoint",
+        "key": "settings"
+      },
+      {
+        "module": "vs/workbench/contrib/extensions/browser/extensions.contribution",
+        "key": "workbench.extensions.action.configure"
+      },
+      {
+        "module": "vs/workbench/contrib/preferences/browser/preferences.contribution",
+        "key": "settings"
+      },
+      {
+        "module": "vs/workbench/contrib/preferences/browser/settingsEditor2",
+        "key": "settings"
+      },
+      {
+        "module": "vs/workbench/contrib/preferences/browser/settingsTree",
+        "key": "settings"
+      },
+      {
+        "module": "vs/workbench/contrib/userDataProfile/browser/userDataProfilesEditor",
+        "key": "settings"
+      },
+      {
+        "module": "vs/workbench/electron-sandbox/window",
+        "key": "zoomSettings"
+      },
+      {
+        "module": "vs/workbench/services/preferences/common/preferencesEditorInput",
+        "key": "settingsEditor2InputName"
+      },
+      {
+        "module": "vs/workbench/services/userDataProfile/browser/settingsResource",
+        "key": "settings"
+      },
+      {
+        "module": "vs/workbench/services/userDataSync/common/userDataSync",
+        "key": "settings"
+      }
+    ],
+    "Remove": [
+      {
+        "module": "vs/workbench/browser/actions/developerActions",
+        "key": "removeLargeStorageEntriesPickerButton"
+      }
+    ],
+    "Open...": [
+      {
+        "module": "vs/workbench/browser/actions/workspaceActions",
+        "key": "openFileFolder"
+      },
+      {
+        "module": "vs/workbench/contrib/welcomeGettingStarted/common/gettingStartedContent",
+        "key": "gettingStarted.openMac.title"
+      }
+    ],
+    "Close Others": [
+      {
+        "module": "vs/workbench/browser/parts/editor/editor.contribution",
+        "key": "closeOthers"
+      },
+      {
+        "module": "vs/workbench/contrib/files/browser/fileActions.contribution",
+        "key": "closeOthers"
+      }
+    ],
+    "Close All": [
+      {
+        "module": "vs/workbench/browser/parts/editor/editor.contribution",
+        "key": "closeAll"
+      },
+      {
+        "module": "vs/workbench/browser/parts/editor/editor.contribution",
+        "key": "closeAll"
+      },
+      {
+        "module": "vs/workbench/browser/parts/editor/editor.contribution",
+        "key": "closeAll"
+      },
+      {
+        "module": "vs/workbench/browser/parts/editor/editor.contribution",
+        "key": "closeAll"
+      },
+      {
+        "module": "vs/workbench/contrib/files/browser/fileActions.contribution",
+        "key": "closeAll"
+      }
+    ],
+    "Open Recent": [
+      {
+        "module": "vs/workbench/browser/parts/editor/editorGroupWatermark",
+        "key": "watermark.openRecent"
+      },
+      {
+        "module": "vs/workbench/contrib/files/browser/explorerViewlet",
+        "key": "openRecent"
+      }
+    ],
+    "Refresh": [
+      {
+        "module": "vs/workbench/browser/parts/views/treeView",
+        "key": "refresh"
+      },
+      {
+        "module": "vs/workbench/contrib/extensions/browser/extensions.contribution",
+        "key": "refreshExtension"
+      },
+      {
+        "module": "vs/workbench/contrib/scm/browser/scmHistoryViewPane",
+        "key": "refreshGraph"
+      },
+      {
+        "module": "vs/workbench/contrib/search/browser/searchActionsTopBar",
+        "key": "RefreshAction.label"
+      },
+      {
+        "module": "vs/workbench/contrib/timeline/browser/timelinePane",
+        "key": "refresh"
+      }
+    ],
+    "Problems": [
+      {
+        "module": "vs/workbench/common/configuration",
+        "key": "problemsConfigurationTitle"
+      },
+      {
+        "module": "vs/workbench/contrib/markers/browser/markers.contribution",
+        "key": "problems"
+      },
+      {
+        "module": "vs/workbench/contrib/markers/browser/markers.contribution",
+        "key": "problems"
+      },
+      {
+        "module": "vs/workbench/contrib/markers/browser/markers.contribution",
+        "key": "problems"
+      },
+      {
+        "module": "vs/workbench/contrib/markers/browser/markers.contribution",
+        "key": "problems"
+      },
+      {
+        "module": "vs/workbench/contrib/markers/browser/markers.contribution",
+        "key": "problems"
+      },
+      {
+        "module": "vs/workbench/contrib/markers/browser/markers.contribution",
+        "key": "problems"
+      },
+      {
+        "module": "vs/workbench/contrib/markers/browser/markers.contribution",
+        "key": "problems"
+      },
+      {
+        "module": "vs/workbench/contrib/markers/browser/markers.contribution",
+        "key": "problems"
+      },
+      {
+        "module": "vs/workbench/contrib/markers/browser/markers.contribution",
+        "key": "status.problems"
+      },
+      {
+        "module": "vs/workbench/contrib/markers/browser/markersFileDecorations",
+        "key": "label"
+      },
+      {
+        "module": "vs/workbench/contrib/markers/browser/messages",
+        "key": "markers.panel.title.problems"
+      },
+      {
+        "module": "vs/workbench/contrib/preferences/browser/settingsLayout",
+        "key": "problems"
+      }
+    ],
+    "Apply": [
+      {
+        "module": "vs/workbench/contrib/bulkEdit/browser/preview/bulkEditPane",
+        "key": "ok"
+      }
+    ],
+    "Files": [
+      {
+        "module": "vs/workbench/contrib/chat/browser/chatDragAndDrop",
+        "key": "files"
+      },
+      {
+        "module": "vs/workbench/contrib/files/browser/files.contribution",
+        "key": "filesConfigurationTitle"
+      },
+      {
+        "module": "vs/workbench/contrib/preferences/browser/settingsLayout",
+        "key": "files"
+      }
+    ],
+    "Collapse": [
+      {
+        "module": "vs/workbench/contrib/comments/browser/commentThreadHeader",
+        "key": "label.collapse"
+      }
+    ],
+    "Mode": [
+      {
+        "module": "vs/workbench/contrib/debug/browser/breakpointWidget",
+        "key": "bpMode"
+      }
+    ],
+    "None": [
+      {
+        "module": "vs/workbench/contrib/debug/browser/breakpointWidget",
+        "key": "noTriggerByBreakpoint"
+      },
+      {
+        "module": "vs/workbench/contrib/extensions/browser/extensions.contribution",
+        "key": "none"
+      },
+      {
+        "module": "vs/workbench/contrib/format/browser/formatActionsMultiple",
+        "key": "null"
+      },
+      {
+        "module": "vs/workbench/contrib/format/browser/formatActionsMultiple",
+        "key": "nullFormatterDescription"
+      },
+      {
+        "module": "vs/workbench/contrib/themes/browser/themes.contribution",
+        "key": "noIconThemeLabel"
+      },
+      {
+        "module": "vs/workbench/contrib/userDataProfile/browser/userDataProfilesEditor",
+        "key": "empty profile"
+      },
+      {
+        "module": "vs/workbench/contrib/userDataProfile/browser/userDataProfilesEditor",
+        "key": "none"
+      },
+      {
+        "module": "vs/workbench/services/themes/common/themeConfiguration",
+        "key": "noIconThemeLabel"
+      }
+    ],
+    "Variables": [
+      {
+        "module": "vs/workbench/contrib/debug/browser/debug.contribution",
+        "key": "variables"
+      },
+      {
+        "module": "vs/workbench/contrib/notebook/browser/controller/variablesActions",
+        "key": "notebookActions.openVariablesView"
+      }
+    ],
+    "Type": [
+      {
+        "module": "vs/workbench/contrib/debug/common/debugSchemas",
+        "key": "debugger type"
+      }
+    ],
+    "Preview": [
+      {
+        "module": "vs/workbench/contrib/extensions/browser/extensionEditor",
+        "key": "preview"
+      },
+      {
+        "module": "vs/workbench/contrib/extensions/browser/extensionEditor",
+        "key": "preview"
+      },
+      {
+        "module": "vs/workbench/contrib/preferences/browser/settingsEditorSettingIndicators",
+        "key": "previewLabel"
+      },
+      {
+        "module": "vs/workbench/contrib/preferences/browser/settingsEditorSettingIndicators",
+        "key": "previewLabel"
+      },
+      {
+        "module": "vs/workbench/contrib/userDataProfile/browser/userDataProfilesEditorModel",
+        "key": "preview"
+      }
+    ],
+    "Review": [
+      {
+        "module": "vs/workbench/contrib/extensions/browser/extensionsActions",
+        "key": "review"
+      }
+    ],
+    "Copy Relative Path": [
+      {
+        "module": "vs/workbench/contrib/files/browser/fileActions.contribution",
+        "key": "copyRelativePath"
+      }
+    ],
+    "Save As...": [
+      {
+        "module": "vs/workbench/contrib/files/browser/fileConstants",
+        "key": "saveAs"
+      },
+      {
+        "module": "vs/workbench/services/workingCopy/common/storedFileWorkingCopy",
+        "key": "saveAs"
+      }
+    ],
+    "Open Containing Folder": [
+      {
+        "module": "vs/workbench/contrib/files/electron-sandbox/fileActions.contribution",
+        "key": "openContainer"
+      },
+      {
+        "module": "vs/workbench/contrib/localHistory/electron-sandbox/localHistoryCommands",
+        "key": "openContainer"
+      }
+    ],
+    "Formatting": [
+      {
+        "module": "vs/workbench/contrib/format/browser/formatActionsMultiple",
+        "key": "formatter"
+      },
+      {
+        "module": "vs/workbench/contrib/notebook/browser/contrib/saveParticipants/saveParticipants",
+        "key": "notebookFormatSave.formatting"
+      },
+      {
+        "module": "vs/workbench/contrib/preferences/browser/settingsLayout",
+        "key": "formatting"
+      }
+    ],
+    "Reset": [
+      {
+        "module": "vs/workbench/contrib/mergeEditor/browser/commands/commands",
+        "key": "mergeEditor.resetResultToBaseAndAutoMerge.short"
+      },
+      {
+        "module": "vs/workbench/electron-sandbox/window",
+        "key": "zoomReset"
+      }
+    ],
+    "Output": [
+      {
+        "module": "vs/workbench/contrib/notebook/browser/diff/notebookMultiDiffEditor",
+        "key": "notebookCellOutputLabel"
+      },
+      {
+        "module": "vs/workbench/contrib/output/browser/output.contribution",
+        "key": "output"
+      },
+      {
+        "module": "vs/workbench/contrib/output/browser/output.contribution",
+        "key": "output"
+      },
+      {
+        "module": "vs/workbench/contrib/output/browser/output.contribution",
+        "key": "output"
+      },
+      {
+        "module": "vs/workbench/contrib/output/browser/output.contribution",
+        "key": "output"
+      },
+      {
+        "module": "vs/workbench/contrib/output/browser/outputView",
+        "key": "output"
+      },
+      {
+        "module": "vs/workbench/contrib/preferences/browser/settingsLayout",
+        "key": "output"
+      },
+      {
+        "module": "vs/workbench/contrib/quickaccess/browser/viewQuickAccess",
+        "key": "channels"
+      }
+    ],
+    "Restore": [
+      {
+        "module": "vs/workbench/contrib/userDataSync/browser/userDataSyncViews",
+        "key": "workbench.actions.sync.replaceCurrent"
+      }
+    ],
+    "System": [
+      {
+        "module": "vs/workbench/services/preferences/browser/keybindingsEditorModel",
+        "key": "default"
+      }
+    ]
+  }
+}

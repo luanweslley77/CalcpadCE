@@ -61,6 +61,20 @@ Missing keys fall back to English; every key that is present must have explicit 
 `pt-BR.ts` currently contains the strings verified against the pinned VS Code pack, marked `vscode-shared-ui`.
 Community translations are added as new entries with `source: "community"` and an `origin`.
 
+## Shared UI from VS Code
+
+The shared UI catalog imports exact matches from the pinned VS Code UI pack.
+The pack is keyed by `module::key`, not by English text, so the repo also carries an index:
+
+- `scripts/vscode-shared-ui.index.json` — English string to `module`/`key`.
+- `scripts/vscode-shared-ui.langpack.pt-BR.json` — pinned pack subset.
+- `scripts/vscode-shared-ui.exceptions.json` — context overrides and exclusions.
+
+Run `node scripts/import-vscode-shared-ui.mjs` to write `pt-BR.ts` and `provenance.pt-BR.json`.
+`--check` verifies the committed output.
+No network access or VS Code source checkout is needed at build time.
+Do not edit the generated catalog by hand.
+
 ## Community overrides
 
 A community translation can replace a string that came from VS Code.

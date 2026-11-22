@@ -1,14 +1,131 @@
 {
   "locale": "pt-BR",
+  "vscode": {
+    "tag": "1.96.2",
+    "locTag": "v1.96.2024121109",
+    "locCommit": "110df563b65cd2a1f9d8b58e3bdcadce90427f6d",
+    "pack": "vscode-language-pack-pt-BR"
+  },
   "keys": {
-    "Cancel": { "source": "vscode-shared-ui" },
-    "Close": { "source": "vscode-shared-ui" },
-    "Copy": { "source": "vscode-shared-ui" },
-    "Error": { "source": "vscode-shared-ui" },
-    "File": { "source": "vscode-shared-ui" },
-    "Insert": { "source": "vscode-shared-ui" },
-    "Next": { "source": "vscode-shared-ui" },
-    "Previous": { "source": "vscode-shared-ui" },
-    "Warning": { "source": "vscode-shared-ui" }
+    "Apply": {
+      "source": "vscode-shared-ui"
+    },
+    "Cancel": {
+      "source": "vscode-shared-ui"
+    },
+    "Close": {
+      "source": "vscode-shared-ui"
+    },
+    "Close All": {
+      "source": "vscode-shared-ui"
+    },
+    "Collapse": {
+      "source": "vscode-shared-ui"
+    },
+    "Collapse All": {
+      "source": "vscode-shared-ui"
+    },
+    "Copy": {
+      "source": "vscode-shared-ui"
+    },
+    "Copy All": {
+      "source": "vscode-shared-ui"
+    },
+    "Copy Relative Path": {
+      "source": "vscode-shared-ui"
+    },
+    "Description": {
+      "source": "vscode-shared-ui"
+    },
+    "Error": {
+      "source": "vscode-shared-ui"
+    },
+    "File": {
+      "source": "vscode-shared-ui"
+    },
+    "Files": {
+      "source": "vscode-shared-ui"
+    },
+    "Formatting": {
+      "source": "vscode-shared-ui"
+    },
+    "Insert": {
+      "source": "vscode-shared-ui"
+    },
+    "Minimize": {
+      "source": "vscode-shared-ui"
+    },
+    "Mode": {
+      "source": "vscode-shared-ui"
+    },
+    "New Window": {
+      "source": "vscode-shared-ui"
+    },
+    "Next": {
+      "source": "vscode-shared-ui"
+    },
+    "None": {
+      "source": "vscode-shared-ui"
+    },
+    "Open Containing Folder": {
+      "source": "vscode-shared-ui"
+    },
+    "Open Folder": {
+      "source": "vscode-shared-ui"
+    },
+    "Open Recent": {
+      "source": "vscode-shared-ui"
+    },
+    "Open...": {
+      "source": "vscode-shared-ui"
+    },
+    "Output": {
+      "source": "vscode-shared-ui"
+    },
+    "Preview": {
+      "source": "vscode-shared-ui"
+    },
+    "Previous": {
+      "source": "vscode-shared-ui"
+    },
+    "Problems": {
+      "source": "vscode-shared-ui"
+    },
+    "Refresh": {
+      "source": "vscode-shared-ui"
+    },
+    "Remove": {
+      "source": "vscode-shared-ui"
+    },
+    "Reset": {
+      "source": "vscode-shared-ui"
+    },
+    "Restore": {
+      "source": "vscode-shared-ui"
+    },
+    "Review": {
+      "source": "vscode-shared-ui"
+    },
+    "Save": {
+      "source": "vscode-shared-ui"
+    },
+    "Save As...": {
+      "source": "vscode-shared-ui"
+    },
+    "Settings": {
+      "source": "vscode-shared-ui"
+    },
+    "System": {
+      "source": "vscode-shared-ui"
+    },
+    "Title": {
+      "source": "vscode-shared-ui"
+    },
+    "Variables": {
+      "source": "vscode-shared-ui"
+    },
+    "Warning": {
+      "source": "vscode-shared-ui"
+    }
   }
 }
