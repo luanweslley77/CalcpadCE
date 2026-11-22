@@ -2015,6 +2015,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
         // Create shared API client (uses remote URL initially, switches to local when server starts)
         const apiClient = new CalcpadApiClient(settingsManager.getServerUrl(), serverDebugChannel);
+        apiClient.setLocaleProvider(() => vscode.env.language);
         sharedApiClient = apiClient;
         const syncMacroCalls = () => apiClient.setMacroCalls(settingsManager.getSettings().macroCalls);
         syncMacroCalls();

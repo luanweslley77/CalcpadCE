@@ -763,20 +763,18 @@ import { DEFAULT_PDF_SETTINGS, DEFAULT_VERSION_CONFIG } from '../types'
 import { getDefaultSettings, METADATA_SETTINGS_KEYS, validateSettingValue, SETTINGS_PATH, LOG_LEVEL_OPTIONS, DEFAULT_COMPLETION_DELAY_MS } from '../../types/settings'
 import { PDF_SETTING_KEYS, validatePdfValue } from '../../types/pdf-settings'
 import { specForKey } from '../../types/catalog'
-import { LOCALE_OPTIONS, readLocaleSetting, resolveLocale, writeLocaleSetting, type LocaleSetting } from '../../i18n'
+import { LOCALE_OPTIONS, readLocaleSetting, setLocale, type LocaleSetting } from '../../i18n'
 import {
   DEFAULT_PREVIEW_SIZE_MB, MIN_PREVIEW_SIZE_MB, MAX_PREVIEW_SIZE_MB,
   DEFAULT_CONSOLE_MESSAGES_PER_DOCUMENT, MIN_CONSOLE_MESSAGES_PER_DOCUMENT,
   MAX_CONSOLE_MESSAGES_PER_DOCUMENT,
 } from '../../services/preview-limits'
 
-const { t, t: tt, locale } = useI18n()
+const { t, t: tt } = useI18n()
 const localeSetting = ref<LocaleSetting>(readLocaleSetting())
 
 function changeLocale() {
-  writeLocaleSetting(localeSetting.value)
-  locale.value = resolveLocale(localeSetting.value)
-  document.documentElement.lang = locale.value
+  setLocale(localeSetting.value)
 }
 
 // Props

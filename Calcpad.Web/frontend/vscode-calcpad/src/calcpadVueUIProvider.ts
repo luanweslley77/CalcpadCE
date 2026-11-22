@@ -979,7 +979,7 @@ export class CalcpadVueUIProvider implements vscode.WebviewViewProvider {
         const nonce = getNonce();
 
         return `<!DOCTYPE html>
-<html lang="en">
+<html lang="${vscode.env.language}">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src ${webview.cspSource} data:; style-src ${webview.cspSource} 'unsafe-inline'; script-src 'nonce-${nonce}';">
@@ -994,6 +994,7 @@ export class CalcpadVueUIProvider implements vscode.WebviewViewProvider {
             <br><small>If this message persists, check the developer console for errors</small>
         </div>
     </div>
+    <script nonce="${nonce}">window.__CALCPAD_HOST_LOCALE__ = ${JSON.stringify(vscode.env.language)};</script>
     <script nonce="${nonce}" src="${scriptUri}"></script>
 </body>
 </html>`;

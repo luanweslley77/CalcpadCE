@@ -1,4 +1,6 @@
 const zh: Record<string, string> = {
+    "Auto": "自动",
+    "English": "英语",
     "Files": "文件",
     "Insert": "插入",
     "TOC": "目录",

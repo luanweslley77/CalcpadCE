@@ -22,7 +22,7 @@ const MONACO_NLS_HELPER =
     "const __calcpadTr=(en,zh,pt)=>{try{const l=localStorage.getItem('calcpad.locale');" +
     "if(l==='en')return en;if(l==='zh')return zh||en;if(l==='pt-BR')return pt||en}catch(e){}" +
     "const n=typeof navigator!=='undefined'?navigator.language.toLowerCase():'';" +
-    "if(n.startsWith('zh'))return zh||en;if(n.startsWith('pt'))return pt||en;return en};";
+    "return n.startsWith('zh')?zh||en:en};";
 
 const MONACO_LOCALIZE =
     /(\blocalize2?\s*\(\s*(?:'((?:[^'\\]|\\.)*)'|"((?:[^"\\]|\\.)*)")\s*,\s*)(?:'((?:[^'\\]|\\.)*)'|"((?:[^"\\]|\\.)*)")/g;
