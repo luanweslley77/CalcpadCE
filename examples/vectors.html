@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
     
     
       
@@ -2807,7 +2807,7 @@
   <span class="md-ellipsis">
     
   
-    Steel (3)
+    Steel (4)
   
 
     
@@ -3187,7 +3187,7 @@ From there, <a href="#vector-math-functions">norms, dot and cross products, and 
 <p><span class="eq"><b>fill</b> ( <var><span class="vec">⃗</span>a</var>; 5 )  = <b class="b0">[</b>5 5 5 5 5<b class="b0">]</b></span> - fills the vector with a value of 5 </p>
 <p><span class="eq"><var><span class="vec">⃗</span>a</var> = <b>range</b> ( 0; 10; 2 )  = <b class="b0">[</b>0 2 4 6 8 10<b class="b0">]</b></span> - creates a vector from a range of values, starting from 0 to 10 with step 2 </p>
 <p>&nbsp;</p>
-<div class="calcpad-h3">Indexing </div>
+<div class="calcpad-h1">Indexing </div>
 <hr/> 
 <p><span class="eq"><var><span class="vec">⃗</span>a</var> = <span class="b0">[</span>2; 4; 6; 8; 10<span class="b0">]</span> = <b class="b0">[</b>2 4 6 8 10<b class="b0">]</b></span></p>
 <p><span class="eq"><var><span class="vec">⃗</span>a</var><sub>2</sub> = 4</span> - simple dot operator (constant index) </p>
@@ -3201,7 +3201,7 @@ From there, <a href="#vector-math-functions">norms, dot and cross products, and 
 <p><span class="eq"><span class="cond">$Repeat</span>{<var><span class="vec">⃗</span>b</var><sub><var>k</var></sub> = <var><span class="vec">⃗</span>a</var><sub><var>k</var> − 1</sub> <span class="cond">for</span> <var>k</var> = 2...<b>len</b> ( <var><span class="vec">⃗</span>b</var> ) } = 25</span></p>
 <p><span class="eq"><var><span class="vec">⃗</span>b</var> = <b class="b0">[</b>0 1 4 9 16 25<b class="b0">]</b></span></p>
 <p>&nbsp;</p>
-<div class="calcpad-h3">Vector operators </div>
+<div class="calcpad-h1">Vector operators </div>
 <div class="calcpad-h4">Vector-vector</div> 
 <p><span class="eq"><var><span class="vec">⃗</span>a</var> = <span class="b0">[</span>1; 2; 3; 0<span class="b0">]</span> = <b class="b0">[</b>1 2 3 0<b class="b0">]</b></span> ,  <span class="eq"><var><span class="vec">⃗</span>b</var> = <span class="b0">[</span>0; 4; 5; 6; 7<span class="b0">]</span> = <b class="b0">[</b>0 4 5 6 7<b class="b0">]</b></span></p>
 <p>Arithmetic: </p>
@@ -3537,13 +3537,13 @@ From there, <a href="#vector-math-functions">norms, dot and cross products, and 
 <p>Inverse trigonometric:<hr/> </p>
 <p><span class="eq"><var><span class="vec">⃗</span>x</var> = <span class="b1">[</span>0; 0.5; <span class="dvc">&ensp;&hairsp;&hairsp;<span class="o0"><span class="r">√</span>&hairsp;2</span><span class="dvl"></span>2</span>; <span class="dvc">&ensp;&hairsp;&hairsp;<span class="o0"><span class="r">√</span>&hairsp;3</span><span class="dvl"></span>2</span>; 1<span class="b1">]</span> = <b class="b0">[</b>0 0.5 0.707 0.866 1<b class="b0">]</b></span></p>
 <p><span class="eq"><var><span class="vec">⃗</span>y</var> = <b>reverse</b> ( <var><span class="vec">⃗</span>x</var> )  = <b class="b0">[</b>1 0.866 0.707 0.5 0<b class="b0">]</b></span></p>
-<p><span class="eq"><b>asin</b> ( <var><span class="vec">⃗</span>x</var> )  = <b class="b0">[</b>0 0.524 0.785 1.05 1.57<b class="b0">]</b></span> - inverse sine </p>
-<p><span class="eq"><b>acos</b> ( <var><span class="vec">⃗</span>x</var> )  = <b class="b0">[</b>1.57 1.05 0.785 0.524 0<b class="b0">]</b></span> - inverse cosine </p>
-<p><span class="eq"><b>atan</b> ( <var><span class="vec">⃗</span>x</var> )  = <b class="b0">[</b>0 0.464 0.615 0.714 0.785<b class="b0">]</b></span> - inverse tangent </p>
-<p><span class="eq"><b>atan2</b> ( <var><span class="vec">⃗</span>x</var>; <var><span class="vec">⃗</span>y</var> )  = <b class="b0">[</b>1.57 1.05 0.785 0.524 0<b class="b0">]</b></span> - the angle whose tangent is the quotient of y and x </p>
-<p><span class="eq"><b>acsc</b><span class="b1">(</span><span class="dvc">1<span class="dvl"></span><var><span class="vec">⃗</span>x</var></span><span class="b1">)</span> = <b class="b0">[</b>0 0.524 0.785 1.05 1.57<b class="b0">]</b></span> - inverse cosecant </p>
-<p><span class="eq"><b>asec</b><span class="b1">(</span><span class="dvc">1<span class="dvl"></span><var><span class="vec">⃗</span>x</var></span><span class="b1">)</span> = <b class="b0">[</b>1.57 1.05 0.785 0.524 0<b class="b0">]</b></span> - inverse secant </p>
-<p><span class="eq"><b>acot</b> ( <var><span class="vec">⃗</span>x</var> )  = <b class="b0">[</b>1.57 1.11 0.955 0.857 0.785<b class="b0">]</b></span> - inverse cotangent </p>
+<p><span class="eq"><b>asin</b> ( <var><span class="vec">⃗</span>x</var> )  = <b class="b0">[</b>0 <i>rad</i> 0.524 <i>rad</i> 0.785 <i>rad</i> 1.05 <i>rad</i> 1.57 <i>rad</i><b class="b0">]</b></span> - inverse sine </p>
+<p><span class="eq"><b>acos</b> ( <var><span class="vec">⃗</span>x</var> )  = <b class="b0">[</b>1.57 <i>rad</i> 1.05 <i>rad</i> 0.785 <i>rad</i> 0.524 <i>rad</i> 0 <i>rad</i><b class="b0">]</b></span> - inverse cosine </p>
+<p><span class="eq"><b>atan</b> ( <var><span class="vec">⃗</span>x</var> )  = <b class="b0">[</b>0 <i>rad</i> 0.464 <i>rad</i> 0.615 <i>rad</i> 0.714 <i>rad</i> 0.785 <i>rad</i><b class="b0">]</b></span> - inverse tangent </p>
+<p><span class="eq"><b>atan2</b> ( <var><span class="vec">⃗</span>x</var>; <var><span class="vec">⃗</span>y</var> )  = <b class="b0">[</b>1.57 <i>rad</i> 1.05 <i>rad</i> 0.785 <i>rad</i> 0.524 <i>rad</i> 0 <i>rad</i><b class="b0">]</b></span> - the angle whose tangent is the quotient of y and x </p>
+<p><span class="eq"><b>acsc</b><span class="b1">(</span><span class="dvc">1<span class="dvl"></span><var><span class="vec">⃗</span>x</var></span><span class="b1">)</span> = <b class="b0">[</b>0 <i>rad</i> 0.524 <i>rad</i> 0.785 <i>rad</i> 1.05 <i>rad</i> 1.57 <i>rad</i><b class="b0">]</b></span> - inverse cosecant </p>
+<p><span class="eq"><b>asec</b><span class="b1">(</span><span class="dvc">1<span class="dvl"></span><var><span class="vec">⃗</span>x</var></span><span class="b1">)</span> = <b class="b0">[</b>1.57 <i>rad</i> 1.05 <i>rad</i> 0.785 <i>rad</i> 0.524 <i>rad</i> 0 <i>rad</i><b class="b0">]</b></span> - inverse secant </p>
+<p><span class="eq"><b>acot</b> ( <var><span class="vec">⃗</span>x</var> )  = <b class="b0">[</b>1.57 <i>rad</i> 1.11 <i>rad</i> 0.955 <i>rad</i> 0.857 <i>rad</i> 0.785 <i>rad</i><b class="b0">]</b></span> - inverse cotangent </p>
 <p>&nbsp;</p>
 <p>Inverse hyperbolic:<hr/> </p>
 <p><span class="eq"><var><span class="vec">⃗</span>x</var> = <span class="b0">[</span>1; 2; 4<span class="b0">]</span> = <b class="b0">[</b>1 2 4<b class="b0">]</b></span></p>
@@ -3762,7 +3762,7 @@ From there, <a href="#vector-math-functions">norms, dot and cross products, and 
     
     
   
-      <script src="../assets/javascripts/bundle.c21346df.min.js"></script>
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
       
         <script src="../javascripts/mathjax.js"></script>
       

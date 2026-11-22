@@ -19,7 +19,7 @@
       
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
     
     
       
@@ -1373,17 +1373,6 @@
     <span class="md-ellipsis">
       
         Export
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#errors" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Errors
       
     </span>
   </a>
@@ -2877,7 +2866,7 @@
   <span class="md-ellipsis">
     
   
-    Steel (3)
+    Steel (4)
   
 
     
@@ -3142,17 +3131,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#errors" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Errors
-      
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -3206,7 +3184,7 @@ It shows what your document defines, lets you insert symbols and snippets, contr
 Because every CalcpadCE frontend embeds the same panel, the tabs and settings are identical everywhere; only how you open it differs:</p>
 <ul>
 <li><strong>VS Code</strong> — click the <strong>CalcpadCE</strong> icon in the activity bar. The view title bar has buttons to refresh and stop the background calculation engine.</li>
-<li><strong>Desktop app</strong> — <strong>View → Toggle Sidebar</strong>.</li>
+<li><strong>Desktop app</strong> — press <strong>Ctrl+Shift+B</strong> or use the sidebar reveal button.</li>
 </ul>
 <h2 id="panel-tabs">Panel tabs<a class="headerlink" href="#panel-tabs" title="Permanent link">&para;</a></h2>
 <p>The <strong>CalcpadCE</strong> view is organized into tabs:</p>
@@ -3228,7 +3206,7 @@ Because every CalcpadCE frontend embeds the same panel, the tabs and settings ar
 </tr>
 <tr>
 <td><strong>Settings</strong></td>
-<td>All calculation, plot, unit, PDF export, theme, editor, and linter settings, plus named configurations. See <a href="new-settings.html">Settings Documentation</a>.</td>
+<td>All calculation, plot, unit, PDF export, theme, editor, formatting, and linter settings, plus named configurations. See <a href="new-settings.html">Settings Documentation</a>.</td>
 </tr>
 <tr>
 <td><strong>Variables</strong></td>
@@ -3239,21 +3217,14 @@ Because every CalcpadCE frontend embeds the same panel, the tabs and settings ar
 <td>Form-based editor for the <a href="new-metadata-comments.html">metadata comment</a> at the cursor — descriptions, parameter/return types, per-file settings, lint-ignore, and per-document PDF export settings. Also allows editing #UI JSON, #settings JSON, and the UI Overrides line.</td>
 </tr>
 <tr>
-<td><strong>Formatting</strong></td>
-<td>Prettify options and the <strong>Prettify Document</strong> button.</td>
-</tr>
-<tr>
 <td><strong>Export</strong></td>
 <td>PDF / HTML / Word save actions, grouped by which rendering they capture, plus per-plot and ZIP image exports and the portable formats. See  <a href="new-exports.html">Exports Documentation</a>.</td>
 </tr>
-<tr>
-<td><strong>Errors</strong></td>
-<td>Full list of calculation errors from the engine, each linking to its source line.</td>
-</tr>
 </tbody>
 </table>
-<p>While a <a href="new-ui-mode.html"><code>#UI</code> input form</a> (or a compiled <code>.cpdz</code> worksheet) is the active document, <strong>Insert</strong>, <strong>Variables</strong>, <strong>Formatting</strong>, <strong>Errors</strong>, and <strong>Properties</strong> go inactive — they act on the document source, which the form doesn't edit.
-<strong>TOC</strong>, <strong>Settings</strong>, and <strong>Export</strong> stay available.</p>
+<p>While a <a href="new-ui-mode.html"><code>#UI</code> input form</a> (or a compiled <code>.cpdz</code> worksheet) is the active document, <strong>Insert</strong>, <strong>Variables</strong>, and <strong>Properties</strong> go inactive — they act on the document source, which the form doesn't edit.
+<strong>TOC</strong>, <strong>Settings</strong>, and <strong>Export</strong> stay available.
+<strong>Prettify Document</strong> is disabled in input mode.</p>
 <h3 id="insert">Insert<a class="headerlink" href="#insert" title="Permanent link">&para;</a></h3>
 <p>A searchable palette grouped by category.
 Typing filters the list; clicking an item inserts it at the cursor.
@@ -3280,7 +3251,7 @@ See <a href="new-metadata-comments.html">Metadata Comments</a>, <a href="new-set
 Selecting a heading scrolls the editor to that line.
 While a <a href="new-ui-mode.html"><code>#UI</code> input form</a> is open and there is no editor to scroll, it scrolls the form and the report.  </p>
 <h3 id="formatting-prettify">Formatting (Prettify)<a class="headerlink" href="#formatting-prettify" title="Permanent link">&para;</a></h3>
-<p>Controls the <strong>Prettify Document</strong> command, which reformats the active file:</p>
+<p>Open <strong>Settings → Formatting</strong> to use the <strong>Prettify Document</strong> command, which reformats the active file:</p>
 <ul>
 <li><strong>Indent style</strong> — Tab or Space</li>
 <li><strong>Spaces per level</strong> — used when the indent style is Space</li>
@@ -3316,9 +3287,6 @@ While a <a href="new-ui-mode.html"><code>#UI</code> input form</a> is open and t
 </tbody>
 </table>
 <p>See <a href="new-exports.html">Exports</a> for what each rendering captures, which formats it offers, how PDF page setup is resolved, and what the two portable formats produce.</p>
-<h3 id="errors">Errors<a class="headerlink" href="#errors" title="Permanent link">&para;</a></h3>
-<p>Lists every error the calculation engine reports, each with its source line and a link that jumps there.<br />
-This is the reliable place to see errors that occur inside <code>#hide</code> blocks, which are omitted from the rendered preview.</p>
 <h2 id="settings">Settings<a class="headerlink" href="#settings" title="Permanent link">&para;</a></h2>
 <p>The <strong>Settings</strong> tab is the single place to control the calculation engine and the editor — Math, Plot, Units, Server, themes, Editor features, Linter, Diagnostics, and named configurations.<br />
 See <a href="new-settings.html">Settings</a> for the full reference.</p>
@@ -3388,7 +3356,7 @@ See <a href="new-settings.html">Settings</a> for the full reference.</p>
     
     
   
-      <script src="assets/javascripts/bundle.c21346df.min.js"></script>
+      <script src="assets/javascripts/bundle.a5f9d56c.min.js"></script>
       
         <script src="javascripts/mathjax.js"></script>
       
