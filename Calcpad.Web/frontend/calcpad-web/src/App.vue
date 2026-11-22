@@ -251,12 +251,12 @@
           v-if="outputContextMenu.line"
           class="context-menu"
           @click="onCopyOutputLine"
-        >Copy</button>
+        >{{ t('Copy') }}</button>
         <button
           class="context-menu"
           :disabled="filteredOutputLines.length === 0"
           @click="onCopyAllOutput"
-        >Copy All</button>
+        >{{ t('Copy All') }}</button>
       </div>
 
       <!-- Bottom panel (Problems / Output) — reflects the ACTIVE group. -->
@@ -267,7 +267,7 @@
             :class="{ active: activeBottomTab === 'problems' }"
             @click="activeBottomTab = 'problems'"
           >
-            Problems
+            {{ t('Problems') }}
             <span v-if="errorCount + warningCount + infoCount > 0" class="problems-badge" :class="errorCount > 0 ? 'error' : warningCount > 0 ? 'warning' : 'info'">
               {{ errorCount + warningCount + infoCount }}
             </span>
@@ -277,7 +277,7 @@
             :class="{ active: activeBottomTab === 'output' }"
             @click="activeBottomTab = 'output'"
           >
-            Output
+            {{ t('Output') }}
           </button>
           <select
             v-if="activeBottomTab === 'output'"
@@ -286,7 +286,7 @@
             title="Output channel"
           >
             <option v-for="ch in (['app', 'preview', 'server', 'html'] as OutputChannel[])" :key="ch" :value="ch">
-              {{ OUTPUT_CHANNEL_LABELS[ch] }}
+              {{ outputChannelLabel(ch) }}
             </option>
           </select>
           <span v-if="isSplit" class="panel-scope" :title="'Showing the active editor group'">
@@ -1486,11 +1486,13 @@ export interface OutputLine {
   groupId?: string
 }
 
-const OUTPUT_CHANNEL_LABELS: Record<OutputChannel, string> = {
-  app: 'CalcpadCE',
-  preview: 'Preview Console',
-  server: 'Server',
-  html: 'HTML Preview Output',
+function outputChannelLabel(channel: OutputChannel): string {
+  switch (channel) {
+    case 'preview': return t('Preview Console')
+    case 'server': return t('Server')
+    case 'html': return t('HTML Preview Output')
+    default: return 'CalcpadCE'
+  }
 }
 
 const outputLines = ref<OutputLine[]>([])
