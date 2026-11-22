@@ -26,9 +26,9 @@ const LOCALE_LABELS: Record<CalcpadLocale, string> = {
     'pt-BR': 'Português (Brasil)',
 }
 
-export const LOCALE_OPTIONS: { value: LocaleSetting; label: string }[] = [
-    { value: 'auto', label: 'Auto' },
-    ...SUPPORTED_LOCALES.map(value => ({ value, label: LOCALE_LABELS[value] })),
+export const LOCALE_OPTIONS: { value: LocaleSetting; label: string; translatable: boolean }[] = [
+    { value: 'auto', label: 'Auto', translatable: true },
+    ...SUPPORTED_LOCALES.map(value => ({ value, label: LOCALE_LABELS[value], translatable: false })),
 ]
 
 let hostLocale: string | undefined

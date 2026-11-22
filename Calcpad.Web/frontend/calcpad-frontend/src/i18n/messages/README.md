@@ -12,4 +12,6 @@
 - `vscodeMatch: true` flags an exact English+Chinese match with the pack.
   It is an observation, not proof of copying.
 - A community entry can add `replaces` when it supersedes a `vscode-vue` string.
+- `Auto` is looked up as `tt('Auto')` by the language selector.
+  It remains English until a reviewed entry is added.
 - Add new keys to `zh.ts` and add their explicit provenance to `provenance.json`.
