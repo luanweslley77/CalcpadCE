@@ -8,124 +8,164 @@
   },
   "keys": {
     "Apply": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
     },
     "Cancel": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-monaco"
     },
     "Close": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-monaco"
     },
     "Close All": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
     },
     "Collapse": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
     },
     "Collapse All": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
     },
     "Copy": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-monaco"
     },
     "Copy All": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
     },
     "Copy Relative Path": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
     },
     "Description": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
     },
     "Error": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-monaco"
     },
     "File": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-monaco"
     },
     "Files": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
     },
     "Formatting": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
     },
     "Insert": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-monaco"
     },
     "Minimize": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
     },
     "Mode": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
     },
     "New Window": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
     },
     "Next": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-monaco"
     },
     "None": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
     },
     "Open Containing Folder": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
     },
     "Open Folder": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
     },
     "Open Recent": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
     },
     "Open...": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
     },
     "Output": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
     },
     "Preview": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
     },
     "Previous": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-monaco"
     },
     "Problems": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
     },
     "Refresh": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
     },
     "Remove": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
     },
     "Reset": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
     },
     "Restore": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
     },
     "Review": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
     },
     "Save": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-monaco"
     },
     "Save As...": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
     },
     "Settings": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
     },
     "System": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
     },
     "Title": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
     },
     "Variables": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
     },
     "Warning": {
-      "source": "vscode-shared-ui"
+      "source": "vscode",
+      "vscodeSource": "vscode-monaco"
     }
   }
 }

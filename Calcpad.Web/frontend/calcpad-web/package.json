@@ -14,8 +14,8 @@
     "check:contrast": "node ../scripts/check-contrast.mjs",
     "generate:monaco-nls": "node ../scripts/generate-monaco-nls-maps.mjs",
     "generate:monaco-nls:check": "node ../scripts/generate-monaco-nls-maps.mjs --check",
-    "import:vscode-shared-ui": "node ../scripts/import-vscode-shared-ui.mjs",
-    "import:vscode-shared-ui:check": "node ../scripts/import-vscode-shared-ui.mjs --check",
+    "import:vscode": "node ../scripts/import-vscode.mjs",
+    "import:vscode:check": "node ../scripts/import-vscode.mjs --check",
     "check:i18n-provenance": "node ../scripts/check-i18n-provenance.mjs"
   },
   "dependencies": {
