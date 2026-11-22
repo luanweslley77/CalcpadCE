@@ -10,8 +10,8 @@
       "commit": "110df563b65cd2a1f9d8b58e3bdcadce90427f6d",
       "license": "MIT"
     },
-    "vscode-vue": {
-      "description": "Reused from a Microsoft VS Code language pack in the Vue UI.",
+    "vscode-shared-ui": {
+      "description": "Reused from a Microsoft VS Code language pack in a shared Calcpad UI surface.",
       "source": "microsoft/vscode-loc",
       "tag": "v1.96.2024121109",
       "commit": "110df563b65cd2a1f9d8b58e3bdcadce90427f6d",

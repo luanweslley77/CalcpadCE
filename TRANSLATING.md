@@ -12,7 +12,10 @@ A translated key has one of three sources.
 |---|---|
 | `community` | Translations contributed by the CalcpadCE community, including the initial Chinese catalog and future locales. |
 | `vscode-monaco` | Generated from a `microsoft/vscode-loc` pack into Monaco NLS. |
-| `vscode-vue` | Reused from a `microsoft/vscode-loc` pack in the Vue UI. |
+| `vscode-shared-ui` | Reused from a `microsoft/vscode-loc` pack in a shared Calcpad UI surface: Vue sidebar, Tauri menu, webview. |
+
+`vscode-shared-ui` describes the origin, not the surface.
+The same source label applies whether the string lands in Vue, the native menu, or a webview.
 
 ## Where provenance lives
 
@@ -34,7 +37,7 @@ A translated key has one of three sources.
     "origin": "3e486ccf"
   },
   "Find": {
-    "source": "vscode-vue"
+    "source": "vscode-shared-ui"
   },
   "Copy": {
     "source": "community",
@@ -45,7 +48,7 @@ A translated key has one of three sources.
 ```
 
 `origin` for a community key is the short commit that last changed the line, as reported by `git blame`.
-A `vscode-vue` entry uses the pack pin in `sources` and does not need a commit origin.
+A `vscode-shared-ui` entry uses the pack pin in `sources` and does not need a commit origin.
 `vscodeMatch: true` means the English key and the Chinese value exactly match a pinned VS Code pack.
 It is an observation, not proof that the translator copied the pack, so the source stays `community` unless a contributor confirms it.
 
@@ -53,14 +56,14 @@ It is an observation, not proof that the translator copied the pack, so the sour
 
 A catalog may contain only the keys that have been translated.
 Missing keys fall back to English; every key that is present must have explicit provenance.
-`pt-BR.ts` currently contains the strings verified against the pinned VS Code pack, marked `vscode-vue`.
+`pt-BR.ts` currently contains the strings verified against the pinned VS Code pack, marked `vscode-shared-ui`.
 Community translations are added as new entries with `source: "community"` and an `origin`.
 
 ## Community overrides
 
 A community translation can replace a string that came from VS Code.
 Record the replaced source in `replaces`.
-The only valid values are `vscode-vue` and `vscode-monaco`.
+The only valid values are `vscode-shared-ui` and `vscode-monaco`.
 
 In the Vue catalog, a per-key entry becomes an object:
 
@@ -68,7 +71,7 @@ In the Vue catalog, a per-key entry becomes an object:
 "keys": {
   "Find": {
     "source": "community",
-    "replaces": "vscode-vue",
+    "replaces": "vscode-shared-ui",
     "note": "Calcpad uses its own wording here."
   }
 }
@@ -92,7 +95,7 @@ The Vite plugin merges the overrides at build time.
 
 ## Rules
 
-1. Every translated key is `community`, `vscode-monaco`, or `vscode-vue`.
+1. Every translated key is `community`, `vscode-monaco`, or `vscode-shared-ui`.
 2. Every Vue key has an explicit entry; there is no default source.
 3. Every `community` Vue key records its `origin` commit.
 4. `vscode-*` entries record the pack, tag, commit and license.

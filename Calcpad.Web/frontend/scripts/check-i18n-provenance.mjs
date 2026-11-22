@@ -56,7 +56,7 @@ for (const catalog of catalogs) {
     if (typeof entry === 'object' && entry.replaces) {
       if (source !== 'community')
         errors.push(`${catalog.label}: key "${key}" can only replace from community`);
-      if (!['vscode-monaco', 'vscode-vue'].includes(entry.replaces))
+      if (!['vscode-monaco', 'vscode-shared-ui'].includes(entry.replaces))
         errors.push(`${catalog.label}: key "${key}" replaces unknown source "${entry.replaces}"`);
       overrides++;
     }
