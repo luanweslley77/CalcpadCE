@@ -11,7 +11,9 @@
     "build:desktop": "vite build --mode desktop",
     "build:watch": "vite build --watch",
     "preview": "vite preview",
-    "check:contrast": "node ../scripts/check-contrast.mjs"
+    "check:contrast": "node ../scripts/check-contrast.mjs",
+    "generate:monaco-nls": "node ../scripts/generate-monaco-nls-maps.mjs",
+    "generate:monaco-nls:check": "node ../scripts/generate-monaco-nls-maps.mjs --check"
   },
   "dependencies": {
     "@tauri-apps/api": "^2",

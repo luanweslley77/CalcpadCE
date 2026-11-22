@@ -44,6 +44,10 @@ cd calcpad-web && npm install && npm run dev
 
 The editor takes its server URL from a `?server=` query parameter, else `VITE_SERVER_URL`, else the page's own origin.
 
+Monaco's built-in labels come from the pinned VS Code language packs in
+`calcpad-web/src/editor/monaco-nls/`. After updating `monaco-editor`,
+regenerate the maps with `cd calcpad-web && npm run generate:monaco-nls`.
+
 **Desktop App:**
 ```bash
 cd calcpad-desktop && npm install && npm run dev

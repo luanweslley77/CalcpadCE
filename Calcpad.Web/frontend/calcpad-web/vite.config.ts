@@ -4,43 +4,78 @@ import vue from '@vitejs/plugin-vue';
 import path from 'path';
 import fs from 'node:fs';
 
-// Monaco's npm ESM build inlines English and ignores the NLS global table, so each
-// localize() message is wrapped in a tiny runtime chooser instead. The map pairs the
-// English fallbacks in the min build with the matching zh-cn NLS entries.
-const monacoZh = JSON.parse(
-    fs.readFileSync(path.resolve(__dirname, 'src/editor/monaco-zh-map.json'), 'utf8'),
-) as Record<string, string>;
-
-const MONACO_NLS_HELPER =
-    "const __calcpadTr=(en,zh)=>{try{const l=localStorage.getItem('calcpad.locale');" +
-    "if(l==='en')return en;if(l==='zh')return zh}catch(e){}" +
-    "return typeof navigator!=='undefined'&&navigator.language.toLowerCase().startsWith('zh')?zh:en};";
-
-function translateMonacoLiterals(code: string): string {
-    const doubleQuoted = /(\blocalize2?\s*\(\s*(?:'[^'\\]*(?:\\.[^'\\]*)*'|"[^"\\]*(?:\\.[^"\\]*)*")\s*,\s*)"((?:[^"\\]|\\.)*)"/g;
-    const singleQuoted = /(\blocalize2?\s*\(\s*(?:'[^'\\]*(?:\\.[^'\\]*)*'|"[^"\\]*(?:\\.[^"\\]*)*")\s*,\s*)'((?:[^'\\]|\\.)*)'/g;
-    const swap = (match: string, head: string, body: string) => {
-        let text: string;
-        try {
-            text = JSON.parse('"' + body.replace(/\\'/g, "'") + '"');
-        } catch {
-            text = body;
-        }
-        const zh = monacoZh[text];
-        return zh ? head + `__calcpadTr(${JSON.stringify(text)}, ${JSON.stringify(zh)})` : match;
-    };
-    const out = code.replace(doubleQuoted, swap).replace(singleQuoted, swap);
-    return out === code ? code : MONACO_NLS_HELPER + '\n' + out;
+// Monaco's ESM build calls localize('key', 'English') with a string key, so the
+// numeric NLS table used by its AMD build is never consulted. The maps carry the
+// same (module, key) pairs from the pinned VS Code language packs.
+function loadMonacoNls(locale: string): Record<string, Record<string, string>> {
+    return JSON.parse(
+        fs.readFileSync(path.resolve(__dirname, `src/editor/monaco-nls/${locale}.json`), 'utf8'),
+    );
 }
 
-function monacoChineseNls() {
+const monacoNls = {
+    zh: loadMonacoNls('zh'),
+    'pt-BR': loadMonacoNls('pt-BR'),
+};
+
+const MONACO_NLS_HELPER =
+    "const __calcpadTr=(en,zh,pt)=>{try{const l=localStorage.getItem('calcpad.locale');" +
+    "if(l==='en')return en;if(l==='zh')return zh||en;if(l==='pt-BR')return pt||en}catch(e){}" +
+    "const n=typeof navigator!=='undefined'?navigator.language.toLowerCase():'';" +
+    "if(n.startsWith('zh'))return zh||en;if(n.startsWith('pt'))return pt||en;return en};";
+
+const MONACO_LOCALIZE =
+    /(\blocalize2?\s*\(\s*(?:'((?:[^'\\]|\\.)*)'|"((?:[^"\\]|\\.)*)")\s*,\s*)(?:'((?:[^'\\]|\\.)*)'|"((?:[^"\\]|\\.)*)")/g;
+
+function decodeString(raw: string): string {
+    try {
+        return JSON.parse('"' + raw.replace(/\\'/g, "'") + '"');
+    } catch {
+        return raw;
+    }
+}
+
+function monacoModule(id: string): string | null {
+    const normalized = id.replace(/\\/g, '/').split('?')[0].split('#')[0];
+    const marker = 'monaco-editor/esm/';
+    const start = normalized.indexOf(marker);
+    return start < 0 ? null : normalized.slice(start + marker.length).replace(/\.js$/, '');
+}
+
+function translateMonacoLiterals(code: string, module: string): string {
+    const zhMap = monacoNls.zh[module];
+    const ptMap = monacoNls['pt-BR'][module];
+    if (!zhMap && !ptMap) return code;
+
+    let changed = false;
+    const out = code.replace(
+        MONACO_LOCALIZE,
+        (match, head, keySingle, keyDouble, bodySingle, bodyDouble) => {
+            const key = decodeString(keySingle ?? keyDouble);
+            const english = decodeString(bodySingle ?? bodyDouble);
+            const zh = zhMap?.[key];
+            const pt = ptMap?.[key];
+            if (!zh && !pt) return match;
+            changed = true;
+            const zhArg = zh ? JSON.stringify(zh) : 'undefined';
+            const ptArg = pt ? JSON.stringify(pt) : 'undefined';
+            return `${head}__calcpadTr(${JSON.stringify(english)}, ${zhArg}, ${ptArg})`;
+        },
+    );
+    return changed ? MONACO_NLS_HELPER + '\n' + out : code;
+}
+
+function monacoLanguagePacks() {
     return {
-        name: 'monaco-chinese-nls',
+        name: 'monaco-language-packs',
         enforce: 'pre' as const,
         transform(code: string, id: string) {
-            if (!id.includes('monaco-editor/esm/') || !id.endsWith('.js')) return null;
+            const cleanId = id.split('?')[0].split('#')[0];
+            if (!cleanId.includes('monaco-editor/esm/') || !cleanId.endsWith('.js')) return null;
             if (!code.includes('localize(') && !code.includes('localize2(')) return null;
-            const out = translateMonacoLiterals(code);
+            const module = monacoModule(cleanId);
+            if (!module) return null;
+            const out = translateMonacoLiterals(code, module);
             return out === code ? null : { code: out, map: null };
         },
     };
@@ -51,7 +86,7 @@ function monacoChineseNls() {
 // still overrides the dev proxy target when developers point at an already-
 // running Calcpad.Server.
 export default defineConfig(() => ({
-    plugins: [monacoChineseNls(), vue()],
+    plugins: [monacoLanguagePacks(), vue()],
     define: {
     'import.meta.env.VITE_APP_VERSION': JSON.stringify(resolveVersion()),
         'import.meta.env.VITE_PLATFORM': JSON.stringify('web'),
