@@ -17,11 +17,36 @@ A translated key has one of three sources.
 ## Where provenance lives
 
 - **Vue UI:** `Calcpad.Web/frontend/calcpad-frontend/src/i18n/messages/provenance.json`.
-  A `default` source applies to every key; `keys` lists per-key exceptions, such as `vscode-vue`.
+  Every key has an explicit entry; there is no blanket default.
+  `origins` records the commit, author and date that last changed the string.
 - **Monaco:** `Calcpad.Web/frontend/calcpad-web/src/editor/monaco-nls/SOURCES.json`.
   Every map comes from one pinned pack; entries are generated, not hand-written.
 - **.NET messages:** `Calcpad.Core/Messages.PROVENANCE.md`.
 - **Docs:** each translated page should declare its source in front matter.
+
+## Per-key entries
+
+```json
+"keys": {
+  "Files": {
+    "source": "community",
+    "origin": "3e486ccf"
+  },
+  "Find": {
+    "source": "vscode-vue"
+  },
+  "Copy": {
+    "source": "community",
+    "origin": "3e486ccf",
+    "vscodeMatch": true
+  }
+}
+```
+
+`origin` for a community key is the short commit that last changed the line, as reported by `git blame`.
+A `vscode-vue` entry uses the pack pin in `sources` and does not need a commit origin.
+`vscodeMatch: true` means the English key and the Chinese value exactly match a pinned VS Code pack.
+It is an observation, not proof that the translator copied the pack, so the source stays `community` unless a contributor confirms it.
 
 ## Community overrides
 
@@ -60,12 +85,15 @@ The Vite plugin merges the overrides at build time.
 ## Rules
 
 1. Every translated key is `community`, `vscode-monaco`, or `vscode-vue`.
-2. `vscode-*` entries record the pack, tag, commit and license.
-3. Do not edit generated Monaco maps by hand; regenerate them.
-4. Do not copy VS Code wording blindly; check context and terminology.
-5. Machine translation is not a source.
+2. Every Vue key has an explicit entry; there is no default source.
+3. Every `community` Vue key records its `origin` commit.
+4. `vscode-*` entries record the pack, tag, commit and license.
+5. `vscodeMatch` does not change the source by itself.
+6. Do not edit generated Monaco maps by hand; regenerate them.
+7. Do not copy VS Code wording blindly; check context and terminology.
+8. Machine translation is not a source.
    A machine draft must be reworked and reviewed as a community contribution before merging.
-6. Language names are endonyms; never translate them.
-7. Run the provenance check before merging.
+9. Language names are endonyms; never translate them.
+10. Run the provenance check before merging.
 
 The check lives at `Calcpad.Web/frontend/scripts/check-i18n-provenance.mjs`.
