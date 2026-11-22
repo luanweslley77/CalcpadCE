@@ -23,6 +23,8 @@ The same source label applies whether the string lands in Vue, the native menu, 
   Every key has an explicit entry; there is no blanket default.
   `origins` records the commit, author and date that last changed the string.
   A partial catalog uses its own manifest, such as `provenance.pt-BR.json`.
+- **Native menu:** the same shared catalogs.
+  `Calcpad.Web/frontend/calcpad-frontend/src/i18n/menu.ts` lists the keys the Rust menu uses.
 - **Monaco:** `Calcpad.Web/frontend/calcpad-web/src/editor/monaco-nls/SOURCES.json`.
   Every map comes from one pinned pack; entries are generated, not hand-written.
 - **.NET messages:** `Calcpad.Core/Messages.PROVENANCE.md`.
