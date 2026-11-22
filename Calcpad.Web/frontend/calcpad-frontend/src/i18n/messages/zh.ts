@@ -1,4 +1,4 @@
-// Provenance: see provenance.json. Default: upstream-community; Auto/English: ours-unreviewed.
+// Provenance: see provenance.json. Entries are community translations unless marked vscode-vue.
 const zh: Record<string, string> = {
     "Auto": "自动",
     "English": "英语",

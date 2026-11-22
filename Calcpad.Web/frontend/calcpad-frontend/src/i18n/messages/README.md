@@ -3,5 +3,5 @@
 - `en.ts` is the English source.
   Keys are the English text, so the file is intentionally empty.
 - `zh.ts` is the Chinese catalog.
-- `provenance.json` records where each key came from.
-- Add new keys to `zh.ts` and mark their source in `provenance.json`.
+- `provenance.json` records whether each key is `community` or `vscode-vue`.
+- Add new keys to `zh.ts` and mark `vscode-vue` keys in `provenance.json`.

@@ -1,17 +1,8 @@
 {
-  "default": "upstream-community",
+  "default": "community",
   "sources": {
-    "upstream-community": {
-      "description": "Translations that predate the provenance convention.",
-      "review": "unknown"
-    },
-    "ours-reviewed": {
-      "description": "Authored by CalcpadCE contributors and reviewed by a native speaker.",
-      "review": "complete"
-    },
-    "ours-unreviewed": {
-      "description": "Authored by CalcpadCE contributors; native review pending.",
-      "review": "pending"
+    "community": {
+      "description": "Translations contributed by the CalcpadCE community, including the initial Chinese catalog and future locales."
     },
     "vscode-vue": {
       "description": "Reused from a Microsoft VS Code language pack in the Vue UI.",
@@ -21,8 +12,5 @@
       "license": "MIT"
     }
   },
-  "keys": {
-    "Auto": "ours-unreviewed",
-    "English": "ours-unreviewed"
-  }
+  "keys": {}
 }
