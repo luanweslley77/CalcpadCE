@@ -2,7 +2,7 @@ import * as monaco from 'monaco-editor';
 import { createApp, nextTick, watch, type Ref } from 'vue';
 import type { Composer } from 'vue-i18n';
 import App from './App.vue';
-import { createCalcpadI18n, readLocaleSetting, menuLabelsFor } from 'calcpad-frontend/i18n';
+import { createCalcpadI18n, readLocaleSetting, menuLabelsFor, LOCALE_CHANGED_EVENT } from 'calcpad-frontend/i18n';
 import { invoke } from '@tauri-apps/api/core';
 import CalcpadAppVue from 'calcpad-frontend/vue/components/CalcpadApp.vue';
 import { initMessaging } from 'calcpad-frontend/vue/services/messaging';
@@ -2544,6 +2544,30 @@ async function bootstrap(): Promise<void> {
             }
             workspace.update({ openFiles, activeFile: activeGroup.tabs.activeTab?.filePath ?? '' });
         }
+
+        // Monaco freezes its NLS strings and the editor actions at startup, so a
+        // locale change needs a fresh webview. Preserve drafts and the session first.
+        let localeReloadPending = false;
+        window.addEventListener(LOCALE_CHANGED_EVENT, () => {
+            if (localeReloadPending) return;
+            localeReloadPending = true;
+            void (async () => {
+                try {
+                    captureSession();
+                    const dirty: string[] = [];
+                    for (const g of groups.values())
+                        for (const t of g.tabs.all)
+                            if (g.tabs.isDirty(t.id)) dirty.push(t.id);
+                    for (const id of dirty) await writeDraft(id);
+                    await workspace.flush();
+                } catch (err) {
+                    appInstance.appendOutput('warn',
+                        `Could not preserve the session before reloading: ${err instanceof Error ? err.message : String(err)}`);
+                } finally {
+                    window.location.reload();
+                }
+            })();
+        });
 
         /**
          * Reopens last launch's files into the primary group. Deliberately not routed

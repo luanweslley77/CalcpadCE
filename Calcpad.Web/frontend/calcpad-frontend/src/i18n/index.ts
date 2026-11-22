@@ -15,7 +15,10 @@ export type CalcpadLocale = (typeof SUPPORTED_LOCALES)[number]
 export type LocaleSetting = 'auto' | CalcpadLocale
 
 export const LOCALE_STORAGE_KEY = 'calcpad.locale'
+/** Fired after a locale change so hosts can rebuild the editor. */
+export const LOCALE_CHANGED_EVENT = 'calcpad:locale-changed'
 
+// Endonyms: language names are never translated.
 const LOCALE_LABELS: Record<CalcpadLocale, string> = {
     en: 'English',
     zh: '中文',
@@ -72,6 +75,11 @@ export function getActiveLocale(): CalcpadLocale {
     return activeLocale
 }
 
+function notifyLocaleChanged(setting: LocaleSetting, locale: CalcpadLocale): void {
+    if (typeof window === 'undefined') return
+    window.dispatchEvent(new CustomEvent(LOCALE_CHANGED_EVENT, { detail: { setting, locale } }))
+}
+
 function applyResolvedLocale(i18n: I18n, setting: LocaleSetting): CalcpadLocale {
     const locale = resolveLocale(setting)
     activeLocale = locale
@@ -80,6 +88,7 @@ function applyResolvedLocale(i18n: I18n, setting: LocaleSetting): CalcpadLocale 
     composer.locale.value = locale
     writeLocaleSetting(setting)
     if (typeof document !== 'undefined') document.documentElement.lang = locale
+    notifyLocaleChanged(setting, locale)
     return locale
 }
 
@@ -106,10 +115,12 @@ export function applyLocale(i18n: I18n, setting: LocaleSetting): CalcpadLocale {
 
 export function setLocale(setting: LocaleSetting): CalcpadLocale {
     if (!activeI18n) {
-        activeLocale = resolveLocale(setting)
+        const locale = resolveLocale(setting)
+        activeLocale = locale
         writeLocaleSetting(setting)
-        if (typeof document !== 'undefined') document.documentElement.lang = activeLocale
-        return activeLocale
+        if (typeof document !== 'undefined') document.documentElement.lang = locale
+        notifyLocaleChanged(setting, locale)
+        return locale
     }
     return applyLocale(activeI18n, setting)
 }
