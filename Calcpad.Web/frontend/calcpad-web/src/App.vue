@@ -251,12 +251,12 @@
           v-if="outputContextMenu.line"
           class="context-menu"
           @click="onCopyOutputLine"
-        >Copy</button>
+        >{{ t('Copy') }}</button>
         <button
           class="context-menu"
           :disabled="filteredOutputLines.length === 0"
           @click="onCopyAllOutput"
-        >Copy All</button>
+        >{{ t('Copy All') }}</button>
       </div>
 
       <!-- Bottom panel (Problems / Output) — reflects the ACTIVE group. -->
@@ -267,7 +267,7 @@
             :class="{ active: activeBottomTab === 'problems' }"
             @click="activeBottomTab = 'problems'"
           >
-            Problems
+            {{ t('Problems') }}
             <span v-if="errorCount + warningCount + infoCount > 0" class="problems-badge" :class="errorCount > 0 ? 'error' : warningCount > 0 ? 'warning' : 'info'">
               {{ errorCount + warningCount + infoCount }}
             </span>
@@ -277,7 +277,7 @@
             :class="{ active: activeBottomTab === 'output' }"
             @click="activeBottomTab = 'output'"
           >
-            Output
+            {{ t('Output') }}
           </button>
           <select
             v-if="activeBottomTab === 'output'"
