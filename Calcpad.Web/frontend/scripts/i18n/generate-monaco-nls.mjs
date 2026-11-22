@@ -13,7 +13,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const frontendRoot = path.resolve(here, '..');
+const frontendRoot = path.resolve(here, '../..');
 const webRoot = path.join(frontendRoot, 'calcpad-web');
 const nlsDir = path.join(webRoot, 'src/editor/monaco-nls');
 const cacheDir = path.join(webRoot, 'node_modules/.cache/calcpad-monaco-nls');
