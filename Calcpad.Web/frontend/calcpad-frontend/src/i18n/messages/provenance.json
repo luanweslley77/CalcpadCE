@@ -562,11 +562,6 @@
       "source": "community",
       "origin": "3e486ccf"
     },
-    "HTML Preview Output": {
-      "source": "community",
-      "origin": "3e486ccf",
-      "note": "Composed from the community terms for HTML, preview and output."
-    },
     "Ignore #hide so suppressed content is rendered anyway. For debugging.": {
       "source": "community",
       "origin": "3e486ccf"
@@ -997,11 +992,6 @@
       "source": "community",
       "origin": "3e486ccf"
     },
-    "Preview Console": {
-      "source": "community",
-      "origin": "3e486ccf",
-      "note": "Composed from the community term in 'Max Preview Console Messages:'."
-    },
     "Previous": {
       "source": "community",
       "origin": "3e486ccf",
@@ -1238,11 +1228,6 @@
     "Selects US or UK definitions for bare unit names that differ between the two systems (gal, ton, cwt, pt, qt, bbl, tonf, therm, etc.).": {
       "source": "community",
       "origin": "3e486ccf"
-    },
-    "Server": {
-      "source": "community",
-      "origin": "3e486ccf",
-      "note": "Composed from the community term in the log-level description."
     },
     "Set as Reviewed": {
       "source": "community",
