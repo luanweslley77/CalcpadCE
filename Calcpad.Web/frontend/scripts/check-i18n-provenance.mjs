@@ -28,17 +28,32 @@ if (!provenance.default || !provenance.sources?.[provenance.default]) {
   errors.push(`provenance.json: default source "${provenance.default}" is not declared`);
 }
 const counts = new Map();
+let vueOverrides = 0;
 for (const key of zh) {
-  const source = provenance.keys?.[key] ?? provenance.default;
+  const entry = provenance.keys?.[key] ?? provenance.default;
+  const source = typeof entry === 'string' ? entry : entry?.source;
+  if (!source) {
+    errors.push(`provenance.json: key "${key}" has no source`);
+    continue;
+  }
+  if (typeof entry === 'object' && entry.replaces) {
+    if (source !== 'community')
+      errors.push(`provenance.json: key "${key}" can only replace from community`);
+    if (!['vscode-monaco', 'vscode-vue'].includes(entry.replaces))
+      errors.push(`provenance.json: key "${key}" replaces unknown source "${entry.replaces}"`);
+    vueOverrides++;
+  }
   if (!provenance.sources?.[source]) {
     errors.push(`provenance.json: key "${key}" uses undeclared source "${source}"`);
     continue;
   }
   counts.set(source, (counts.get(source) ?? 0) + 1);
 }
-for (const [key, source] of Object.entries(provenance.keys ?? {})) {
+for (const [key, entry] of Object.entries(provenance.keys ?? {})) {
   if (!zh.has(key)) errors.push(`provenance.json: key "${key}" is not in zh.ts`);
-  if (!provenance.sources?.[source]) errors.push(`provenance.json: source "${source}" is not declared`);
+  const source = typeof entry === 'string' ? entry : entry?.source;
+  if (!source || !provenance.sources?.[source])
+    errors.push(`provenance.json: key "${key}" has an undeclared source`);
 }
 
 const monacoSources = readJson(path.join(monaco, 'SOURCES.json'));
@@ -58,6 +73,7 @@ if (monacoSources.license !== 'MIT')
 const packs = new Map();
 for (const match of generatorSource.matchAll(/\{ output: '([^']+)', folder: '([^']+)' \}/g))
   packs.set(match[1], match[2]);
+const baseMaps = {};
 for (const [file, info] of Object.entries(monacoSources.maps ?? {})) {
   const output = file.replace(/\.json$/, '');
   if (!fs.existsSync(path.join(monaco, file))) {
@@ -72,9 +88,43 @@ for (const [file, info] of Object.entries(monacoSources.maps ?? {})) {
     errors.push(`SOURCES.json: pack for "${file}" does not match the generator`);
   if (info.source !== 'vscode-monaco')
     errors.push(`SOURCES.json: map "${file}" must be vscode-monaco`);
+  baseMaps[output] = readJson(path.join(monaco, file));
 }
 if (Object.keys(monacoSources.maps ?? {}).length !== packs.size)
   errors.push('SOURCES.json: map count does not match the generator packs');
+
+let monacoOverrides = 0;
+for (const [locale, info] of Object.entries(monacoSources.overrides ?? {})) {
+  if (info.source !== 'community')
+    errors.push(`SOURCES.json: override "${locale}" must be community`);
+  if (info.replaces !== 'vscode-monaco')
+    errors.push(`SOURCES.json: override "${locale}" must replace vscode-monaco`);
+  const file = path.join(monaco, info.path);
+  if (!fs.existsSync(file)) {
+    errors.push(`SOURCES.json: override "${info.path}" does not exist`);
+    continue;
+  }
+  const data = readJson(file);
+  const base = baseMaps[locale];
+  if (!base) {
+    errors.push(`SOURCES.json: override "${locale}" has no base map`);
+    continue;
+  }
+  for (const [module, entries] of Object.entries(data)) {
+    if (!base[module]) {
+      errors.push(`overrides/${locale}.json: module "${module}" is not in the base map`);
+      continue;
+    }
+    for (const [key, value] of Object.entries(entries)) {
+      if (!base[module][key])
+        errors.push(`overrides/${locale}.json: "${module}::${key}" is not in the base map`);
+      if (typeof value !== 'string' || !value)
+        errors.push(`overrides/${locale}.json: "${module}::${key}" has an empty translation`);
+      else
+        monacoOverrides++;
+    }
+  }
+}
 
 if (errors.length) {
   console.error('Translation provenance check failed:');
@@ -82,7 +132,7 @@ if (errors.length) {
   process.exitCode = 1;
 } else {
   const summary = [...counts].map(([source, count]) => `${count} ${source}`).join(', ');
-  console.log(`Vue zh: ${zh.size} keys (${summary})`);
-  console.log(`Monaco: ${Object.keys(monacoSources.maps).length} maps from ${monacoSources.source} ${monacoSources.tag} (vscode-monaco)`);
+  console.log(`Vue zh: ${zh.size} keys (${summary}; ${vueOverrides} overrides)`);
+  console.log(`Monaco: ${Object.keys(monacoSources.maps).length} maps from ${monacoSources.source} ${monacoSources.tag} (vscode-monaco; ${monacoOverrides} overrides)`);
   console.log('Provenance OK');
 }

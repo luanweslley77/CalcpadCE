@@ -13,5 +13,17 @@
       "source": "vscode-monaco",
       "pack": "vscode-language-pack-pt-BR"
     }
+  },
+  "overrides": {
+    "zh": {
+      "source": "community",
+      "replaces": "vscode-monaco",
+      "path": "overrides/zh.json"
+    },
+    "pt-BR": {
+      "source": "community",
+      "replaces": "vscode-monaco",
+      "path": "overrides/pt-BR.json"
+    }
   }
 }

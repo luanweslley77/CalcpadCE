@@ -23,3 +23,7 @@ is missing.
 
 Every entry is generated from the pinned pack; see `SOURCES.json`.
 None of the entries are hand-written.
+
+Community overrides live in `overrides/<locale>.json` and are declared in
+`SOURCES.json` with `replaces: vscode-monaco`.
+The Vite plugin merges them over the generated map at build time.

@@ -23,6 +23,40 @@ A translated key has one of three sources.
 - **.NET messages:** `Calcpad.Core/Messages.PROVENANCE.md`.
 - **Docs:** each translated page should declare its source in front matter.
 
+## Community overrides
+
+A community translation can replace a string that came from VS Code.
+Record the replaced source in `replaces`.
+The only valid values are `vscode-vue` and `vscode-monaco`.
+
+In the Vue catalog, a per-key entry becomes an object:
+
+```json
+"keys": {
+  "Find": {
+    "source": "community",
+    "replaces": "vscode-vue",
+    "note": "Calcpad uses its own wording here."
+  }
+}
+```
+
+In Monaco, put the replacement in `monaco-nls/overrides/<locale>.json`.
+`SOURCES.json` declares the override file and its `replaces`:
+
+```json
+"overrides": {
+  "zh": {
+    "source": "community",
+    "replaces": "vscode-monaco",
+    "path": "overrides/zh.json"
+  }
+}
+```
+
+The generated maps stay untouched.
+The Vite plugin merges the overrides at build time.
+
 ## Rules
 
 1. Every translated key is `community`, `vscode-monaco`, or `vscode-vue`.
