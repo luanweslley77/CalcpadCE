@@ -7,7 +7,7 @@ import fs from 'node:fs';
 // Monaco's ESM build calls localize('key', 'English') with a string key, so the
 // numeric NLS table used by its AMD build is never consulted. The maps carry the
 // same (module, key) pairs from the pinned VS Code language packs.
-function loadMonacoNls(locale: string, file: string): Record<string, Record<string, string>> {
+function loadMonacoNls(file: string): Record<string, Record<string, string>> {
     const fullPath = path.resolve(__dirname, `src/editor/monaco-nls/${file}`);
     return fs.existsSync(fullPath)
         ? JSON.parse(fs.readFileSync(fullPath, 'utf8'))
@@ -24,8 +24,8 @@ function mergeMonacoNls(
 }
 
 const monacoNls = {
-    zh: mergeMonacoNls(loadMonacoNls('zh', 'zh.json'), loadMonacoNls('zh', 'overrides/zh.json')),
-    'pt-BR': mergeMonacoNls(loadMonacoNls('pt-BR', 'pt-BR.json'), loadMonacoNls('pt-BR', 'overrides/pt-BR.json')),
+    zh: mergeMonacoNls(loadMonacoNls('zh.json'), loadMonacoNls('overrides/zh.json')),
+    'pt-BR': mergeMonacoNls(loadMonacoNls('pt-BR.json'), loadMonacoNls('overrides/pt-BR.json')),
 };
 
 const MONACO_NLS_HELPER =
