@@ -10,8 +10,8 @@
       "commit": "110df563b65cd2a1f9d8b58e3bdcadce90427f6d",
       "license": "MIT"
     },
-    "vscode-vue": {
-      "description": "Reused from a Microsoft VS Code language pack in the Vue UI.",
+    "vscode-shared-ui": {
+      "description": "Reused from a Microsoft VS Code language pack in a shared Calcpad UI surface.",
       "source": "microsoft/vscode-loc",
       "tag": "v1.96.2024121109",
       "commit": "110df563b65cd2a1f9d8b58e3bdcadce90427f6d",
@@ -210,6 +210,10 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Clear Recent": {
+      "source": "community",
+      "origin": "3e486ccf"
+    },
     "Clear Review": {
       "source": "community",
       "origin": "3e486ccf"
@@ -236,6 +240,10 @@
       "origin": "3e486ccf"
     },
     "Close Others": {
+      "source": "community",
+      "origin": "3e486ccf"
+    },
+    "Close Tab": {
       "source": "community",
       "origin": "3e486ccf"
     },
@@ -755,7 +763,15 @@
       "source": "community",
       "origin": "e9e35576"
     },
+    "New Tab": {
+      "source": "community",
+      "origin": "3e486ccf"
+    },
     "New tab (Ctrl+T)": {
+      "source": "community",
+      "origin": "3e486ccf"
+    },
+    "New Window": {
       "source": "community",
       "origin": "3e486ccf"
     },
@@ -789,6 +805,10 @@
       "origin": "3e486ccf"
     },
     "No problems detected.": {
+      "source": "community",
+      "origin": "3e486ccf"
+    },
+    "No Recent Files": {
       "source": "community",
       "origin": "3e486ccf"
     },
@@ -876,7 +896,15 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Open Recent": {
+      "source": "community",
+      "origin": "3e486ccf"
+    },
     "Open this file?": {
+      "source": "community",
+      "origin": "3e486ccf"
+    },
+    "Open...": {
       "source": "community",
       "origin": "3e486ccf"
     },
@@ -1029,6 +1057,10 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Quit": {
+      "source": "community",
+      "origin": "3e486ccf"
+    },
     "Radians": {
       "source": "community",
       "origin": "3e486ccf"
@@ -1082,6 +1114,10 @@
       "origin": "3e486ccf"
     },
     "Reset": {
+      "source": "community",
+      "origin": "3e486ccf"
+    },
+    "Restart Server": {
       "source": "community",
       "origin": "3e486ccf"
     },
@@ -1146,6 +1182,14 @@
       "origin": "3e486ccf"
     },
     "Run this document now and write its #write/#append files to disk": {
+      "source": "community",
+      "origin": "3e486ccf"
+    },
+    "Save": {
+      "source": "community",
+      "origin": "3e486ccf"
+    },
+    "Save As...": {
       "source": "community",
       "origin": "3e486ccf"
     },
@@ -1257,6 +1301,10 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Show Server Log": {
+      "source": "community",
+      "origin": "3e486ccf"
+    },
     "Show the report": {
       "source": "community",
       "origin": "111083a9"
@@ -1312,6 +1360,10 @@
     "Split editor down (Ctrl+\\)": {
       "source": "community",
       "origin": "111083a9"
+    },
+    "Stop Server": {
+      "source": "community",
+      "origin": "3e486ccf"
     },
     "Style class": {
       "source": "community",

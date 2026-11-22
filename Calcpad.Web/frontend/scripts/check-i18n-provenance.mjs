@@ -56,7 +56,7 @@ for (const catalog of catalogs) {
     if (typeof entry === 'object' && entry.replaces) {
       if (source !== 'community')
         errors.push(`${catalog.label}: key "${key}" can only replace from community`);
-      if (!['vscode-monaco', 'vscode-vue'].includes(entry.replaces))
+      if (!['vscode-monaco', 'vscode-shared-ui'].includes(entry.replaces))
         errors.push(`${catalog.label}: key "${key}" replaces unknown source "${entry.replaces}"`);
       overrides++;
     }
@@ -179,7 +179,7 @@ if (errors.length) {
 } else {
   for (const result of catalogResults) {
     const summary = [...result.counts].map(([source, count]) => `${count} ${source}`).join(', ');
-    console.log(`Vue ${result.label} catalog: ${result.total} keys (${summary}; ${result.vscodeMatches} VS Code matches; ${result.overrides} overrides)`);
+    console.log(`Shared UI ${result.label} catalog: ${result.total} keys (${summary}; ${result.vscodeMatches} VS Code matches; ${result.overrides} overrides)`);
     if (result.originCounts.size) {
       const topOrigins = [...result.originCounts]
         .sort((a, b) => b[1] - a[1])

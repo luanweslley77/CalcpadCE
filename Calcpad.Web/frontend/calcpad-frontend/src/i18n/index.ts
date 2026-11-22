@@ -9,7 +9,7 @@ import en from './messages/en'
 import zh from './messages/zh'
 import ptBR from './messages/pt-BR'
 
-export { menuLabelsFor } from './menu'
+export { menuLabels, MENU_KEYS } from './menu'
 
 export const SUPPORTED_LOCALES = ['en', 'zh', 'pt-BR'] as const
 export type CalcpadLocale = (typeof SUPPORTED_LOCALES)[number]
