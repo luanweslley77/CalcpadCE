@@ -47,6 +47,10 @@
       "source": "vscode",
       "vscodeSource": "vscode-shared-ui"
     },
+    "Cut": {
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
+    },
     "Description": {
       "source": "vscode",
       "vscodeSource": "vscode-shared-ui"
@@ -60,6 +64,10 @@
       "vscodeSource": "vscode-monaco"
     },
     "Files": {
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
+    },
+    "Find": {
       "source": "vscode",
       "vscodeSource": "vscode-shared-ui"
     },
@@ -103,11 +111,19 @@
       "source": "vscode",
       "vscodeSource": "vscode-shared-ui"
     },
+    "Paste": {
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
+    },
     "Previous": {
       "source": "vscode",
       "vscodeSource": "vscode-monaco"
     },
     "Problems": {
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
+    },
+    "Redo": {
       "source": "vscode",
       "vscodeSource": "vscode-shared-ui"
     },
@@ -144,6 +160,10 @@
       "vscodeSource": "vscode-shared-ui"
     },
     "Type": {
+      "source": "vscode",
+      "vscodeSource": "vscode-shared-ui"
+    },
+    "Undo": {
       "source": "vscode",
       "vscodeSource": "vscode-shared-ui"
     },

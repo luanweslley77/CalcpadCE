@@ -85,8 +85,26 @@ It writes `messages/<locale>.ts` and `provenance.<locale>.json`.
 No network access or VS Code source checkout is needed at build time.
 The importer includes only keys with one unique translation; keys with multiple variants stay English until the community decides.
 When a key exists in both sources the importer uses Monaco first and records `vscode-monaco`; otherwise it records `vscode-shared-ui`.
-Community overrides use `source: "community"` and `replaces: "vscode"`; the review workflow is not defined yet.
-Do not edit the generated catalog by hand.
+Community entries live in the same catalog and manifest; the importer preserves entries whose provenance says `community` and rewrites only generated `vscode` entries.
+Do not edit generated `vscode` entries by hand.
+The human review workflow is still being defined, but the mechanical path is: add the key and its `community` provenance, then run the importer.
+Community overrides of a generated key also set `replaces: "vscode"`.
+
+### Adding a shared UI term
+
+A Calcpad UI string may reuse a VS Code translation only when VS Code has the
+same English text at the pinned tag:
+
+1. Find the `localize` call in VS Code at that tag and note its module and key.
+2. Add the English text to `scripts/i18n/data/vscode.index.json` with that
+   `module` and `key`.
+3. Run `node scripts/i18n/extract-vscode-langpack.mjs --locale=<tag>` to copy the
+   pinned translation into the subset. Never edit the subset by hand.
+4. Run `node scripts/i18n/import-vscode.mjs --locale=<tag>` to regenerate the
+   catalog and manifest.
+
+A Calcpad-only string with no matching VS Code text stays English unless a
+reviewed community entry is added.
 
 ### Why one English word can have several translations
 

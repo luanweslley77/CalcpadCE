@@ -111,7 +111,9 @@
         "close": "Fechar"
       },
       "vs/workbench/contrib/codeEditor/browser/find/simpleFindWidget": {
-        "label.closeButton": "Fechar"
+        "label.closeButton": "Fechar",
+        "label.find": "Localizar",
+        "placeholder.find": "Localizar"
       },
       "vs/workbench/contrib/debug/browser/exceptionWidget": {
         "close": "Fechar"
@@ -204,7 +206,11 @@
         "actions.clipboard.copyLabel": "Copiar"
       },
       "vs/workbench/browser/actions/textInputActions": {
-        "copy": "Copiar"
+        "copy": "Copiar",
+        "cut": "Recortar",
+        "paste": "Colar",
+        "redo": "Refazer",
+        "undo": "Desfazer"
       },
       "vs/workbench/contrib/chat/browser/actions/chatCodeblockActions": {
         "interactive.copyCodeBlock.label": "Copiar"

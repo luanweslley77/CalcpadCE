@@ -63,6 +63,9 @@ jobs:
       - name: Monaco NLS maps are up to date
         if: ${{ !cancelled() }}
         run: node scripts/i18n/generate-monaco-nls.mjs --check
+      - name: VS Code language-pack subset is up to date
+        if: ${{ !cancelled() }}
+        run: node scripts/i18n/extract-vscode-langpack.mjs --check
       - name: VS Code catalog is up to date
         if: ${{ !cancelled() }}
         run: node scripts/i18n/import-vscode.mjs --check

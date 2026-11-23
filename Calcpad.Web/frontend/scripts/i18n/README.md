@@ -7,6 +7,7 @@ All translation tooling lives here. None of these scripts fetch anything at buil
 ```
 scripts/i18n/
 ├── generate-monaco-nls.mjs      Monaco NLS maps from the pinned VS Code packs
+├── extract-vscode-langpack.mjs  copies index entries from the pinned pack
 ├── import-vscode.mjs            exact shared-UI matches -> generated catalog
 ├── check-provenance.mjs         validates every catalog's provenance
 └── data/
@@ -22,6 +23,10 @@ Run from `Calcpad.Web/frontend`, or through the `calcpad-web` package scripts:
 node scripts/i18n/generate-monaco-nls.mjs
 node scripts/i18n/generate-monaco-nls.mjs --check
 
+node scripts/i18n/extract-vscode-langpack.mjs
+node scripts/i18n/extract-vscode-langpack.mjs --check
+node scripts/i18n/extract-vscode-langpack.mjs --locale=<tag>
+
 node scripts/i18n/import-vscode.mjs
 node scripts/i18n/import-vscode.mjs --check
 node scripts/i18n/import-vscode.mjs --locale=<tag>
@@ -30,24 +35,33 @@ node scripts/i18n/import-vscode.mjs --locale=<tag> --check
 node scripts/i18n/check-provenance.mjs
 ```
 
-`import-vscode.mjs` with no locale processes every `data/vscode.langpack.<locale>.json`.
-The CI runs the two `--check` commands and the provenance check.
+`extract-vscode-langpack.mjs` refreshes every committed language-pack subset from
+the pinned full pack. `import-vscode.mjs` with no locale processes every
+`data/vscode.langpack.<locale>.json`.
+The CI runs the `--check` commands and the provenance check.
 
 ## Rules
 
 - `generate-monaco-nls.mjs` writes `calcpad-web/src/editor/monaco-nls/`.
   Do not edit those maps by hand.
+- `extract-vscode-langpack.mjs` writes `data/vscode.langpack.<locale>.json`.
+  Do not edit that file by hand; it is copied from the pinned VS Code pack.
 - `import-vscode.mjs` writes `calcpad-frontend/src/i18n/messages/<locale>.ts` and
-  `provenance.<locale>.json`. Do not edit them by hand.
+  `provenance.<locale>.json`. It rewrites generated `vscode` entries and preserves
+  entries marked `community`; do not edit generated entries by hand.
 - A catalog is only overwritten when it starts with the generated header;
   community-authored catalogs are refused.
 - The VS Code pack is keyed by `module::key`, not by English text.
   `vscode.index.json` is the English bridge.
+  Every index entry must point at a real `localize` call with the same English
+  text in VS Code at the pinned tag.
 - A word can have several translations across modules.
   Only keys with one unique translation are imported; the rest stay English
   until the community decides.
+- A Calcpad-only string with no VS Code correspondence does not belong in the
+  shared pack; leave it English or add a reviewed community entry.
 - `vscodeSource` records `vscode-monaco` or `vscode-shared-ui`.
 - Community overrides use `source: "community"` and `replaces: "vscode"`.
-  The review workflow is not defined yet.
+  The importer preserves them; their human review workflow is still being defined.
 
 See `TRANSLATING.md` for the provenance policy.

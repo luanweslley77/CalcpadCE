@@ -398,6 +398,46 @@
         "key": "copyAllLabel"
       }
     ],
+    "Cut": [
+      {
+        "source": "vscode-shared-ui",
+        "module": "vs/workbench/browser/actions/textInputActions",
+        "key": "cut"
+      }
+    ],
+    "Paste": [
+      {
+        "source": "vscode-shared-ui",
+        "module": "vs/workbench/browser/actions/textInputActions",
+        "key": "paste"
+      }
+    ],
+    "Undo": [
+      {
+        "source": "vscode-shared-ui",
+        "module": "vs/workbench/browser/actions/textInputActions",
+        "key": "undo"
+      }
+    ],
+    "Redo": [
+      {
+        "source": "vscode-shared-ui",
+        "module": "vs/workbench/browser/actions/textInputActions",
+        "key": "redo"
+      }
+    ],
+    "Find": [
+      {
+        "source": "vscode-shared-ui",
+        "module": "vs/workbench/contrib/codeEditor/browser/find/simpleFindWidget",
+        "key": "label.find"
+      },
+      {
+        "source": "vscode-shared-ui",
+        "module": "vs/workbench/contrib/codeEditor/browser/find/simpleFindWidget",
+        "key": "placeholder.find"
+      }
+    ],
     "Previous": [
       {
         "source": "vscode-monaco",
