@@ -200,9 +200,10 @@ function importCatalogs() {
                 errors.push(`"${english}" has no translation in the committed langpack`);
                 continue;
             }
-            const single = SOURCES.find(source => bySource[source].size === 1);
-            if (single) {
-                selected[english] = { value: [...bySource[single]][0], vscodeSource: single };
+            if (all.size === 1) {
+                const value = [...all][0];
+                const source = SOURCES.find(candidate => bySource[candidate].has(value));
+                selected[english] = { value, vscodeSource: source };
                 continue;
             }
             const detail = SOURCES
