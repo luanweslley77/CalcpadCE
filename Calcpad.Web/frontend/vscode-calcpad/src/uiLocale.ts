@@ -1,8 +1,15 @@
 let uiLocale: string | undefined
 
 export function currentCulture(): string {
-    const intl = Intl.DateTimeFormat().resolvedOptions().locale
-    if (intl && intl !== 'en-US') return intl
+    let intl = 'en-US'
+    try {
+        intl = Intl.DateTimeFormat().resolvedOptions().locale
+        // Small-ICU builds report en-US for every locale. Full ICU knows whether
+        // a non-English locale such as pt-BR is actually available.
+        if (Intl.DateTimeFormat.supportedLocalesOf(['pt-BR']).length > 0) return intl
+    } catch {
+        // Fall through to the environment.
+    }
     const env = process.env.LC_ALL || process.env.LC_MESSAGES || process.env.LANG
     if (env) {
         const tag = env.split('.')[0].replace('_', '-')

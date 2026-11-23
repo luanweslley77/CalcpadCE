@@ -65,13 +65,11 @@ function browserLocaleTags(): string[] {
 
 export function resolveLocale(setting: LocaleSetting, fallbackTag?: string): CalcpadLocale {
     if (setting !== 'auto') return setting
-    const tags = fallbackTag
-        ? [fallbackTag]
-        : currentCulture
-            ? [currentCulture]
-            : hostLocale
-                ? [hostLocale]
-                : browserLocaleTags()
+    let tags: string[]
+    if (fallbackTag) tags = [fallbackTag]
+    else if (currentCulture) tags = [currentCulture]
+    else if (hostLocale) tags = [hostLocale]
+    else tags = browserLocaleTags()
     for (const tag of tags) {
         const locale = matchLocale(tag)
         if (locale) return locale
