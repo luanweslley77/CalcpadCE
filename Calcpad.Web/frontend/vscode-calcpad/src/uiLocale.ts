@@ -1,12 +1,16 @@
+// A non-English locale only full-ICU builds support.
+const ICU_PROBE_LOCALE = 'pt-BR'
+
 let uiLocale: string | undefined
 
 export function currentCulture(): string {
     let intl = 'en-US'
     try {
         intl = Intl.DateTimeFormat().resolvedOptions().locale
-        // Small-ICU builds report en-US for every locale. Full ICU knows whether
-        // a non-English locale such as pt-BR is actually available.
-        if (Intl.DateTimeFormat.supportedLocalesOf(['pt-BR']).length > 0) return intl
+        const fullIcu = Intl.DateTimeFormat.supportedLocalesOf([ICU_PROBE_LOCALE]).length > 0
+        // Full ICU resolves non-English locales; en-US stays open to an explicit
+        // LC_ALL/LANG override. Small-ICU reports en-US for every locale.
+        if (fullIcu && intl && intl !== 'en-US') return intl
     } catch {
         // Fall through to the environment.
     }
