@@ -45,7 +45,6 @@ import {
     type InlineImageBudget,
 } from 'calcpad-frontend';
 import { registerCalcpadLanguage, registerCalcpadTheme, remeasureEditorFontsWhenReady, resolveEditorFontFamily } from './editor/setup';
-
 import { setAppTheme, coerceAppTheme, getResolvedAppTheme, onAppThemeChanged } from './editor/app-theme';
 import { registerSemanticTokensProvider } from './editor/semantic-tokens';
 import { setupDiagnostics, setRunErrorMarkers, setIncludedMarkers, type FileLinker } from './editor/diagnostics';

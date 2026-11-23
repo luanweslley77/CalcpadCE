@@ -381,14 +381,6 @@
       "source": "community",
       "origin": "3e486ccf"
     },
-    "Focus Preview to Line": {
-      "source": "community",
-      "origin": "3e486ccf"
-    },
-    "Run Preview": {
-      "source": "community",
-      "origin": "3e486ccf"
-    },
     "Enable 3-D plot shadows": {
       "source": "community",
       "origin": "3e486ccf"
@@ -484,6 +476,10 @@
       "origin": "3e486ccf"
     },
     "Find… (Ctrl+F)": {
+      "source": "community",
+      "origin": "3e486ccf"
+    },
+    "Focus Preview to Line": {
       "source": "community",
       "origin": "3e486ccf"
     },
@@ -1167,6 +1163,10 @@
       "origin": "3e486ccf"
     },
     "Run preview": {
+      "source": "community",
+      "origin": "3e486ccf"
+    },
+    "Run Preview": {
       "source": "community",
       "origin": "3e486ccf"
     },
