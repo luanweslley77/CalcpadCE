@@ -1,7 +1,7 @@
 # Monaco NLS maps
 
 Generated from the VS Code language packs pinned in
-`Calcpad.Web/frontend/scripts/i18n/generate-monaco-nls.mjs`:
+`Calcpad.Web/frontend/scripts/i18n/i18n.mjs`:
 
 - `vscode-language-pack-zh-hans`
 - `vscode-language-pack-pt-BR`
@@ -13,8 +13,8 @@ License: MIT, see [LICENSE.md](LICENSE.md).
 Do not edit the JSON files by hand. Regenerate them with:
 
 ```sh
-cd Calcpad.Web/frontend/calcpad-web
-npm run generate:monaco-nls
+cd Calcpad.Web/frontend
+node scripts/i18n/i18n.mjs
 ```
 
 The Vite plugin in `calcpad-web/vite.config.ts` matches the `(module, key)`

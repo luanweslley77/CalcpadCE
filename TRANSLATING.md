@@ -78,16 +78,17 @@ The pack is keyed by `module::key`, not by English text, so the repo also carrie
 - `scripts/i18n/data/vscode.index.json` — English string to `module`/`key`.
 - `scripts/i18n/data/vscode.langpack.<locale>.json` — pinned pack subset.
 
-Run `node scripts/i18n/import-vscode.mjs` to process every langpack, or
-`--locale=<tag>` for one.
-It writes `messages/<locale>.ts` and `provenance.<locale>.json`.
+Run `node scripts/i18n/i18n.mjs` to process every langpack, or
+`--locale=<tag>` for one. It extracts the pinned subset, writes
+`messages/<locale>.ts` and `provenance.<locale>.json`, and regenerates the
+Monaco maps.
 `--check` verifies the committed output.
 No network access or VS Code source checkout is needed at build time.
-The importer includes only keys with one unique translation; keys with multiple variants stay English until the community decides.
-When a key exists in both sources the importer uses Monaco first and records `vscode-monaco`; otherwise it records `vscode-shared-ui`.
-Community entries live in the same catalog and manifest; the importer preserves entries whose provenance says `community` and rewrites only generated `vscode` entries.
+The script includes only keys with one unique translation; keys with multiple variants stay English until the community decides.
+When a key exists in both sources the script uses Monaco first and records `vscode-monaco`; otherwise it records `vscode-shared-ui`.
+Community entries live in the same catalog and manifest; the script preserves entries whose provenance says `community` and rewrites only generated `vscode` entries.
 Do not edit generated `vscode` entries by hand.
-The human review workflow is still being defined, but the mechanical path is: add the key and its `community` provenance, then run the importer.
+The human review workflow is still being defined, but the mechanical path is: add the key and its `community` provenance, then run the script.
 Community overrides of a generated key also set `replaces: "vscode"`.
 
 ### Adding a shared UI term
@@ -98,10 +99,9 @@ same English text at the pinned tag:
 1. Find the `localize` call in VS Code at that tag and note its module and key.
 2. Add the English text to `scripts/i18n/data/vscode.index.json` with that
    `module` and `key`.
-3. Run `node scripts/i18n/extract-vscode-langpack.mjs --locale=<tag>` to copy the
-   pinned translation into the subset. Never edit the subset by hand.
-4. Run `node scripts/i18n/import-vscode.mjs --locale=<tag>` to regenerate the
-   catalog and manifest.
+3. Run `node scripts/i18n/i18n.mjs --locale=<tag>`. It copies the pinned
+   translation into the subset, then regenerates the catalog and manifest.
+   Never edit the subset by hand.
 
 A Calcpad-only string with no matching VS Code text stays English unless a
 reviewed community entry is added.
@@ -175,4 +175,4 @@ The Vite plugin merges the overrides at build time.
 10. A catalog may omit keys; missing keys fall back to English. Do not fill gaps with unreviewed text.
 11. Run the provenance check before merging.
 
-The check lives at `Calcpad.Web/frontend/scripts/i18n/check-provenance.mjs`.
+The check lives at `Calcpad.Web/frontend/scripts/i18n/i18n.mjs --check`.

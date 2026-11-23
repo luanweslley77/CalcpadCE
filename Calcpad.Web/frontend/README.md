@@ -46,7 +46,7 @@ The editor takes its server URL from a `?server=` query parameter, else `VITE_SE
 
 Monaco's built-in labels come from the pinned VS Code language packs in
 `calcpad-web/src/editor/monaco-nls/`. After updating `monaco-editor`,
-regenerate the maps with `cd calcpad-web && npm run generate:monaco-nls`.
+regenerate everything with `node scripts/i18n/i18n.mjs`.
 
 **Desktop App:**
 ```bash

@@ -60,18 +60,9 @@ jobs:
         working-directory: .
         run: node --test tools/monaco-language.test.mjs
 
-      - name: Monaco NLS maps are up to date
+      - name: Translations are up to date
         if: ${{ !cancelled() }}
-        run: node scripts/i18n/generate-monaco-nls.mjs --check
-      - name: VS Code language-pack subset is up to date
-        if: ${{ !cancelled() }}
-        run: node scripts/i18n/extract-vscode-langpack.mjs --check
-      - name: VS Code catalog is up to date
-        if: ${{ !cancelled() }}
-        run: node scripts/i18n/import-vscode.mjs --check
-      - name: Translation provenance is valid
-        if: ${{ !cancelled() }}
-        run: node scripts/i18n/check-provenance.mjs
+        run: node scripts/i18n/i18n.mjs --check
       - name: Test navigation history
         working-directory: .
         run: node --test tools/navigation-history.test.mjs
