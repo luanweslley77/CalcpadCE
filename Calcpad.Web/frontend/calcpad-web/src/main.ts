@@ -2,7 +2,7 @@ import * as monaco from 'monaco-editor';
 import { createApp, nextTick, watch, type Ref } from 'vue';
 import type { Composer } from 'vue-i18n';
 import App from './App.vue';
-import { createCalcpadI18n, readLocaleSetting, menuLabels, LOCALE_CHANGED_EVENT, setCurrentCulture } from 'calcpad-frontend/i18n';
+import { createCalcpadI18n, readLocaleSetting, menuLabels, LOCALE_CHANGED_EVENT, setCurrentCulture, translate } from 'calcpad-frontend/i18n';
 import { invoke } from '@tauri-apps/api/core';
 import { locale as osLocale } from '@tauri-apps/plugin-os';
 import CalcpadAppVue from 'calcpad-frontend/vue/components/CalcpadApp.vue';
@@ -45,7 +45,7 @@ import {
     type InlineImageBudget,
 } from 'calcpad-frontend';
 import { registerCalcpadLanguage, registerCalcpadTheme, remeasureEditorFontsWhenReady, resolveEditorFontFamily } from './editor/setup';
-import { uiText } from './editor/ui-text';
+
 import { setAppTheme, coerceAppTheme, getResolvedAppTheme, onAppThemeChanged } from './editor/app-theme';
 import { registerSemanticTokensProvider } from './editor/semantic-tokens';
 import { setupDiagnostics, setRunErrorMarkers, setIncludedMarkers, type FileLinker } from './editor/diagnostics';
@@ -1194,7 +1194,7 @@ async function bootstrap(): Promise<void> {
         // Focus-the-preview-to-line context action (targets this group).
         ed.addAction({
             id: 'calcpad.focusPreviewToLine',
-            label: uiText('Focus Preview to Line', '预览定位到光标行', 'Focar a pré-visualização na linha'),
+            label: translate('Focus Preview to Line'),
             keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.Backquote],
             contextMenuGroupId: 'navigation',
             contextMenuOrder: 1.5,
@@ -1206,7 +1206,7 @@ async function bootstrap(): Promise<void> {
         // from anywhere in the app.
         ed.addAction({
             id: 'calcpad.runPreview',
-            label: uiText('Run Preview', '运行预览', 'Executar pré-visualização'),
+            label: translate('Run Preview'),
             keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyMod.Alt | monaco.KeyCode.KeyX],
             contextMenuGroupId: 'navigation',
             contextMenuOrder: 1.4,
@@ -1218,7 +1218,7 @@ async function bootstrap(): Promise<void> {
         // Code `editMetadataProperties` command.
         ed.addAction({
             id: 'calcpad.editMetadata',
-            label: uiText('Edit Metadata Properties', '编辑元数据属性', 'Editar propriedades dos metadados'),
+            label: translate('Edit Metadata Properties'),
             contextMenuGroupId: 'navigation',
             contextMenuOrder: 1.6,
             run: (edEditor) => {

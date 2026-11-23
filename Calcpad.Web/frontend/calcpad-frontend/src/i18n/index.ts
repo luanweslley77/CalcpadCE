@@ -21,7 +21,7 @@ export const LOCALE_STORAGE_KEY = 'calcpad.locale'
 export const LOCALE_CHANGED_EVENT = 'calcpad:locale-changed'
 
 // Endonyms: language names are never translated.
-export const LOCALE_LABELS: Record<CalcpadLocale, string> = {
+const LOCALE_LABELS: Record<CalcpadLocale, string> = {
     en: 'English',
     zh: '中文',
     'pt-BR': 'Português (Brasil)',
@@ -97,6 +97,13 @@ export function writeLocaleSetting(setting: LocaleSetting): void {
 
 export function getActiveLocale(): CalcpadLocale {
     return activeLocale
+}
+
+/** Translate a key with the active catalog; missing keys return the key. */
+export function translate(key: string): string {
+    if (!activeI18n) return key
+    const composer = activeI18n.global as unknown as { t: (key: string) => string }
+    return composer.t(key)
 }
 
 function notifyLocaleChanged(setting: LocaleSetting, locale: CalcpadLocale): void {

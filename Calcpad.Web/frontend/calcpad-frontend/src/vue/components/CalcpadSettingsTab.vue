@@ -21,7 +21,6 @@
             <select id="uiLanguage" v-model="localeSetting" @change="changeLocale">
               <option v-for="opt in LOCALE_OPTIONS" :key="opt.value" :value="opt.value">{{ opt.translatable ? tt(opt.label) : opt.label }}</option>
             </select>
-            <small v-if="localeSetting === 'auto'" class="locale-resolved">{{ tt('Auto') }} → {{ resolvedLocaleLabel }}</small>
           </div>
         </div>
       </section>
@@ -764,7 +763,7 @@ import { DEFAULT_PDF_SETTINGS, DEFAULT_VERSION_CONFIG } from '../types'
 import { getDefaultSettings, METADATA_SETTINGS_KEYS, validateSettingValue, SETTINGS_PATH, LOG_LEVEL_OPTIONS, DEFAULT_COMPLETION_DELAY_MS } from '../../types/settings'
 import { PDF_SETTING_KEYS, validatePdfValue } from '../../types/pdf-settings'
 import { specForKey } from '../../types/catalog'
-import { LOCALE_LABELS, LOCALE_OPTIONS, readLocaleSetting, resolveLocale, setLocale, type LocaleSetting } from '../../i18n'
+import { LOCALE_OPTIONS, readLocaleSetting, setLocale, type LocaleSetting } from '../../i18n'
 import {
   DEFAULT_PREVIEW_SIZE_MB, MIN_PREVIEW_SIZE_MB, MAX_PREVIEW_SIZE_MB,
   DEFAULT_CONSOLE_MESSAGES_PER_DOCUMENT, MIN_CONSOLE_MESSAGES_PER_DOCUMENT,
@@ -773,7 +772,6 @@ import {
 
 const { t, t: tt } = useI18n()
 const localeSetting = ref<LocaleSetting>(readLocaleSetting())
-const resolvedLocaleLabel = computed(() => LOCALE_LABELS[resolveLocale(localeSetting.value)])
 
 function changeLocale() {
   setLocale(localeSetting.value)
@@ -1613,12 +1611,6 @@ watch(
   margin-bottom: 4px;
   color: var(--vscode-input-foreground);
   font-weight: normal;
-}
-
-.locale-resolved {
-  display: block;
-  margin-top: 4px;
-  color: var(--vscode-descriptionForeground);
 }
 
 .setting-group input[type="number"],
