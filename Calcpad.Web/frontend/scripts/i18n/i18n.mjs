@@ -69,7 +69,23 @@ function readCatalog(text) {
     const start = text.indexOf('{');
     const end = text.lastIndexOf('}');
     if (start < 0 || end < 0) return {};
-    return JSON.parse(text.slice(start, end + 1).replace(/,\s*}/, '}'));
+    return JSON.parse(text.slice(start, end + 1).replace(/,\s*}$/, '}'));
+}
+
+async function fetchWithRetry(url) {
+    let lastError
+    for (let attempt = 1; attempt <= 3; attempt++) {
+        try {
+            const response = await fetch(url, { signal: AbortSignal.timeout(30_000) })
+            if (response.ok) return response
+            lastError = new Error(`${response.status} ${response.statusText}`)
+            if (response.status < 500) break
+        } catch (error) {
+            lastError = error instanceof Error ? error : new Error(String(error))
+        }
+        if (attempt < 3) await new Promise(resolve => setTimeout(resolve, attempt * 1000))
+    }
+    throw new Error(`failed to download ${url}: ${lastError?.message ?? lastError}`)
 }
 
 async function loadFullPack(pins) {
@@ -77,9 +93,7 @@ async function loadFullPack(pins) {
     const cacheFile = path.join(cacheDir, `${pins.pack}-${pins.locCommit}.json`);
     if (!fs.existsSync(cacheFile)) {
         const url = `https://raw.githubusercontent.com/microsoft/vscode-loc/${pins.locCommit}/i18n/${pins.pack}/translations/main.i18n.json`;
-        const response = await fetch(url);
-        if (!response.ok)
-            throw new Error(`failed to download ${url}: ${response.status} ${response.statusText}`);
+        const response = await fetchWithRetry(url);
         fs.writeFileSync(cacheFile, await response.text());
     }
     const contents = JSON.parse(fs.readFileSync(cacheFile, 'utf8')).contents;
@@ -214,7 +228,7 @@ function importCatalogs() {
         }
 
         const sorted = {};
-        for (const key of Object.keys(selected).sort((a, b) => a.localeCompare(b))) sorted[key] = selected[key];
+        for (const key of Object.keys(selected).sort((a, b) => a.localeCompare(b, 'en'))) sorted[key] = selected[key];
         let existingProvenance = {};
         if (fs.existsSync(provenanceFile)) {
             try {
@@ -256,7 +270,7 @@ function importCatalogs() {
         }
         for (const [key, entry] of Object.entries(community)) merged[key] = entry;
 
-        const mergedKeys = Object.keys(merged).sort((a, b) => a.localeCompare(b));
+        const mergedKeys = Object.keys(merged).sort((a, b) => a.localeCompare(b, 'en'));
         const vscodeCount = mergedKeys.filter(key => merged[key].entry.source === 'vscode').length;
         const communityCount = mergedKeys.length - vscodeCount;
         const monacoCount = mergedKeys.filter(
@@ -478,6 +492,12 @@ function checkProvenance() {
     };
 
     const sources = readJsonSafe(path.join(messagesDir, 'sources.json'));
+    if (sources.vscode?.tag !== VSCODE_LOC_TAG || sources.vscode?.commit !== VSCODE_LOC_COMMIT)
+        errors.push('sources.json: vscode tag/commit do not match the pinned release');
+    if (sources.vscode?.source !== 'microsoft/vscode-loc')
+        errors.push('sources.json: expected source microsoft/vscode-loc');
+    if (sources.vscode?.license !== 'MIT')
+        errors.push('sources.json: expected MIT license');
     const catalogs = fs.readdirSync(messagesDir)
         .filter(file => file.endsWith('.ts') && file !== 'en.ts')
         .map(file => file.slice(0, -3))

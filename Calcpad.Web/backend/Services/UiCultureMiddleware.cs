@@ -14,9 +14,22 @@ namespace Calcpad.Server.Services
             app.Use(async (context, next) =>
             {
                 var culture = Match(context.Request.Headers.AcceptLanguage.ToString());
-                if (culture is not null)
-                    CultureInfo.CurrentUICulture = culture;
-                await next();
+                if (culture is null)
+                {
+                    await next();
+                    return;
+                }
+
+                var previous = CultureInfo.CurrentUICulture;
+                CultureInfo.CurrentUICulture = culture;
+                try
+                {
+                    await next();
+                }
+                finally
+                {
+                    CultureInfo.CurrentUICulture = previous;
+                }
             });
 
         internal static CultureInfo? Match(string header)

@@ -1194,7 +1194,7 @@ async function bootstrap(): Promise<void> {
         // Focus-the-preview-to-line context action (targets this group).
         ed.addAction({
             id: 'calcpad.focusPreviewToLine',
-            label: uiText('Focus Preview to Line', '预览定位到光标行'),
+            label: uiText('Focus Preview to Line', '预览定位到光标行', 'Focar a pré-visualização na linha'),
             keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.Backquote],
             contextMenuGroupId: 'navigation',
             contextMenuOrder: 1.5,
@@ -1206,7 +1206,7 @@ async function bootstrap(): Promise<void> {
         // from anywhere in the app.
         ed.addAction({
             id: 'calcpad.runPreview',
-            label: uiText('Run Preview', '运行预览'),
+            label: uiText('Run Preview', '运行预览', 'Executar pré-visualização'),
             keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyMod.Alt | monaco.KeyCode.KeyX],
             contextMenuGroupId: 'navigation',
             contextMenuOrder: 1.4,
@@ -1218,7 +1218,7 @@ async function bootstrap(): Promise<void> {
         // Code `editMetadataProperties` command.
         ed.addAction({
             id: 'calcpad.editMetadata',
-            label: uiText('Edit Metadata Properties', '编辑元数据属性'),
+            label: uiText('Edit Metadata Properties', '编辑元数据属性', 'Editar propriedades dos metadados'),
             contextMenuGroupId: 'navigation',
             contextMenuOrder: 1.6,
             run: (edEditor) => {
@@ -2401,11 +2401,11 @@ async function bootstrap(): Promise<void> {
             return id;
         }
 
-        async function writeDraft(tabId: string): Promise<void> {
+        async function writeDraft(tabId: string, throwOnError = false): Promise<boolean> {
             const g = groupForTab(tabId);
-            if (!g || !g.tabs.isDirty(tabId)) return;
+            if (!g || !g.tabs.isDirty(tabId)) return true;
             const content = g.tabs.getContent(tabId);
-            if (content == null) return;
+            if (content == null) return true;
             const filePath = g.tabs.getFilePath(tabId);
             const title = g.tabs.getTitle(tabId) ?? UNTITLED_TITLE;
             const filename = filePath ? title : `${title}.cpd`;
@@ -2416,13 +2416,16 @@ async function bootstrap(): Promise<void> {
                     filePath,
                     content,
                 });
+                return true;
             } catch (err) {
+                if (throwOnError) throw err;
                 appInstance.appendOutput('warn',
                     `Autosave failed for ${title}: ${err instanceof Error ? err.message : String(err)}`);
+                return false;
             }
         }
 
-        persistTransferredTab = writeDraft;
+        persistTransferredTab = async (tabId: string) => { await writeDraft(tabId); };
 
         async function deleteDraft(tabId: string): Promise<void> {
             const id = draftIds.get(tabId);
@@ -2569,14 +2572,15 @@ async function bootstrap(): Promise<void> {
                     for (const g of groups.values())
                         for (const t of g.tabs.all)
                             if (g.tabs.isDirty(t.id)) dirty.push(t.id);
-                    for (const id of dirty) await writeDraft(id);
+                    for (const id of dirty) await writeDraft(id, true);
                     await workspace.flush();
                 } catch (err) {
+                    localeReloadPending = false;
                     appInstance.appendOutput('warn',
                         `Could not preserve the session before reloading: ${err instanceof Error ? err.message : String(err)}`);
-                } finally {
-                    window.location.reload();
+                    return;
                 }
+                window.location.reload();
             })();
         });
 

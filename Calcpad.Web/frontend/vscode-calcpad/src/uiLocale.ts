@@ -2,6 +2,7 @@
 const ICU_PROBE_LOCALE = 'pt-BR'
 
 let uiLocale: string | undefined
+let detectedCulture: string | undefined
 
 export function currentCulture(): string {
     let intl = 'en-US'
@@ -28,5 +29,6 @@ export function setUiLocale(locale: string | undefined): void {
 
 /** The webview's resolved locale, with the OS culture as the pre-webview fallback. */
 export function getUiLocale(): string {
-    return uiLocale || currentCulture()
+    if (!detectedCulture) detectedCulture = currentCulture()
+    return uiLocale || detectedCulture
 }

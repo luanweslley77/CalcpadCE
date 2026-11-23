@@ -97,7 +97,7 @@ export class CalcpadVueUIProvider implements vscode.WebviewViewProvider {
             this._outputChannel.appendLine(`Received message: ${data.type}`, 'verbose');
             switch (data.type) {
                 case 'uiLocale':
-                    setUiLocale(data.locale);
+                    if (typeof data.locale === 'string') setUiLocale(data.locale);
                     break;
 
                 case 'insertText': {
@@ -999,7 +999,7 @@ export class CalcpadVueUIProvider implements vscode.WebviewViewProvider {
             <br><small>If this message persists, check the developer console for errors</small>
         </div>
     </div>
-    <script nonce="${nonce}">window.__CALCPAD_HOST_LOCALE__ = ${JSON.stringify(vscode.env.language)}; window.__CALCPAD_CURRENT_CULTURE__ = ${JSON.stringify(currentCulture())};</script>
+    <script nonce="${nonce}">window.__CALCPAD_HOST_LOCALE__ = ${scriptJson(vscode.env.language)}; window.__CALCPAD_CURRENT_CULTURE__ = ${scriptJson(currentCulture())};</script>
     <script nonce="${nonce}" src="${scriptUri}"></script>
 </body>
 </html>`;
@@ -1011,4 +1011,8 @@ export class CalcpadVueUIProvider implements vscode.WebviewViewProvider {
 // inside the CSP header without escaping.
 function getNonce() {
     return crypto.randomBytes(24).toString('base64url');
+}
+
+function scriptJson(value: string): string {
+    return JSON.stringify(value).replace(/</g, '\\u003c');
 }

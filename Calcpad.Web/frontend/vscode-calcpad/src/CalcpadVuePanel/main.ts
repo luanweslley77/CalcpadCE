@@ -21,8 +21,8 @@ const app = createApp(CalcpadApp, {
   },
   appVersion: import.meta.env.VITE_APP_VERSION,
 })
-setCurrentCulture((window as any).__CALCPAD_CURRENT_CULTURE__)
-setHostLocale((window as any).__CALCPAD_HOST_LOCALE__)
+setCurrentCulture(window.__CALCPAD_CURRENT_CULTURE__)
+setHostLocale(window.__CALCPAD_HOST_LOCALE__)
 app.use(createCalcpadI18n(readLocaleSetting()))
 app.mount('#app')
 

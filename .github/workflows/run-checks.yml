@@ -62,6 +62,7 @@ jobs:
 
       - name: Translations are up to date
         if: ${{ !cancelled() }}
+        timeout-minutes: 10
         run: node scripts/i18n/i18n.mjs --check
       - name: Test navigation history
         working-directory: .
