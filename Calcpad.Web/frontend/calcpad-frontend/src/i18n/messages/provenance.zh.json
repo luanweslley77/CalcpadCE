@@ -5,35 +5,10 @@
       "date": "2026-11-14",
       "subject": "Updating \"source file\" language to \"CalcpadCE file\" per previous discussions"
     },
-    "3e486ccf": {
+    "111083a9": {
       "author": "bfmomo",
-      "date": "2026-10-29",
-      "subject": "feat(i18n): add a Chinese interface"
-    },
-    "b7fa50dc": {
-      "author": "Isaiah Martin",
-      "date": "2026-11-14",
-      "subject": "Desktop Files tab: right-click to insert a #include, #read or image reference with a relative or absolute path"
-    },
-    "35cde5eb": {
-      "author": "Isaiah Martin",
-      "date": "2026-11-06",
-      "subject": "- Adding feature to open multiple folders in desktop app - Folder state is synced to all windows. This is a simplification for now, and more complex folder management in different windows can be a future improvement."
-    },
-    "ae83e4dc": {
-      "author": "Isaiah Martin",
-      "date": "2026-11-05",
-      "subject": "- Adding setting for UIOverride hints above the line it is defined. - Macros, includes, and loops show the number of UIOverrides - All hints give a link to the UIOverrides section in the properties panel - Adding setting to filter UIOverrides in Property tab by selected lines. - Making progress on Issue #333"
-    },
-    "c18e7fd9": {
-      "author": "Isaiah Martin",
-      "date": "2026-11-14",
-      "subject": "- Editors: UI Overrides in the Properties tab has \"Override Defaults\", which writes values for #UI lines in this file (outside loops, macros and includes) into the source and removes them from the overrides - Editors: \"Revert to defaults\" removes the listed overrides so those controls use their default values - Editors: new \"Auto-Sync #UI Values\" setting (off by default). For #UI lines in this file outside loops, macros and includes, input form values are written into the #UI line, and editing a line's value removes its override. - Editors: the Properties tab shows how many changes are pending above Apply and Reset, and each section gets its own Apply and Reset buttons. - Desktop: the hidden metadata footer no longer reappears in the editor after saving #UI values - Updating docs"
-    },
-    "6e7ce353": {
-      "author": "Isaiah Martin",
-      "date": "2026-11-07",
-      "subject": "- Fixing animations to respect reduced motion - Removing inline Chinese strings - Fixing tsc error on main.ts - Updating frontend skill with instructions on reduced motion and i18n"
+      "date": "2026-10-30",
+      "subject": "fix: address review feedback"
     },
     "1d864bc8": {
       "author": "Isaiah Martin",
@@ -45,20 +20,75 @@
       "date": "2026-10-31",
       "subject": "Adding undo/redo functionality to input form in desktop app and vs code"
     },
-    "111083a9": {
+    "35cde5eb": {
+      "author": "Isaiah Martin",
+      "date": "2026-11-06",
+      "subject": "- Adding feature to open multiple folders in desktop app - Folder state is synced to all windows. This is a simplification for now, and more complex folder management in different windows can be a future improvement."
+    },
+    "3e486ccf": {
       "author": "bfmomo",
-      "date": "2026-10-30",
-      "subject": "fix: address review feedback"
+      "date": "2026-10-29",
+      "subject": "feat(i18n): add a Chinese interface"
+    },
+    "40fa6871": {
+      "author": "Isaiah Martin",
+      "date": "2026-11-06",
+      "subject": "- Adding run modes for manual, edit automatically, and plan modes - Adding change tracker that does diffs on any changes the AI makes and allows keeping or reverting the changes. - Known bug that plan mode doesn't seem to work, fix in followup commit"
+    },
+    "48fabc32": {
+      "author": "Isaiah Martin",
+      "date": "2026-11-14",
+      "subject": "Merge branch 'main' into feat/desktop-claude-code-plugin"
+    },
+    "515a0e74": {
+      "author": "Isaiah Martin",
+      "date": "2026-11-05",
+      "subject": "- Auto-syncing of changes from external programs for desktop app - Adding conflict resolution workflow when an unsaved document is changed externally and the user tries to save."
+    },
+    "6e7ce353": {
+      "author": "Isaiah Martin",
+      "date": "2026-11-07",
+      "subject": "- Fixing animations to respect reduced motion - Removing inline Chinese strings - Fixing tsc error on main.ts - Updating frontend skill with instructions on reduced motion and i18n"
+    },
+    "ae2a07a1": {
+      "author": "Isaiah Martin",
+      "date": "2026-11-21",
+      "subject": "moving claude code logic back into the core application, adding dropdown to switch harnesses. - auto-detects Claude Code, Codex CLI, Gemini CLI, Github Copilot CLI, opencode, and pi. - fixing plan mode to not show raw tool calls - making styling match rest of CalcpadCE theme - updating global.json - making write tool open the file if it is closed and adding it to the change tracker. - adding question cards for various harnesses - support for new external files"
+    },
+    "ae83e4dc": {
+      "author": "Isaiah Martin",
+      "date": "2026-11-05",
+      "subject": "- Adding setting for UIOverride hints above the line it is defined. - Macros, includes, and loops show the number of UIOverrides - All hints give a link to the UIOverrides section in the properties panel - Adding setting to filter UIOverrides in Property tab by selected lines. - Making progress on Issue #333"
+    },
+    "b66ec66e": {
+      "author": "Isaiah Martin",
+      "date": "2026-11-14",
+      "subject": "- Editors: Insert and Settings tabs have a Favorites section at the top. Starred items stay in their own section, and starred snippets are listed first in autocomplete with a ★ - Editors: new Keyboard Shortcuts section in Settings. Built-in hotkeys can be rebound, and any setting can get a hotkey that turns it on and off or opens it - Editors: quick-type keys can be added or removed per snippet. Quick typing an item with parameters selects the first parameter like autocomplete - Editors: custom snippets are the last category in the Insert tab and are offered in autocomplete. Like built-ins, they store a type (Text, Function, Macro, Variable or Unit), parameters, return type and example - Editors: \"Save as Custom Snippet\" in the Variables tab and the editor's right-click menu fills in the snippet from a definition and its metadata comment, or from the selected text - Editors: hotkeys and quick-type keys that conflict with existing ones can't be saved - Default keybindings and quick types now live in settings.default.json so they save and reset with presets - VS Code: keybinding changes are mirrored into the user's keybindings.json, which is left alone if it has syntax errors"
+    },
+    "b7fa50dc": {
+      "author": "Isaiah Martin",
+      "date": "2026-11-14",
+      "subject": "Desktop Files tab: right-click to insert a #include, #read or image reference with a relative or absolute path"
+    },
+    "c18e7fd9": {
+      "author": "Isaiah Martin",
+      "date": "2026-11-14",
+      "subject": "- Editors: UI Overrides in the Properties tab has \"Override Defaults\", which writes values for #UI lines in this file (outside loops, macros and includes) into the source and removes them from the overrides - Editors: \"Revert to defaults\" removes the listed overrides so those controls use their default values - Editors: new \"Auto-Sync #UI Values\" setting (off by default). For #UI lines in this file outside loops, macros and includes, input form values are written into the #UI line, and editing a line's value removes its override. - Editors: the Properties tab shows how many changes are pending above Apply and Reset, and each section gets its own Apply and Reset buttons. - Desktop: the hidden metadata footer no longer reappears in the editor after saving #UI values - Updating docs"
+    },
+    "e15f5897": {
+      "author": "Isaiah Martin",
+      "date": "2026-11-06",
+      "subject": "Initial prototype for mcp server and chat window"
     },
     "e9e35576": {
       "author": "bfmomo",
       "date": "2026-10-31",
       "subject": "Merge upstream main into the Chinese-UI branch"
     },
-    "515a0e74": {
+    "fb220284": {
       "author": "Isaiah Martin",
-      "date": "2026-11-05",
-      "subject": "- Auto-syncing of changes from external programs for desktop app - Adding conflict resolution workflow when an unsaved document is changed externally and the user tries to save."
+      "date": "2026-11-15",
+      "subject": "adding mcp server that is not claude-specific"
     }
   },
   "keys": {
@@ -70,17 +100,65 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "{done} of {total} done": {
+      "source": "community",
+      "origin": "ae2a07a1"
+    },
+    "{key} is already used by {name}": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
     "{n} UI override | {n} UI overrides": {
       "source": "community",
       "origin": "6e7ce353"
+    },
+    "{name} (not found)": {
+      "source": "community",
+      "origin": "ae2a07a1"
+    },
+    "{name} chat": {
+      "source": "community",
+      "origin": "fb220284"
+    },
+    "{name} executable": {
+      "source": "community",
+      "origin": "ae2a07a1"
+    },
+    "{name} has not changed any worksheets in this conversation. Each worksheet is backed up before its first change.": {
+      "source": "community",
+      "origin": "fb220284"
+    },
+    "{name} was not found. Install it ({hint}), or set the path to its executable.": {
+      "source": "community",
+      "origin": "ae2a07a1"
     },
     "#UI input form — #post content is hidden": {
       "source": "community",
       "origin": "3e486ccf"
     },
+    "+ Add parameter": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
+    "~{key} already inserts {text}": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
+    "A hotkey needs Ctrl, Alt or {meta}, or a function key": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
+    "Accept": {
+      "source": "community",
+      "origin": "e15f5897"
+    },
     "Accept any expression, written to the document verbatim. Turns 'Keep the unit' off.": {
       "source": "community",
       "origin": "3e486ccf"
+    },
+    "Accepted": {
+      "source": "community",
+      "origin": "e15f5897"
     },
     "Active Config:": {
       "source": "community",
@@ -90,6 +168,18 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Add": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
+    "Add custom snippet": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
+    "Add to Favorites": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
     "Adds a line per request, on both the server and the editor. Useful when diagnosing a specific worksheet, noisy otherwise, since editing sends requests continuously.": {
       "source": "community",
       "origin": "3e486ccf"
@@ -98,13 +188,33 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Agent": {
+      "source": "community",
+      "origin": "ae2a07a1"
+    },
     "All open documents": {
       "source": "community",
       "origin": "e9e35576"
     },
+    "Allow": {
+      "source": "community",
+      "origin": "e15f5897"
+    },
     "Allow expressions": {
       "source": "community",
       "origin": "3e486ccf"
+    },
+    "Allow for this conversation": {
+      "source": "community",
+      "origin": "e15f5897"
+    },
+    "Allow this action?": {
+      "source": "community",
+      "origin": "e15f5897"
+    },
+    "Allowed": {
+      "source": "community",
+      "origin": "e15f5897"
     },
     "Also the header title of PDF exports, unless the Title PDF setting hides it. Set to the file name on first save.": {
       "source": "community",
@@ -122,6 +232,10 @@
       "source": "community",
       "origin": "515a0e74"
     },
+    "Applied automatically": {
+      "source": "community",
+      "origin": "40fa6871"
+    },
     "Apply": {
       "source": "community",
       "origin": "3e486ccf"
@@ -130,13 +244,33 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Apply edits to open worksheets without review; no commands or file writes": {
+      "source": "community",
+      "origin": "ae2a07a1"
+    },
     "Apply to save {n} change, Reset to revert changes | Apply to save {n} changes, Reset to revert changes": {
       "source": "community",
       "origin": "c18e7fd9"
     },
+    "Approve plan": {
+      "source": "community",
+      "origin": "ae2a07a1"
+    },
+    "Ask {name} about your open worksheets. It can read them, check their errors, and propose edits for you to review.": {
+      "source": "community",
+      "origin": "fb220284"
+    },
+    "Ask before running commands or editing": {
+      "source": "community",
+      "origin": "ae2a07a1"
+    },
     "Author": {
       "source": "community",
       "origin": "3e486ccf"
+    },
+    "Auto mode": {
+      "source": "community",
+      "origin": "ae2a07a1"
     },
     "Auto-indents the active document. Content is not modified outside of whitespace.": {
       "source": "community",
@@ -150,6 +284,10 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Backup": {
+      "source": "community",
+      "origin": "40fa6871"
+    },
     "Blue → Red": {
       "source": "community",
       "origin": "3e486ccf"
@@ -162,6 +300,10 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Bold": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
     "Both": {
       "source": "community",
       "origin": "3e486ccf"
@@ -169,6 +311,10 @@
     "Bottom margin": {
       "source": "community",
       "origin": "3e486ccf"
+    },
+    "Bulleted List": {
+      "source": "community",
+      "origin": "b66ec66e"
     },
     "Calculate #post blocks while the input form is shown, hidden, so their variables stay available to later lines. Turn off to skip them entirely and keep the form responsive when the report is all at the end.": {
       "source": "community",
@@ -186,6 +332,22 @@
       "source": "community",
       "origin": "3e486ccf",
       "vscodeMatch": true
+    },
+    "Change shortcut": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
+    "Changes": {
+      "source": "community",
+      "origin": "40fa6871"
+    },
+    "Changes in this conversation": {
+      "source": "community",
+      "origin": "40fa6871"
+    },
+    "Changes since backup": {
+      "source": "community",
+      "origin": "40fa6871"
     },
     "Checking which controls still exist…": {
       "source": "community",
@@ -235,6 +397,14 @@
     "Close window": {
       "source": "community",
       "origin": "111083a9"
+    },
+    "Closed": {
+      "source": "community",
+      "origin": "40fa6871"
+    },
+    "Closed; reverting reopens it": {
+      "source": "community",
+      "origin": "40fa6871"
     },
     "Collapse": {
       "source": "community",
@@ -288,6 +458,10 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Conversation history": {
+      "source": "community",
+      "origin": "e15f5897"
+    },
     "Copy": {
       "source": "community",
       "origin": "3e486ccf",
@@ -321,6 +495,14 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Current": {
+      "source": "community",
+      "origin": "48fabc32"
+    },
+    "Custom Snippets": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
     "Custom Unit": {
       "source": "community",
       "origin": "3e486ccf"
@@ -345,9 +527,25 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Default": {
+      "source": "community",
+      "origin": "e15f5897"
+    },
     "Degrees": {
       "source": "community",
       "origin": "3e486ccf"
+    },
+    "Delete": {
+      "source": "community",
+      "origin": "e15f5897"
+    },
+    "Denied": {
+      "source": "community",
+      "origin": "e15f5897"
+    },
+    "Deny": {
+      "source": "community",
+      "origin": "e15f5897"
     },
     "Description": {
       "source": "community",
@@ -373,6 +571,18 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Edit automatically": {
+      "source": "community",
+      "origin": "ae2a07a1"
+    },
+    "Edit custom snippet": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
+    "Edit Custom Snippet": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
     "Edit in the Properties tab": {
       "source": "community",
       "origin": "6e7ce353"
@@ -397,18 +607,46 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Enter 1 to {max} characters": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
+    "Enter plan mode": {
+      "source": "community",
+      "origin": "ae2a07a1"
+    },
+    "Enter the text to insert": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
+    "Enter to send · Shift+Enter for a new line": {
+      "source": "community",
+      "origin": "e15f5897"
+    },
     "Error": {
       "source": "community",
       "origin": "3e486ccf",
       "vscodeMatch": true
     },
+    "Example": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
     "Exit input mode": {
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Exit plan mode": {
+      "source": "community",
+      "origin": "ae2a07a1"
+    },
     "Expand": {
       "source": "community",
       "origin": "35cde5eb"
+    },
+    "Explore and propose a plan without making changes": {
+      "source": "community",
+      "origin": "ae2a07a1"
     },
     "Export": {
       "source": "community",
@@ -441,6 +679,10 @@
     "Failures plus recoverable problems, such as a missing browser for PDF export. The default, and silent during normal editing.": {
       "source": "community",
       "origin": "3e486ccf"
+    },
+    "Favorites": {
+      "source": "community",
+      "origin": "b66ec66e"
     },
     "Fields": {
       "source": "community",
@@ -499,6 +741,10 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Found automatically": {
+      "source": "community",
+      "origin": "ae2a07a1"
+    },
     "Function": {
       "source": "community",
       "origin": "3e486ccf"
@@ -534,6 +780,30 @@
     "Header/footer separator line color as a hex code, default #b3b3b3": {
       "source": "community",
       "origin": "3e486ccf"
+    },
+    "Heading 1": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
+    "Heading 2": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
+    "Heading 3": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
+    "Heading 4": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
+    "Heading 5": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
+    "Heading 6": {
+      "source": "community",
+      "origin": "b66ec66e"
     },
     "Height of the plot area in pixels (at least 1). Can be overridden per-document with a PlotHeight = … line.": {
       "source": "community",
@@ -616,13 +886,33 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Inserted text": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
+    "Italic": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
+    "Keep all": {
+      "source": "community",
+      "origin": "40fa6871"
+    },
     "Keep Both": {
       "source": "community",
       "origin": "515a0e74"
     },
+    "Keep changes": {
+      "source": "community",
+      "origin": "40fa6871"
+    },
     "Keep Mine": {
       "source": "community",
       "origin": "515a0e74"
+    },
+    "Keep planning": {
+      "source": "community",
+      "origin": "ae2a07a1"
     },
     "Keep the unit": {
       "source": "community",
@@ -635,6 +925,14 @@
     "Keep your edits; saving will overwrite the file on disk": {
       "source": "community",
       "origin": "515a0e74"
+    },
+    "Kept planning": {
+      "source": "community",
+      "origin": "ae2a07a1"
+    },
+    "Keyboard Shortcuts": {
+      "source": "community",
+      "origin": "b66ec66e"
     },
     "Landscape": {
       "source": "community",
@@ -672,9 +970,17 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "letters": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
     "Light Direction:": {
       "source": "community",
       "origin": "3e486ccf"
+    },
+    "Line Break": {
+      "source": "community",
+      "origin": "b66ec66e"
     },
     "Linter Minimum Severity:": {
       "source": "community",
@@ -740,6 +1046,10 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Message {name}…": {
+      "source": "community",
+      "origin": "fb220284"
+    },
     "Minimize": {
       "source": "community",
       "origin": "111083a9"
@@ -747,6 +1057,22 @@
     "Mode": {
       "source": "community",
       "origin": "3e486ccf"
+    },
+    "Model": {
+      "source": "community",
+      "origin": "e15f5897"
+    },
+    "Name": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
+    "New conversation": {
+      "source": "community",
+      "origin": "e15f5897"
+    },
+    "New custom snippet": {
+      "source": "community",
+      "origin": "b66ec66e"
     },
     "New tab": {
       "source": "community",
@@ -781,9 +1107,17 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "No insert data available": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
     "No insert items available": {
       "source": "community",
       "origin": "3e486ccf"
+    },
+    "No longer pending": {
+      "source": "community",
+      "origin": "40fa6871"
     },
     "No output on this channel yet.": {
       "source": "community",
@@ -805,6 +1139,10 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "No saved conversations yet.": {
+      "source": "community",
+      "origin": "e15f5897"
+    },
     "No user name is set, so saves and reviews won't record who made them.": {
       "source": "community",
       "origin": "3e486ccf"
@@ -825,9 +1163,17 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Not found. Install it ({hint}) or enter the full path to its executable.": {
+      "source": "community",
+      "origin": "ae2a07a1"
+    },
     "Nothing writes until you press Write to Disk.": {
       "source": "community",
       "origin": "3e486ccf"
+    },
+    "Numbered List": {
+      "source": "community",
+      "origin": "b66ec66e"
     },
     "Numerical precision": {
       "source": "community",
@@ -856,6 +1202,10 @@
     "Only failures. Crash and hang reports are always written regardless of this setting.": {
       "source": "community",
       "origin": "3e486ccf"
+    },
+    "Open": {
+      "source": "community",
+      "origin": "e15f5897"
     },
     "Open Another Folder": {
       "source": "community",
@@ -905,6 +1255,10 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Other answer…": {
+      "source": "community",
+      "origin": "ae2a07a1"
+    },
     "Output": {
       "source": "community",
       "origin": "3e486ccf"
@@ -933,17 +1287,49 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Paragraph": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
+    "Parameter description": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
     "Parameter descriptions": {
       "source": "community",
       "origin": "3e486ccf"
+    },
+    "Parameter name": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
+    "Parameter type": {
+      "source": "community",
+      "origin": "b66ec66e"
     },
     "Parameter types": {
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Parameters": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
+    "Parameters fill the § placeholders in the inserted text, in order.": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
     "Paste (Ctrl+V)": {
       "source": "community",
       "origin": "3e486ccf"
+    },
+    "Paste as Comment": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
+    "Permission mode": {
+      "source": "community",
+      "origin": "40fa6871"
     },
     "Pixels, or a percentage of the line such as 75%. Natural width when empty.": {
       "source": "community",
@@ -956,6 +1342,22 @@
     "Place the cursor on a line to see its values.": {
       "source": "community",
       "origin": "ae83e4dc"
+    },
+    "Plan": {
+      "source": "community",
+      "origin": "ae2a07a1"
+    },
+    "Plan approved": {
+      "source": "community",
+      "origin": "ae2a07a1"
+    },
+    "Plan mode": {
+      "source": "community",
+      "origin": "ae2a07a1"
+    },
+    "Plan mode: {name} can read and plan, but not change anything.": {
+      "source": "community",
+      "origin": "ae2a07a1"
     },
     "Plot color scale": {
       "source": "community",
@@ -992,6 +1394,10 @@
     "Portrait": {
       "source": "community",
       "origin": "3e486ccf"
+    },
+    "Press a key combination...": {
+      "source": "community",
+      "origin": "b66ec66e"
     },
     "Prettify": {
       "source": "community",
@@ -1038,6 +1444,10 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Proposed edit": {
+      "source": "community",
+      "origin": "e15f5897"
+    },
     "Purge unused": {
       "source": "community",
       "origin": "3e486ccf"
@@ -1045,6 +1455,22 @@
     "Purple → Yellow": {
       "source": "community",
       "origin": "3e486ccf"
+    },
+    "Question": {
+      "source": "community",
+      "origin": "ae2a07a1"
+    },
+    "Questions": {
+      "source": "community",
+      "origin": "ae2a07a1"
+    },
+    "Quick type": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
+    "Quick type for {name}": {
+      "source": "community",
+      "origin": "b66ec66e"
     },
     "Quit": {
       "source": "community",
@@ -1062,6 +1488,10 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Read and propose a plan; no edits, commands or file writes": {
+      "source": "community",
+      "origin": "ae2a07a1"
+    },
     "Redo (Ctrl+Y)": {
       "source": "community",
       "origin": "341faa57"
@@ -1078,6 +1508,14 @@
       "source": "community",
       "origin": "111083a9"
     },
+    "Reject": {
+      "source": "community",
+      "origin": "e15f5897"
+    },
+    "Rejected": {
+      "source": "community",
+      "origin": "e15f5897"
+    },
     "Relative precision for numerical methods such as integration and root finding (1e-15 to 1e-2). Can be overridden per-document with a Precision = … line.": {
       "source": "community",
       "origin": "3e486ccf"
@@ -1085,6 +1523,14 @@
     "Remove": {
       "source": "community",
       "origin": "3e486ccf"
+    },
+    "Remove ~{key}": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
+    "Remove from Favorites": {
+      "source": "community",
+      "origin": "b66ec66e"
     },
     "Renders plots as SVG (scalable, sharp at any zoom) instead of raster PNG images.": {
       "source": "community",
@@ -1126,6 +1572,14 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Revert all": {
+      "source": "community",
+      "origin": "40fa6871"
+    },
+    "Revert to backup": {
+      "source": "community",
+      "origin": "40fa6871"
+    },
     "Revert to defaults": {
       "source": "community",
       "origin": "c18e7fd9"
@@ -1137,6 +1591,10 @@
     "Review": {
       "source": "community",
       "origin": "3e486ccf"
+    },
+    "Review the diff to accept or reject it.": {
+      "source": "community",
+      "origin": "e15f5897"
     },
     "Reviewed": {
       "source": "community",
@@ -1181,6 +1639,10 @@
     "Save": {
       "source": "community",
       "origin": "3e486ccf"
+    },
+    "Save as Custom Snippet": {
+      "source": "community",
+      "origin": "b66ec66e"
     },
     "Save As...": {
       "source": "community",
@@ -1242,9 +1704,17 @@
       "source": "community",
       "origin": "3e486ccf"
     },
-    "Search items... (Alt+I)": {
+    "Search Insert Items": {
       "source": "community",
-      "origin": "3e486ccf"
+      "origin": "b66ec66e"
+    },
+    "Search items...": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
+    "Search items... ({key})": {
+      "source": "community",
+      "origin": "b66ec66e"
     },
     "Search properties...": {
       "source": "community",
@@ -1266,6 +1736,18 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Send": {
+      "source": "community",
+      "origin": "e15f5897"
+    },
+    "Set a hotkey to open this setting": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
+    "Set a hotkey to toggle this setting": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
     "Set as Reviewed": {
       "source": "community",
       "origin": "3e486ccf"
@@ -1273,6 +1755,14 @@
     "Set it in Settings": {
       "source": "community",
       "origin": "3e486ccf"
+    },
+    "Set path": {
+      "source": "community",
+      "origin": "ae2a07a1"
+    },
+    "Setting: {name}": {
+      "source": "community",
+      "origin": "b66ec66e"
     },
     "Settings": {
       "source": "community",
@@ -1285,6 +1775,10 @@
     "Show all files": {
       "source": "community",
       "origin": "3e486ccf"
+    },
+    "Show changes": {
+      "source": "community",
+      "origin": "40fa6871"
     },
     "Show header/footer lines": {
       "source": "community",
@@ -1326,6 +1820,14 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Skip": {
+      "source": "community",
+      "origin": "ae2a07a1"
+    },
+    "Skipped": {
+      "source": "community",
+      "origin": "ae2a07a1"
+    },
     "Smooth color scale": {
       "source": "community",
       "origin": "3e486ccf"
@@ -1342,6 +1844,10 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Spaces and ~ are not allowed": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
     "Spaces per level:": {
       "source": "community",
       "origin": "3e486ccf"
@@ -1354,6 +1860,22 @@
       "source": "community",
       "origin": "111083a9"
     },
+    "Star a setting to pin it here.": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
+    "Star an item to pin it here.": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
+    "Starting {name}…": {
+      "source": "community",
+      "origin": "fb220284"
+    },
+    "Stop": {
+      "source": "community",
+      "origin": "e15f5897"
+    },
     "Stop Server": {
       "source": "community",
       "origin": "3e486ccf"
@@ -1362,6 +1884,18 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Subagent": {
+      "source": "community",
+      "origin": "ae2a07a1"
+    },
+    "Submit": {
+      "source": "community",
+      "origin": "ae2a07a1"
+    },
+    "Subscript": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
     "Substitute variable values into expressions": {
       "source": "community",
       "origin": "3e486ccf"
@@ -1369,6 +1903,10 @@
     "Substitute variables": {
       "source": "community",
       "origin": "3e486ccf"
+    },
+    "Superscript": {
+      "source": "community",
+      "origin": "b66ec66e"
     },
     "Symbol Palette": {
       "source": "community",
@@ -1402,9 +1940,21 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Text": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
     "The document as written — #pre and #post both shown, entered #UI values ignored": {
       "source": "community",
       "origin": "3e486ccf"
+    },
+    "The hotkey opens this setting.": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
+    "The hotkey turns this setting on and off.": {
+      "source": "community",
+      "origin": "b66ec66e"
     },
     "The Preview and Report views both write, so the files are rewritten as you type. The input form does not.": {
       "source": "community",
@@ -1434,6 +1984,18 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Todos": {
+      "source": "community",
+      "origin": "ae2a07a1"
+    },
+    "Toggle {name} chat": {
+      "source": "community",
+      "origin": "fb220284"
+    },
+    "Toggle Comment": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
     "Top margin": {
       "source": "community",
       "origin": "3e486ccf"
@@ -1446,6 +2008,10 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Type ~ then the letters and a space to insert this item.": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
     "UI override: {name} = {value}": {
       "source": "community",
       "origin": "6e7ce353"
@@ -1454,9 +2020,21 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Unassigned": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
     "Unavailable in input mode": {
       "source": "community",
       "origin": "111083a9"
+    },
+    "Uncomment": {
+      "source": "community",
+      "origin": "b66ec66e"
+    },
+    "Underline": {
+      "source": "community",
+      "origin": "b66ec66e"
     },
     "Undo (Ctrl+Z)": {
       "source": "community",
@@ -1470,9 +2048,21 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Untitled": {
+      "source": "community",
+      "origin": "40fa6871"
+    },
+    "Untitled conversation": {
+      "source": "community",
+      "origin": "e15f5897"
+    },
     "Unwrapped": {
       "source": "community",
       "origin": "3e486ccf"
+    },
+    "Value type": {
+      "source": "community",
+      "origin": "b66ec66e"
     },
     "Values entered into the input form. Click a name to go to the #UI line that declares it.": {
       "source": "community",
@@ -1493,6 +2083,10 @@
     "Verbose": {
       "source": "community",
       "origin": "3e486ccf"
+    },
+    "View changes": {
+      "source": "community",
+      "origin": "40fa6871"
     },
     "Violet → Yellow": {
       "source": "community",
@@ -1515,6 +2109,14 @@
       "source": "community",
       "origin": "3e486ccf"
     },
+    "Work without asking, changing only open worksheets; every change is backed up": {
+      "source": "community",
+      "origin": "ae2a07a1"
+    },
+    "Working…": {
+      "source": "community",
+      "origin": "e15f5897"
+    },
     "Write / Append": {
       "source": "community",
       "origin": "3e486ccf"
@@ -1534,6 +2136,10 @@
     "Write to Disk": {
       "source": "community",
       "origin": "3e486ccf"
+    },
+    "Your answer…": {
+      "source": "community",
+      "origin": "ae2a07a1"
     },
     "Your edits (mine)": {
       "source": "community",
