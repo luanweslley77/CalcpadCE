@@ -1,8 +1,8 @@
 # i18n pipeline
 
 One script owns the whole pipeline. It extracts the pinned VS Code pack subsets,
-imports exact matches into the locale catalogs, generates the Monaco NLS maps,
-and validates provenance.
+imports exact matches into the locale catalogs, generates the Monaco NLS cache
+at build time, and validates provenance.
 
 The locale list is the single source of truth in
 `calcpad-frontend/src/i18n/locales.json`. It records each tag, endonym, aliases,
@@ -15,8 +15,9 @@ catalog and a Monaco map. The script generates the typed
 Run from `Calcpad.Web/frontend`, or use the `calcpad-web` package scripts:
 
 ```sh
-node scripts/i18n/i18n.mjs              # update generated files
-node scripts/i18n/i18n.mjs --check      # verify generated files
+node scripts/i18n/i18n.mjs                 # update generated files and Monaco cache
+node scripts/i18n/i18n.mjs --check         # verify generated catalogs/provenance
+node scripts/i18n/i18n.mjs --monaco-cache  # refresh only the Monaco cache
 node scripts/i18n/i18n.mjs --locale=pt-BR
 node scripts/i18n/i18n.mjs --verbose
 ```
@@ -27,7 +28,11 @@ npm run i18n:check
 ```
 
 `--locale` limits extraction, catalog import, and Monaco generation to one
-locale. `--check` never writes files and exits non-zero when anything is stale.
+locale. `--check` never writes repository files and exits non-zero when the
+catalogs or provenance are stale.
+`--monaco-cache` writes only the build cache under
+`calcpad-web/node_modules/.cache/calcpad-monaco-nls/`; the maps and overrides
+are not committed.
 
 ## Layout
 

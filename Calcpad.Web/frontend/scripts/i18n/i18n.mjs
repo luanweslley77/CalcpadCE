@@ -28,6 +28,8 @@ const enFile = path.join(messagesDir, 'en.ts');
 const webRoot = path.join(frontendRoot, 'calcpad-web');
 const monacoDir = path.join(webRoot, 'src/editor/monaco-nls');
 const cacheDir = path.join(webRoot, 'node_modules/.cache/calcpad-monaco-nls');
+const monacoMapsDir = path.join(cacheDir, 'maps');
+const monacoOverridesDir = path.join(cacheDir, 'overrides');
 
 const VSCODE_TAG = '1.96.2';
 const VSCODE_LOC_TAG = 'v1.96.2024121109';
@@ -46,8 +48,9 @@ const SOURCES = ['vscode-monaco', 'vscode-shared-ui'];
 const args = process.argv.slice(2);
 const check = args.includes('--check');
 const verbose = args.includes('--verbose');
+const monacoOnly = args.includes('--monaco-cache');
 const only = args.find(argument => argument.startsWith('--locale='))?.split('=')[1];
-const unknown = args.filter(argument => !['--check', '--verbose'].includes(argument) && !argument.startsWith('--locale='));
+const unknown = args.filter(argument => !['--check', '--verbose', '--monaco-cache'].includes(argument) && !argument.startsWith('--locale='));
 if (unknown.length) {
     console.error(`Unknown option: ${unknown.join(', ')}`);
     process.exit(1);
@@ -586,7 +589,10 @@ async function generateMonacoMaps() {
     console.log(`Monaco NLS maps from vscode-loc ${VSCODE_LOC_TAG} (${VSCODE_LOC_COMMIT.slice(0, 12)})`);
     console.log(`Monaco: ${monacoRoot}`);
     console.log(`Calls: ${calls.length} across ${new Set(calls.map(call => call.module)).size} modules\n`);
-    if (!check) fs.mkdirSync(monacoDir, { recursive: true });
+    if (!check) {
+        fs.mkdirSync(monacoMapsDir, { recursive: true });
+        fs.mkdirSync(monacoOverridesDir, { recursive: true });
+    }
 
     for (const pack of packs) {
         let contents;
@@ -638,7 +644,7 @@ async function generateMonacoMaps() {
         }
 
         const serialized = JSON.stringify(sorted, null, 2) + '\n';
-        const target = path.join(monacoDir, `${pack.output}.json`);
+        const target = path.join(monacoMapsDir, `${pack.output}.json`);
         if (check) {
             const current = fs.existsSync(target) ? fs.readFileSync(target, 'utf8') : '';
             if (current !== serialized) fail(`  out of date: ${path.relative(frontendRoot, target)}`);
@@ -664,7 +670,7 @@ async function generateMonacoMaps() {
             (overrides[module] ??= {})[messageKey] = value;
         }
         const sortedOverrides = sortMap(overrides);
-        const overrideTarget = path.join(monacoDir, 'overrides', `${pack.output}.json`);
+        const overrideTarget = path.join(monacoOverridesDir, `${pack.output}.json`);
         const overrideSerialized = JSON.stringify(sortedOverrides, null, 2) + '\n';
         if (check) {
             const current = fs.existsSync(overrideTarget) ? fs.readFileSync(overrideTarget, 'utf8') : '';
@@ -917,13 +923,8 @@ function checkProvenance() {
         errors.push('SOURCES.json: expected MIT license');
 
     const packs = new Map(MONACO_PACKS.map(pack => [pack.output, pack.folder]));
-    const baseMaps = {};
     for (const [file, info] of Object.entries(monacoSources.maps ?? {})) {
         const output = file.replace(/\.json$/, '');
-        if (!fs.existsSync(path.join(monacoDir, file))) {
-            errors.push(`SOURCES.json: map "${file}" does not exist`);
-            continue;
-        }
         if (!packs.has(output)) {
             errors.push(`SOURCES.json: map "${file}" has no matching generator pack`);
             continue;
@@ -934,7 +935,6 @@ function checkProvenance() {
             errors.push(`SOURCES.json: map "${file}" must be vscode`);
         if (info.vscodeSource !== 'vscode-monaco')
             errors.push(`SOURCES.json: map "${file}" must be vscode-monaco`);
-        baseMaps[output] = readJsonSafe(path.join(monacoDir, file));
     }
     if (Object.keys(monacoSources.maps ?? {}).length !== packs.size)
         errors.push('SOURCES.json: map count does not match the generator packs');
@@ -945,30 +945,10 @@ function checkProvenance() {
             errors.push(`SOURCES.json: override "${locale}" must be community`);
         if (info.replaces !== 'vscode')
             errors.push(`SOURCES.json: override "${locale}" must replace vscode`);
-        const file = path.join(monacoDir, info.path);
-        if (!fs.existsSync(file)) {
-            errors.push(`SOURCES.json: override "${info.path}" does not exist`);
-            continue;
-        }
-        const data = readJsonSafe(file);
-        const base = baseMaps[locale];
-        if (!base) {
-            errors.push(`SOURCES.json: override "${locale}" has no base map`);
-            continue;
-        }
-        for (const [module, entries] of Object.entries(data)) {
-            if (!base[module]) {
-                errors.push(`overrides/${locale}.json: module "${module}" is not in the base map`);
-                continue;
-            }
-            for (const [key, value] of Object.entries(entries)) {
-                if (!base[module][key])
-                    errors.push(`overrides/${locale}.json: "${module}::${key}" is not in the base map`);
-                if (typeof value !== 'string' || !value)
-                    errors.push(`overrides/${locale}.json: "${module}::${key}" has an empty translation`);
-                else
-                    monacoOverrides++;
-            }
+        try {
+            monacoOverrides += Object.keys(readCommunity(locale).monaco ?? {}).length;
+        } catch (error) {
+            errors.push(`community/${locale}.ts: ${error.message}`);
         }
     }
 
@@ -998,10 +978,16 @@ function checkProvenance() {
     console.log('Provenance OK');
 }
 
-console.log(`i18n ${check ? 'check' : 'update'}${only ? ` (${only})` : ''}`);
-await extractLangpacks();
-importCatalogs();
-await generateMonacoMaps();
-checkProvenance();
-if (failed) process.exitCode = 1;
-else console.log(check ? 'i18n: OK' : 'i18n: updated');
+console.log(`i18n ${monacoOnly ? 'monaco cache' : check ? 'check' : 'update'}${only ? ` (${only})` : ''}`);
+if (monacoOnly) {
+    await generateMonacoMaps();
+    if (failed) process.exitCode = 1;
+    else console.log('i18n: monaco cache updated');
+} else {
+    await extractLangpacks();
+    importCatalogs();
+    if (!check) await generateMonacoMaps();
+    checkProvenance();
+    if (failed) process.exitCode = 1;
+    else console.log(check ? 'i18n: OK' : 'i18n: updated');
+}
