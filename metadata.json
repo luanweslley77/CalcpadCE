@@ -5,10 +5,7 @@
   "branch": "i18n/message-ids",
   "checkpoints_count": 1,
   "files_touched": [
-    "Calcpad.Web/frontend/scripts/i18n/MESSAGE-IDS.md",
-    "Calcpad.Web/frontend/scripts/i18n/README.md",
-    "Calcpad.Web/frontend/scripts/i18n/propose-ids.mjs",
-    "TRANSLATING.md"
+    "Calcpad.Web/frontend/scripts/i18n/propose-ids.mjs"
   ],
   "sessions": [
     {
@@ -16,15 +13,15 @@
       "transcript": "/0/full.jsonl",
       "compact_transcript": "/0/transcript.jsonl",
       "content_hash": "/0/content_hash.txt",
-      "prompt": "/0/prompt.txt"
+      "prompt": ""
     }
   ],
   "token_usage": {
-    "input_tokens": 95915,
+    "input_tokens": 2112,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 9039104,
-    "output_tokens": 68768,
-    "api_call_count": 23
+    "cache_read_tokens": 878592,
+    "output_tokens": 1232,
+    "api_call_count": 2
   },
   "redaction": {
     "replacements": 56,
