@@ -74,6 +74,7 @@ import { EditorGroup } from './editor/editor-group';
 import { navigationDirection, type NavigationLocation } from './editor/navigation-history';
 import { createBrowserNavigationHistory, createDesktopNavigationHistory, type NavigationHistoryClient } from './services/navigation-history';
 import { UNTITLED_TITLE, documentMatches, reloadDocument, type TabManager } from './tabs/tab-manager';
+import { joinDocument, noteDocumentSaved, startDocSync } from './services/doc-sync';
 import type { FileConflictChoice } from './services/file-change-tracker';
 import { setupTabDragging, type SplitSide } from './tabs/tab-drag';
 import { toDisplayLogLevel } from 'calcpad-frontend';
@@ -2620,6 +2621,7 @@ async function bootstrap(): Promise<void> {
             try {
                 const content = await tauriBridge!.readFile(path);
                 tabs.openFile(path, content);
+                joinDocument(path);
                 // Opening into the seeded empty tab replaces it in place, which is not an
                 // active-model change, so the listener that normally settles the mode for a
                 // newly opened file never runs — and that is the first file of every session.
@@ -2645,6 +2647,13 @@ async function bootstrap(): Promise<void> {
             pathExists: async (path) => {
                 const { invoke } = await import('@tauri-apps/api/core');
                 return invoke<boolean>('agent_path_exists', { path });
+            },
+            lint: (content, sourceFilePath) => activeBridge.api.lint(content, sourceFilePath,
+                { isComplex: activeBridge.getSettings().math.isComplex }),
+            run: async (content, sourceFilePath) => {
+                const result = await activeBridge.api.convert(content, buildApiSettings(activeBridge.getSettings()),
+                    'html', true, sourceFilePath, undefined, undefined, true, { write: false });
+                return result instanceof ArrayBuffer ? null : result;
             },
         });
 
@@ -2794,6 +2803,15 @@ async function bootstrap(): Promise<void> {
             onExternalChange,
         );
 
+        await startDocSync(windowLabel, {
+            savedElsewhere: (path, content) => {
+                void tauriBridge!.fileTracker.noteWritten(path, content);
+                for (const h of tabsHolding(path)) {
+                    if (!h.group.tabs.isDirty(h.id)) void deleteDraft(h.id);
+                }
+            },
+        });
+
         /**
          * Writes the file-info comment into the active model just before it is saved to
          * `filePath`, returning the content to write. `saved` is the file as it is on disk,
@@ -2834,6 +2852,7 @@ async function bootstrap(): Promise<void> {
                     : tabs.activeModel?.getValue() ?? '';
                 await tauriBridge!.saveFile(active.filePath, content);
                 tabs.markActiveSaved();
+                if (tabs.activeModel) noteDocumentSaved(tabs.activeModel);
                 // Another group's file may include this one
                 for (const g of groups.values()) if (g !== activeGroup) void g.diagnostics?.refresh();
                 await deleteDraft(active.id);

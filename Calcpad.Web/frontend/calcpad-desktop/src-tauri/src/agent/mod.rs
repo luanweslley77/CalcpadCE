@@ -10,6 +10,7 @@ pub mod history;
 mod mcp;
 mod pi;
 mod process;
+mod reference;
 mod rpc;
 
 use std::collections::HashMap;
@@ -25,6 +26,7 @@ use tokio::sync::{oneshot, OnceCell};
 
 pub const EVENT_NAME: &str = "agent-event";
 const TOOL_REQUEST_EVENT: &str = "agent-tool-request";
+const WINDOW_CLOSED_EVENT: &str = "agent-window-closed";
 
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
 #[serde(
@@ -298,19 +300,13 @@ pub(crate) fn session_label(key: &SessionKey) -> String {
     format!("{window}-{}", key.conversation)
 }
 
-fn plugin_dir(app: &AppHandle) -> Option<PathBuf> {
-    // The folder name is the plugin name: the skill is calcpadce:calcpad-generator.
-    let dir = app
-        .path()
-        .resource_dir()
-        .ok()?
-        .join("agent-plugins")
-        .join("calcpadce");
-    dir.join("skills")
-        .join("calcpad-generator")
-        .join("SKILL.md")
-        .is_file()
-        .then_some(dir)
+/// The docs bundled for the calcpad_reference tool.
+fn skill_reference(app: &AppHandle) -> Option<reference::Reference> {
+    let dir = app.path().resource_dir().ok()?.join("agent-docs");
+    Some(reference::Reference::new(
+        dir,
+        app.package_info().version.to_string(),
+    ))
 }
 
 /// Every supported harness, whether it was found, and what the chat panel offers for it.
@@ -345,11 +341,17 @@ pub async fn agent_start(
         .filter(|p| p.is_file())
         .ok_or_else(|| harness.not_found())?;
     let state = app.state::<AgentState>();
-    state.stop_where(|k| *k == key);
+    // Another window may hand the conversation over.
+    state.stop_where(|k| k.conversation == key.conversation);
 
     let endpoint = state
         .mcp
-        .get_or_try_init(|| mcp::start(std::sync::Arc::new(WindowBridge(app.clone()))))
+        .get_or_try_init(|| {
+            mcp::start(
+                std::sync::Arc::new(WindowBridge(app.clone())),
+                skill_reference(&app),
+            )
+        })
         .await?
         .clone();
     let generation = state.next_id.fetch_add(1, Ordering::Relaxed);
@@ -369,7 +371,6 @@ pub async fn agent_start(
         options,
         mcp: endpoint,
         data_dir,
-        plugin_dir: plugin_dir(&app),
     };
     let backend = harness.start(launch)?;
     state
@@ -412,15 +413,19 @@ pub fn agent_send(
     })
 }
 
+/// Works from any window, wherever the conversation runs.
 #[tauri::command]
-pub fn agent_interrupt(
-    state: State<'_, AgentState>,
-    window: tauri::WebviewWindow,
-    conversation: String,
-) -> Result<(), String> {
-    with_session(&state, &SessionKey::new(&window, conversation)?, |b| {
-        b.interrupt()
-    })
+pub fn agent_interrupt(state: State<'_, AgentState>, conversation: String) -> Result<(), String> {
+    let sessions = state
+        .sessions
+        .lock()
+        .expect("agent sessions mutex poisoned");
+    let session = sessions
+        .iter()
+        .find(|(k, _)| k.conversation == conversation)
+        .map(|(_, s)| s)
+        .ok_or("No agent session is running")?;
+    session.backend.interrupt()
 }
 
 /// Applies to the running session, if any; the next start picks the model from its options.
@@ -463,14 +468,10 @@ pub fn agent_set_permission_mode(
     }
 }
 
+/// Works from any window, wherever the conversation runs.
 #[tauri::command]
-pub fn agent_stop(
-    state: State<'_, AgentState>,
-    window: tauri::WebviewWindow,
-    conversation: String,
-) -> Result<(), String> {
-    let key = SessionKey::new(&window, conversation)?;
-    state.stop_where(|k| *k == key);
+pub fn agent_stop(state: State<'_, AgentState>, conversation: String) -> Result<(), String> {
+    state.stop_where(|k| k.conversation == conversation);
     Ok(())
 }
 
@@ -494,6 +495,7 @@ pub fn agent_tool_response(state: State<'_, AgentState>, id: u64, answer: Value)
 
 pub fn on_window_destroyed(app: &AppHandle, window: &str) {
     app.state::<AgentState>().stop_where(|k| k.window == window);
+    let _ = app.emit(WINDOW_CLOSED_EVENT, window);
 }
 
 pub fn stop_all(app: &AppHandle) {
