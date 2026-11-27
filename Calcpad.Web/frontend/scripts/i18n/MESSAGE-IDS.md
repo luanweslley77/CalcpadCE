@@ -1,8 +1,10 @@
-# Message-ID migration (draft)
+# Message-ID migration
 
-Status: proposal for review.
-Nothing in the runtime uses message IDs yet.
-The generated draft is a snapshot of the current English strings and lookup sites.
+Status: in progress.
+The catalogs and literal call sites use IDs.
+A temporary English-to-ID bridge still covers data-driven labels and error
+messages until those sources return IDs directly.
+The generated draft is a snapshot of the lookup sites that remain to migrate.
 
 ## Target model
 
@@ -119,12 +121,12 @@ Outputs:
 
 The current snapshot has:
 
-- 575 entries.
+- 580 entries.
 - 27 areas.
 - 25 dynamic lookup sites.
-- 63 multi-area or shared entries.
+- 83 multi-area or shared entries.
 - 41 long strings.
-- 63 catalog keys not found in source or data.
+- 61 catalog keys not found in source or data.
 
 Flags to review:
 
@@ -160,19 +162,35 @@ A full ID migration needs those services to return an ID plus parameters
 instead of an English string.
 That should be a separate, explicit step.
 
+## Current implementation
+
+- `messages/en.ts` is the English source (580 IDs).
+- `scripts/i18n/message-ids.json` is the English-to-ID map.
+- `messages/<locale>.ts` catalogs are keyed by ID.
+- `community/zh.ts` holds the 512 community entries; 38 of them override
+  VS Code entries and are marked `replaces: "vscode"` automatically.
+- `legacy-keys.generated.ts` and `useCalcpadI18n()` keep English data labels
+  working while the remaining sources migrate.
+- Literal calls were codemodded (508 replacements).
+- The data-driven labels and error messages still need to return IDs.
+- `scripts/i18n/apply-ids.mjs` and `scripts/i18n/codemod-ids.mjs` are one-time
+  migration helpers; do not rerun them after the catalogs use IDs.
+
 ## Migration phases
 
-1. **Inventory and convention** — this document and the draft map.
-2. **Community source and English catalog** — add `en.ts`, `community/<locale>.ts`,
-   and a temporary resolver that accepts an ID or the legacy English key.
-3. **Pilot area** — migrate Settings (about 74 lookups plus long descriptions).
-4. **Bulk migration** — codemod literal `t('…')` calls, update data structures
-   for the dynamic lookups, adapt the Rust menu mapping.
-5. **Remove the legacy key path** — catalogs and call sites use IDs only.
+1. **Inventory and convention** — done.
+2. **Community source and English catalog** — done.
+   `en.ts`, `community/zh.ts`, and the legacy bridge exist.
+3. **Bulk literal migration** — done for literal `t('…')` calls.
+4. **Data-driven migration** — replace the 25 dynamic lookup sources with IDs:
+   export groups, settings/metadata specs, agent modes, desktop actions,
+   hotkey validation, and error messages.
+5. **Remove the legacy key path** — delete `legacy-keys.generated.ts` and the
+   English-key fallback.
 
-`zh` is the first community migration because it already has 512 translated
+`zh` was the first community migration because it already had 512 translated
 entries.
-Moving them to `community/zh.ts` proves the override and provenance flow with
+Moving them to `community/zh.ts` proved the override and provenance flow with
 real data.
 
 ## Validation

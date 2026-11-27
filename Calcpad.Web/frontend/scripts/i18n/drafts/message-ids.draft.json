@@ -1,12 +1,12 @@
 {
   "convention": "<area>.<component>.<element>",
   "counts": {
-    "entries": 575,
+    "entries": 580,
     "areas": 27,
     "dynamic": 25,
-    "multiArea": 63,
+    "multiArea": 83,
     "long": 41,
-    "unused": 63
+    "unused": 61
   },
   "entries": [
     {
@@ -1250,33 +1250,43 @@
       "id": "app.closeAll",
       "en": "Close All",
       "areas": [
-        "app"
+        "app",
+        "common"
       ],
       "files": [
-        "calcpad-web/src/App.vue"
+        "calcpad-web/src/App.vue",
+        "scripts/i18n/data/vscode.index.json"
       ],
       "kinds": [
         "catalog",
+        "constant",
         "t"
       ],
-      "note": null,
-      "flags": []
+      "note": "VS_CODE_INDEX",
+      "flags": [
+        "multiArea"
+      ]
     },
     {
       "id": "app.closeOthers",
       "en": "Close Others",
       "areas": [
-        "app"
+        "app",
+        "common"
       ],
       "files": [
-        "calcpad-web/src/App.vue"
+        "calcpad-web/src/App.vue",
+        "scripts/i18n/data/vscode.index.json"
       ],
       "kinds": [
         "catalog",
+        "constant",
         "t"
       ],
-      "note": null,
-      "flags": []
+      "note": "VS_CODE_INDEX",
+      "flags": [
+        "multiArea"
+      ]
     },
     {
       "id": "app.continuePastTheNextHashPause",
@@ -1298,17 +1308,22 @@
       "id": "app.copyAll",
       "en": "Copy All",
       "areas": [
-        "app"
+        "app",
+        "common"
       ],
       "files": [
-        "calcpad-web/src/App.vue"
+        "calcpad-web/src/App.vue",
+        "scripts/i18n/data/vscode.index.json"
       ],
       "kinds": [
         "catalog",
+        "constant",
         "t"
       ],
-      "note": null,
-      "flags": []
+      "note": "VS_CODE_INDEX",
+      "flags": [
+        "multiArea"
+      ]
     },
     {
       "id": "app.export",
@@ -1330,23 +1345,6 @@
       "flags": [
         "multiArea"
       ]
-    },
-    {
-      "id": "app.files",
-      "en": "Files",
-      "areas": [
-        "app"
-      ],
-      "files": [
-        "calcpad-frontend/src/vue/components/CalcpadApp.vue"
-      ],
-      "kinds": [
-        "catalog",
-        "data",
-        "t"
-      ],
-      "note": null,
-      "flags": []
     },
     {
       "id": "app.hashUiInputFormHashPostContentIs",
@@ -1501,23 +1499,6 @@
       "flags": []
     },
     {
-      "id": "app.next",
-      "en": "Next",
-      "areas": [
-        "app"
-      ],
-      "files": [
-        "calcpad-web/src/App.vue"
-      ],
-      "kinds": [
-        "catalog",
-        "data",
-        "t"
-      ],
-      "note": null,
-      "flags": []
-    },
-    {
       "id": "app.noOutputOnThisChannelYet",
       "en": "No output on this channel yet.",
       "areas": [
@@ -1601,23 +1582,6 @@
       "flags": []
     },
     {
-      "id": "app.output",
-      "en": "Output",
-      "areas": [
-        "app"
-      ],
-      "files": [
-        "calcpad-web/src/App.vue"
-      ],
-      "kinds": [
-        "catalog",
-        "data",
-        "t"
-      ],
-      "note": null,
-      "flags": []
-    },
-    {
       "id": "app.previewConsole",
       "en": "Preview Console",
       "areas": [
@@ -1633,37 +1597,25 @@
       "flags": []
     },
     {
-      "id": "app.previous",
-      "en": "Previous",
-      "areas": [
-        "app"
-      ],
-      "files": [
-        "calcpad-web/src/App.vue"
-      ],
-      "kinds": [
-        "catalog",
-        "data",
-        "t"
-      ],
-      "note": null,
-      "flags": []
-    },
-    {
       "id": "app.problems",
       "en": "Problems",
       "areas": [
-        "app"
+        "app",
+        "common"
       ],
       "files": [
-        "calcpad-web/src/App.vue"
+        "calcpad-web/src/App.vue",
+        "scripts/i18n/data/vscode.index.json"
       ],
       "kinds": [
         "catalog",
+        "constant",
         "t"
       ],
-      "note": null,
-      "flags": []
+      "note": "VS_CODE_INDEX",
+      "flags": [
+        "multiArea"
+      ]
     },
     {
       "id": "app.properties",
@@ -2009,18 +1961,23 @@
       "id": "app.variables",
       "en": "Variables",
       "areas": [
-        "app"
+        "app",
+        "common"
       ],
       "files": [
-        "calcpad-frontend/src/vue/components/CalcpadApp.vue"
+        "calcpad-frontend/src/vue/components/CalcpadApp.vue",
+        "scripts/i18n/data/vscode.index.json"
       ],
       "kinds": [
         "catalog",
+        "constant",
         "data",
         "t"
       ],
-      "note": null,
-      "flags": []
+      "note": "VS_CODE_INDEX",
+      "flags": [
+        "multiArea"
+      ]
     },
     {
       "id": "app.writeTheEnteredValuesIntoTheDocumentSo",
@@ -2210,19 +2167,6 @@
     {
       "id": "catalog.copyFullPath",
       "en": "Copy Full Path",
-      "areas": [],
-      "files": [],
-      "kinds": [
-        "catalog"
-      ],
-      "note": null,
-      "flags": [
-        "unused"
-      ]
-    },
-    {
-      "id": "catalog.copyRelativePath",
-      "en": "Copy Relative Path",
       "areas": [],
       "files": [],
       "kinds": [
@@ -2491,19 +2435,6 @@
       "note": null,
       "flags": [
         "long",
-        "unused"
-      ]
-    },
-    {
-      "id": "catalog.openContainingFolder",
-      "en": "Open Containing Folder",
-      "areas": [],
-      "files": [],
-      "kinds": [
-        "catalog"
-      ],
-      "note": null,
-      "flags": [
         "unused"
       ]
     },
@@ -2889,6 +2820,7 @@
       "id": "common.apply",
       "en": "Apply",
       "areas": [
+        "common",
         "fileInfo",
         "metadata",
         "uiOverrides"
@@ -2896,14 +2828,16 @@
       "files": [
         "calcpad-frontend/src/vue/components/CalcpadFileInfoSection.vue",
         "calcpad-frontend/src/vue/components/CalcpadMetadataTab.vue",
-        "calcpad-frontend/src/vue/components/CalcpadUiOverridesSection.vue"
+        "calcpad-frontend/src/vue/components/CalcpadUiOverridesSection.vue",
+        "scripts/i18n/data/vscode.index.json"
       ],
       "kinds": [
         "catalog",
+        "constant",
         "data",
         "t"
       ],
-      "note": null,
+      "note": "VS_CODE_INDEX",
       "flags": [
         "shared"
       ]
@@ -2929,6 +2863,7 @@
       "areas": [
         "agentChat",
         "app",
+        "common",
         "hotkeys",
         "insert"
       ],
@@ -2936,14 +2871,16 @@
         "calcpad-frontend/src/vue/components/CalcpadInsertTab.vue",
         "calcpad-frontend/src/vue/components/HotkeyRecorder.vue",
         "calcpad-web/src/App.vue",
-        "calcpad-web/src/components/AgentChatPanel.vue"
+        "calcpad-web/src/components/AgentChatPanel.vue",
+        "scripts/i18n/data/vscode.index.json"
       ],
       "kinds": [
         "catalog",
+        "constant",
         "data",
         "t"
       ],
-      "note": null,
+      "note": "VS_CODE_INDEX",
       "flags": [
         "shared"
       ]
@@ -2954,21 +2891,66 @@
       "areas": [
         "agentChat",
         "agentDiff",
-        "app"
+        "app",
+        "common"
       ],
       "files": [
         "calcpad-web/src/App.vue",
         "calcpad-web/src/components/AgentChatPanel.vue",
-        "calcpad-web/src/components/AgentDiffModal.vue"
+        "calcpad-web/src/components/AgentDiffModal.vue",
+        "scripts/i18n/data/vscode.index.json"
       ],
       "kinds": [
         "catalog",
+        "constant",
         "data",
         "t"
       ],
-      "note": null,
+      "note": "VS_CODE_INDEX",
       "flags": [
         "shared"
+      ]
+    },
+    {
+      "id": "common.collapse",
+      "en": "Collapse",
+      "areas": [
+        "common",
+        "files"
+      ],
+      "files": [
+        "calcpad-frontend/src/vue/components/FilesFolderSection.vue",
+        "scripts/i18n/data/vscode.index.json"
+      ],
+      "kinds": [
+        "catalog",
+        "constant",
+        "t"
+      ],
+      "note": "VS_CODE_INDEX",
+      "flags": [
+        "multiArea"
+      ]
+    },
+    {
+      "id": "common.collapseAll",
+      "en": "Collapse All",
+      "areas": [
+        "common",
+        "files"
+      ],
+      "files": [
+        "calcpad-frontend/src/vue/components/FilesFolderSection.vue",
+        "scripts/i18n/data/vscode.index.json"
+      ],
+      "kinds": [
+        "catalog",
+        "constant",
+        "t"
+      ],
+      "note": "VS_CODE_INDEX",
+      "flags": [
+        "multiArea"
       ]
     },
     {
@@ -2976,21 +2958,55 @@
       "en": "Copy",
       "areas": [
         "app",
+        "common",
         "service"
       ],
       "files": [
         "calcpad-frontend/src/services/hotkeys.ts",
-        "calcpad-web/src/App.vue"
+        "calcpad-web/src/App.vue",
+        "scripts/i18n/data/vscode.index.json"
       ],
       "kinds": [
         "catalog",
+        "constant",
         "data",
         "t"
       ],
-      "note": null,
+      "note": "VS_CODE_INDEX",
       "flags": [
         "shared"
       ]
+    },
+    {
+      "id": "common.copyRelativePath",
+      "en": "Copy Relative Path",
+      "areas": [
+        "common"
+      ],
+      "files": [
+        "scripts/i18n/data/vscode.index.json"
+      ],
+      "kinds": [
+        "catalog",
+        "constant"
+      ],
+      "note": "VS_CODE_INDEX",
+      "flags": []
+    },
+    {
+      "id": "common.cut",
+      "en": "Cut",
+      "areas": [
+        "common"
+      ],
+      "files": [
+        "scripts/i18n/data/vscode.index.json"
+      ],
+      "kinds": [
+        "constant"
+      ],
+      "note": "VS_CODE_INDEX",
+      "flags": []
     },
     {
       "id": "common.delete",
@@ -3019,19 +3035,22 @@
       "id": "common.description",
       "en": "Description",
       "areas": [
+        "common",
         "insert",
         "metadata"
       ],
       "files": [
         "calcpad-frontend/src/vue/components/CalcpadInsertTab.vue",
-        "calcpad-frontend/src/vue/components/CalcpadMetadataTab.vue"
+        "calcpad-frontend/src/vue/components/CalcpadMetadataTab.vue",
+        "scripts/i18n/data/vscode.index.json"
       ],
       "kinds": [
         "catalog",
+        "constant",
         "data",
         "t"
       ],
-      "note": null,
+      "note": "VS_CODE_INDEX",
       "flags": [
         "shared"
       ]
@@ -3042,22 +3061,106 @@
       "areas": [
         "api",
         "app",
+        "common",
         "settings"
       ],
       "files": [
         "calcpad-frontend/src/types/api.ts",
         "calcpad-frontend/src/types/settings.ts",
         "calcpad-frontend/src/vue/components/CalcpadSettingsTab.vue",
-        "calcpad-web/src/App.vue"
+        "calcpad-web/src/App.vue",
+        "scripts/i18n/data/vscode.index.json"
       ],
       "kinds": [
         "catalog",
+        "constant",
         "data",
         "t"
       ],
-      "note": null,
+      "note": "VS_CODE_INDEX",
       "flags": [
         "shared"
+      ]
+    },
+    {
+      "id": "common.file",
+      "en": "File",
+      "areas": [
+        "common",
+        "desktop"
+      ],
+      "files": [
+        "calcpad-web/src/components/DesktopTitleBar.vue",
+        "scripts/i18n/data/vscode.index.json"
+      ],
+      "kinds": [
+        "catalog",
+        "constant",
+        "data",
+        "t"
+      ],
+      "note": "VS_CODE_INDEX",
+      "flags": [
+        "shared"
+      ]
+    },
+    {
+      "id": "common.files",
+      "en": "Files",
+      "areas": [
+        "app",
+        "common"
+      ],
+      "files": [
+        "calcpad-frontend/src/vue/components/CalcpadApp.vue",
+        "scripts/i18n/data/vscode.index.json"
+      ],
+      "kinds": [
+        "catalog",
+        "constant",
+        "data",
+        "t"
+      ],
+      "note": "VS_CODE_INDEX",
+      "flags": [
+        "shared"
+      ]
+    },
+    {
+      "id": "common.find",
+      "en": "Find",
+      "areas": [
+        "common"
+      ],
+      "files": [
+        "scripts/i18n/data/vscode.index.json"
+      ],
+      "kinds": [
+        "constant"
+      ],
+      "note": "VS_CODE_INDEX",
+      "flags": []
+    },
+    {
+      "id": "common.formatting",
+      "en": "Formatting",
+      "areas": [
+        "common",
+        "settings"
+      ],
+      "files": [
+        "calcpad-frontend/src/vue/components/CalcpadSettingsTab.vue",
+        "scripts/i18n/data/vscode.index.json"
+      ],
+      "kinds": [
+        "catalog",
+        "constant",
+        "data",
+        "t"
+      ],
+      "note": "VS_CODE_INDEX",
+      "flags": [
+        "multiArea"
       ]
     },
     {
@@ -3065,18 +3168,132 @@
       "en": "Insert",
       "areas": [
         "app",
+        "common",
         "service"
       ],
       "files": [
         "calcpad-frontend/src/services/hotkeys.ts",
-        "calcpad-frontend/src/vue/components/CalcpadApp.vue"
+        "calcpad-frontend/src/vue/components/CalcpadApp.vue",
+        "scripts/i18n/data/vscode.index.json"
       ],
       "kinds": [
         "catalog",
+        "constant",
         "data",
         "t"
       ],
-      "note": null,
+      "note": "VS_CODE_INDEX",
+      "flags": [
+        "shared"
+      ]
+    },
+    {
+      "id": "common.minimize",
+      "en": "Minimize",
+      "areas": [
+        "common",
+        "desktop"
+      ],
+      "files": [
+        "calcpad-web/src/components/DesktopTitleBar.vue",
+        "scripts/i18n/data/vscode.index.json"
+      ],
+      "kinds": [
+        "catalog",
+        "constant",
+        "t"
+      ],
+      "note": "VS_CODE_INDEX",
+      "flags": [
+        "multiArea"
+      ]
+    },
+    {
+      "id": "common.mode",
+      "en": "Mode",
+      "areas": [
+        "common",
+        "metadata"
+      ],
+      "files": [
+        "calcpad-frontend/src/vue/components/CalcpadMetadataTab.vue",
+        "scripts/i18n/data/vscode.index.json"
+      ],
+      "kinds": [
+        "catalog",
+        "constant",
+        "data",
+        "t"
+      ],
+      "note": "VS_CODE_INDEX",
+      "flags": [
+        "multiArea"
+      ]
+    },
+    {
+      "id": "common.newTab",
+      "en": "New Tab",
+      "areas": [
+        "common",
+        "menu",
+        "service"
+      ],
+      "files": [
+        "calcpad-frontend/src/i18n/menu.ts",
+        "calcpad-frontend/src/services/hotkeys.ts",
+        "scripts/i18n/data/vscode.index.json"
+      ],
+      "kinds": [
+        "catalog",
+        "constant",
+        "data"
+      ],
+      "note": "MENU_KEYS; VS_CODE_INDEX",
+      "flags": [
+        "multiArea"
+      ]
+    },
+    {
+      "id": "common.newWindow",
+      "en": "New Window",
+      "areas": [
+        "common",
+        "menu",
+        "service"
+      ],
+      "files": [
+        "calcpad-frontend/src/i18n/menu.ts",
+        "calcpad-frontend/src/services/hotkeys.ts",
+        "scripts/i18n/data/vscode.index.json"
+      ],
+      "kinds": [
+        "catalog",
+        "constant",
+        "data"
+      ],
+      "note": "MENU_KEYS; VS_CODE_INDEX",
+      "flags": [
+        "multiArea"
+      ]
+    },
+    {
+      "id": "common.next",
+      "en": "Next",
+      "areas": [
+        "app",
+        "common"
+      ],
+      "files": [
+        "calcpad-web/src/App.vue",
+        "scripts/i18n/data/vscode.index.json"
+      ],
+      "kinds": [
+        "catalog",
+        "constant",
+        "data",
+        "t"
+      ],
+      "note": "VS_CODE_INDEX",
       "flags": [
         "shared"
       ]
@@ -3085,19 +3302,22 @@
       "id": "common.none",
       "en": "None",
       "areas": [
+        "common",
         "insert",
         "pdfsettings"
       ],
       "files": [
         "calcpad-frontend/src/types/pdf-settings.ts",
-        "calcpad-frontend/src/vue/components/CalcpadInsertTab.vue"
+        "calcpad-frontend/src/vue/components/CalcpadInsertTab.vue",
+        "scripts/i18n/data/vscode.index.json"
       ],
       "kinds": [
         "catalog",
+        "constant",
         "data",
         "t"
       ],
-      "note": null,
+      "note": "VS_CODE_INDEX",
       "flags": [
         "shared"
       ]
@@ -3106,19 +3326,22 @@
       "id": "common.off",
       "en": "Off",
       "areas": [
+        "common",
         "metadata",
         "settings"
       ],
       "files": [
         "calcpad-frontend/src/types/settings.ts",
-        "calcpad-frontend/src/vue/components/CalcpadMetadataTab.vue"
+        "calcpad-frontend/src/vue/components/CalcpadMetadataTab.vue",
+        "scripts/i18n/data/vscode.index.json"
       ],
       "kinds": [
         "catalog",
+        "constant",
         "data",
         "t"
       ],
-      "note": null,
+      "note": "VS_CODE_INDEX",
       "flags": [
         "shared"
       ]
@@ -3147,30 +3370,214 @@
       ]
     },
     {
+      "id": "common.openContainingFolder",
+      "en": "Open Containing Folder",
+      "areas": [
+        "common"
+      ],
+      "files": [
+        "scripts/i18n/data/vscode.index.json"
+      ],
+      "kinds": [
+        "catalog",
+        "constant"
+      ],
+      "note": "VS_CODE_INDEX",
+      "flags": []
+    },
+    {
+      "id": "common.openEllipsis",
+      "en": "Open...",
+      "areas": [
+        "common",
+        "menu"
+      ],
+      "files": [
+        "calcpad-frontend/src/i18n/menu.ts",
+        "scripts/i18n/data/vscode.index.json"
+      ],
+      "kinds": [
+        "catalog",
+        "constant",
+        "data"
+      ],
+      "note": "MENU_KEYS; VS_CODE_INDEX",
+      "flags": [
+        "multiArea"
+      ]
+    },
+    {
+      "id": "common.openFolder",
+      "en": "Open Folder",
+      "areas": [
+        "common",
+        "files",
+        "tauribridge"
+      ],
+      "files": [
+        "calcpad-frontend/src/vue/components/CalcpadFilesTab.vue",
+        "calcpad-web/src/services/tauri-bridge.ts",
+        "scripts/i18n/data/vscode.index.json"
+      ],
+      "kinds": [
+        "catalog",
+        "constant",
+        "data",
+        "t"
+      ],
+      "note": "VS_CODE_INDEX",
+      "flags": [
+        "multiArea"
+      ]
+    },
+    {
+      "id": "common.openRecent",
+      "en": "Open Recent",
+      "areas": [
+        "common",
+        "menu"
+      ],
+      "files": [
+        "calcpad-frontend/src/i18n/menu.ts",
+        "scripts/i18n/data/vscode.index.json"
+      ],
+      "kinds": [
+        "catalog",
+        "constant",
+        "data"
+      ],
+      "note": "MENU_KEYS; VS_CODE_INDEX",
+      "flags": [
+        "multiArea"
+      ]
+    },
+    {
+      "id": "common.output",
+      "en": "Output",
+      "areas": [
+        "app",
+        "common"
+      ],
+      "files": [
+        "calcpad-web/src/App.vue",
+        "scripts/i18n/data/vscode.index.json"
+      ],
+      "kinds": [
+        "catalog",
+        "constant",
+        "data",
+        "t"
+      ],
+      "note": "VS_CODE_INDEX",
+      "flags": [
+        "shared"
+      ]
+    },
+    {
+      "id": "common.paste",
+      "en": "Paste",
+      "areas": [
+        "common"
+      ],
+      "files": [
+        "scripts/i18n/data/vscode.index.json"
+      ],
+      "kinds": [
+        "constant"
+      ],
+      "note": "VS_CODE_INDEX",
+      "flags": []
+    },
+    {
       "id": "common.preview",
       "en": "Preview",
       "areas": [
         "app",
+        "common",
         "export"
       ],
       "files": [
         "calcpad-frontend/src/vue/components/CalcpadExportTab.vue",
-        "calcpad-web/src/App.vue"
+        "calcpad-web/src/App.vue",
+        "scripts/i18n/data/vscode.index.json"
       ],
       "kinds": [
         "catalog",
+        "constant",
         "data",
         "t"
       ],
-      "note": null,
+      "note": "VS_CODE_INDEX",
       "flags": [
         "shared"
+      ]
+    },
+    {
+      "id": "common.previous",
+      "en": "Previous",
+      "areas": [
+        "app",
+        "common"
+      ],
+      "files": [
+        "calcpad-web/src/App.vue",
+        "scripts/i18n/data/vscode.index.json"
+      ],
+      "kinds": [
+        "catalog",
+        "constant",
+        "data",
+        "t"
+      ],
+      "note": "VS_CODE_INDEX",
+      "flags": [
+        "shared"
+      ]
+    },
+    {
+      "id": "common.redo",
+      "en": "Redo",
+      "areas": [
+        "common"
+      ],
+      "files": [
+        "scripts/i18n/data/vscode.index.json"
+      ],
+      "kinds": [
+        "constant"
+      ],
+      "note": "VS_CODE_INDEX",
+      "flags": []
+    },
+    {
+      "id": "common.refresh",
+      "en": "Refresh",
+      "areas": [
+        "common",
+        "export",
+        "files"
+      ],
+      "files": [
+        "calcpad-frontend/src/vue/components/CalcpadExportTab.vue",
+        "calcpad-frontend/src/vue/components/FilesFolderSection.vue",
+        "scripts/i18n/data/vscode.index.json"
+      ],
+      "kinds": [
+        "catalog",
+        "constant",
+        "data",
+        "t"
+      ],
+      "note": "VS_CODE_INDEX",
+      "flags": [
+        "multiArea"
       ]
     },
     {
       "id": "common.remove",
       "en": "Remove",
       "areas": [
+        "common",
         "hotkeys",
         "insert",
         "metadata",
@@ -3180,14 +3587,16 @@
         "calcpad-frontend/src/vue/components/CalcpadInsertTab.vue",
         "calcpad-frontend/src/vue/components/CalcpadMetadataTab.vue",
         "calcpad-frontend/src/vue/components/CalcpadUiOverridesSection.vue",
-        "calcpad-frontend/src/vue/components/HotkeyRecorder.vue"
+        "calcpad-frontend/src/vue/components/HotkeyRecorder.vue",
+        "scripts/i18n/data/vscode.index.json"
       ],
       "kinds": [
         "catalog",
+        "constant",
         "data",
         "t"
       ],
-      "note": null,
+      "note": "VS_CODE_INDEX",
       "flags": [
         "shared"
       ]
@@ -3196,6 +3605,7 @@
       "id": "common.reset",
       "en": "Reset",
       "areas": [
+        "common",
         "fileInfo",
         "hotkeys",
         "metadata",
@@ -3207,16 +3617,63 @@
         "calcpad-frontend/src/vue/components/CalcpadMetadataTab.vue",
         "calcpad-frontend/src/vue/components/CalcpadSettingsTab.vue",
         "calcpad-frontend/src/vue/components/CalcpadUiOverridesSection.vue",
-        "calcpad-frontend/src/vue/components/HotkeyRecorder.vue"
+        "calcpad-frontend/src/vue/components/HotkeyRecorder.vue",
+        "scripts/i18n/data/vscode.index.json"
       ],
       "kinds": [
         "catalog",
+        "constant",
         "data",
         "t"
       ],
-      "note": null,
+      "note": "VS_CODE_INDEX",
       "flags": [
         "shared"
+      ]
+    },
+    {
+      "id": "common.restore",
+      "en": "Restore",
+      "areas": [
+        "common",
+        "desktop",
+        "editor"
+      ],
+      "files": [
+        "calcpad-web/src/components/DesktopTitleBar.vue",
+        "calcpad-web/src/main.ts",
+        "scripts/i18n/data/vscode.index.json"
+      ],
+      "kinds": [
+        "catalog",
+        "constant",
+        "data",
+        "t"
+      ],
+      "note": "VS_CODE_INDEX",
+      "flags": [
+        "multiArea"
+      ]
+    },
+    {
+      "id": "common.review",
+      "en": "Review",
+      "areas": [
+        "common",
+        "fileInfo"
+      ],
+      "files": [
+        "calcpad-frontend/src/vue/components/CalcpadFileInfoSection.vue",
+        "scripts/i18n/data/vscode.index.json"
+      ],
+      "kinds": [
+        "catalog",
+        "constant",
+        "t"
+      ],
+      "note": "VS_CODE_INDEX",
+      "flags": [
+        "multiArea"
       ]
     },
     {
@@ -3224,6 +3681,7 @@
       "en": "Save",
       "areas": [
         "agentChat",
+        "common",
         "editor",
         "hotkeys",
         "insert",
@@ -3239,7 +3697,8 @@
         "calcpad-frontend/src/vue/components/CalcpadSettingsTab.vue",
         "calcpad-frontend/src/vue/components/HotkeyRecorder.vue",
         "calcpad-web/src/components/AgentChatPanel.vue",
-        "calcpad-web/src/main.ts"
+        "calcpad-web/src/main.ts",
+        "scripts/i18n/data/vscode.index.json"
       ],
       "kinds": [
         "catalog",
@@ -3247,9 +3706,30 @@
         "data",
         "t"
       ],
-      "note": "MENU_KEYS",
+      "note": "MENU_KEYS; VS_CODE_INDEX",
       "flags": [
         "shared"
+      ]
+    },
+    {
+      "id": "common.saveAsEllipsis",
+      "en": "Save As...",
+      "areas": [
+        "common",
+        "menu"
+      ],
+      "files": [
+        "calcpad-frontend/src/i18n/menu.ts",
+        "scripts/i18n/data/vscode.index.json"
+      ],
+      "kinds": [
+        "catalog",
+        "constant",
+        "data"
+      ],
+      "note": "MENU_KEYS; VS_CODE_INDEX",
+      "flags": [
+        "multiArea"
       ]
     },
     {
@@ -3258,19 +3738,67 @@
       "areas": [
         "agentChat",
         "app",
+        "common",
         "metadata"
       ],
       "files": [
         "calcpad-frontend/src/vue/components/CalcpadApp.vue",
         "calcpad-frontend/src/vue/components/CalcpadMetadataTab.vue",
-        "calcpad-web/src/components/AgentChatPanel.vue"
+        "calcpad-web/src/components/AgentChatPanel.vue",
+        "scripts/i18n/data/vscode.index.json"
       ],
       "kinds": [
         "catalog",
+        "constant",
         "data",
         "t"
       ],
-      "note": null,
+      "note": "VS_CODE_INDEX",
+      "flags": [
+        "shared"
+      ]
+    },
+    {
+      "id": "common.system",
+      "en": "System",
+      "areas": [
+        "common",
+        "editor",
+        "settings"
+      ],
+      "files": [
+        "calcpad-frontend/src/vue/components/CalcpadSettingsTab.vue",
+        "calcpad-web/src/editor/app-theme.ts",
+        "scripts/i18n/data/vscode.index.json"
+      ],
+      "kinds": [
+        "catalog",
+        "constant",
+        "data",
+        "t"
+      ],
+      "note": "VS_CODE_INDEX",
+      "flags": [
+        "multiArea"
+      ]
+    },
+    {
+      "id": "common.title",
+      "en": "Title",
+      "areas": [
+        "common",
+        "fileInfo"
+      ],
+      "files": [
+        "calcpad-frontend/src/vue/components/CalcpadFileInfoSection.vue",
+        "scripts/i18n/data/vscode.index.json"
+      ],
+      "kinds": [
+        "catalog",
+        "constant",
+        "t"
+      ],
+      "note": "VS_CODE_INDEX",
       "flags": [
         "shared"
       ]
@@ -3279,22 +3807,40 @@
       "id": "common.type",
       "en": "Type",
       "areas": [
+        "common",
         "insert",
         "metadata"
       ],
       "files": [
         "calcpad-frontend/src/vue/components/CalcpadInsertTab.vue",
-        "calcpad-frontend/src/vue/components/CalcpadMetadataTab.vue"
+        "calcpad-frontend/src/vue/components/CalcpadMetadataTab.vue",
+        "scripts/i18n/data/vscode.index.json"
       ],
       "kinds": [
         "catalog",
+        "constant",
         "data",
         "t"
       ],
-      "note": null,
+      "note": "VS_CODE_INDEX",
       "flags": [
         "shared"
       ]
+    },
+    {
+      "id": "common.undo",
+      "en": "Undo",
+      "areas": [
+        "common"
+      ],
+      "files": [
+        "scripts/i18n/data/vscode.index.json"
+      ],
+      "kinds": [
+        "constant"
+      ],
+      "note": "VS_CODE_INDEX",
+      "flags": []
     },
     {
       "id": "common.warning",
@@ -3302,20 +3848,23 @@
       "areas": [
         "api",
         "app",
+        "common",
         "settings"
       ],
       "files": [
         "calcpad-frontend/src/types/api.ts",
         "calcpad-frontend/src/types/settings.ts",
         "calcpad-frontend/src/vue/components/CalcpadSettingsTab.vue",
-        "calcpad-web/src/App.vue"
+        "calcpad-web/src/App.vue",
+        "scripts/i18n/data/vscode.index.json"
       ],
       "kinds": [
         "catalog",
+        "constant",
         "data",
         "t"
       ],
-      "note": null,
+      "note": "VS_CODE_INDEX",
       "flags": [
         "shared"
       ]
@@ -3401,23 +3950,6 @@
       "flags": []
     },
     {
-      "id": "desktop.file",
-      "en": "File",
-      "areas": [
-        "desktop"
-      ],
-      "files": [
-        "calcpad-web/src/components/DesktopTitleBar.vue"
-      ],
-      "kinds": [
-        "catalog",
-        "data",
-        "t"
-      ],
-      "note": null,
-      "flags": []
-    },
-    {
       "id": "desktop.fileMenu",
       "en": "File menu",
       "areas": [
@@ -3466,22 +3998,6 @@
       "flags": []
     },
     {
-      "id": "desktop.minimize",
-      "en": "Minimize",
-      "areas": [
-        "desktop"
-      ],
-      "files": [
-        "calcpad-web/src/components/DesktopTitleBar.vue"
-      ],
-      "kinds": [
-        "catalog",
-        "t"
-      ],
-      "note": null,
-      "flags": []
-    },
-    {
       "id": "desktop.openDocument",
       "en": "Open document",
       "areas": [
@@ -3512,27 +4028,6 @@
       ],
       "note": null,
       "flags": []
-    },
-    {
-      "id": "desktop.restore",
-      "en": "Restore",
-      "areas": [
-        "desktop",
-        "editor"
-      ],
-      "files": [
-        "calcpad-web/src/components/DesktopTitleBar.vue",
-        "calcpad-web/src/main.ts"
-      ],
-      "kinds": [
-        "catalog",
-        "data",
-        "t"
-      ],
-      "note": null,
-      "flags": [
-        "multiArea"
-      ]
     },
     {
       "id": "desktop.saveDocument",
@@ -3789,27 +4284,6 @@
       ]
     },
     {
-      "id": "editor.system",
-      "en": "System",
-      "areas": [
-        "editor",
-        "settings"
-      ],
-      "files": [
-        "calcpad-frontend/src/vue/components/CalcpadSettingsTab.vue",
-        "calcpad-web/src/editor/app-theme.ts"
-      ],
-      "kinds": [
-        "catalog",
-        "data",
-        "t"
-      ],
-      "note": null,
-      "flags": [
-        "multiArea"
-      ]
-    },
-    {
       "id": "editor.uiOverrideNameValue",
       "en": "UI override: {name} = {value}",
       "areas": [
@@ -4030,27 +4504,6 @@
       ],
       "note": null,
       "flags": []
-    },
-    {
-      "id": "export.refresh",
-      "en": "Refresh",
-      "areas": [
-        "export",
-        "files"
-      ],
-      "files": [
-        "calcpad-frontend/src/vue/components/CalcpadExportTab.vue",
-        "calcpad-frontend/src/vue/components/FilesFolderSection.vue"
-      ],
-      "kinds": [
-        "catalog",
-        "data",
-        "t"
-      ],
-      "note": null,
-      "flags": [
-        "multiArea"
-      ]
     },
     {
       "id": "export.reRunTheCurrentDocumentAndListIts",
@@ -4685,22 +5138,6 @@
       "flags": []
     },
     {
-      "id": "fileInfo.review",
-      "en": "Review",
-      "areas": [
-        "fileInfo"
-      ],
-      "files": [
-        "calcpad-frontend/src/vue/components/CalcpadFileInfoSection.vue"
-      ],
-      "kinds": [
-        "catalog",
-        "t"
-      ],
-      "note": null,
-      "flags": []
-    },
-    {
       "id": "fileInfo.reviewed",
       "en": "Reviewed",
       "areas": [
@@ -4769,56 +5206,8 @@
       "flags": []
     },
     {
-      "id": "fileInfo.title",
-      "en": "Title",
-      "areas": [
-        "fileInfo"
-      ],
-      "files": [
-        "calcpad-frontend/src/vue/components/CalcpadFileInfoSection.vue"
-      ],
-      "kinds": [
-        "catalog",
-        "t"
-      ],
-      "note": null,
-      "flags": []
-    },
-    {
       "id": "files.closeFolder",
       "en": "Close Folder",
-      "areas": [
-        "files"
-      ],
-      "files": [
-        "calcpad-frontend/src/vue/components/FilesFolderSection.vue"
-      ],
-      "kinds": [
-        "catalog",
-        "t"
-      ],
-      "note": null,
-      "flags": []
-    },
-    {
-      "id": "files.collapse",
-      "en": "Collapse",
-      "areas": [
-        "files"
-      ],
-      "files": [
-        "calcpad-frontend/src/vue/components/FilesFolderSection.vue"
-      ],
-      "kinds": [
-        "catalog",
-        "t"
-      ],
-      "note": null,
-      "flags": []
-    },
-    {
-      "id": "files.collapseAll",
-      "en": "Collapse All",
       "areas": [
         "files"
       ],
@@ -4983,27 +5372,6 @@
       ],
       "note": null,
       "flags": []
-    },
-    {
-      "id": "files.openFolder",
-      "en": "Open Folder",
-      "areas": [
-        "files",
-        "tauribridge"
-      ],
-      "files": [
-        "calcpad-frontend/src/vue/components/CalcpadFilesTab.vue",
-        "calcpad-web/src/services/tauri-bridge.ts"
-      ],
-      "kinds": [
-        "catalog",
-        "data",
-        "t"
-      ],
-      "note": null,
-      "flags": [
-        "multiArea"
-      ]
     },
     {
       "id": "files.showAllFiles",
@@ -5906,84 +6274,8 @@
       ]
     },
     {
-      "id": "menu.newTab",
-      "en": "New Tab",
-      "areas": [
-        "menu",
-        "service"
-      ],
-      "files": [
-        "calcpad-frontend/src/i18n/menu.ts",
-        "calcpad-frontend/src/services/hotkeys.ts"
-      ],
-      "kinds": [
-        "catalog",
-        "constant",
-        "data"
-      ],
-      "note": "MENU_KEYS",
-      "flags": [
-        "multiArea"
-      ]
-    },
-    {
-      "id": "menu.newWindow",
-      "en": "New Window",
-      "areas": [
-        "menu",
-        "service"
-      ],
-      "files": [
-        "calcpad-frontend/src/i18n/menu.ts",
-        "calcpad-frontend/src/services/hotkeys.ts"
-      ],
-      "kinds": [
-        "catalog",
-        "constant",
-        "data"
-      ],
-      "note": "MENU_KEYS",
-      "flags": [
-        "multiArea"
-      ]
-    },
-    {
       "id": "menu.noRecentFiles",
       "en": "No Recent Files",
-      "areas": [
-        "menu"
-      ],
-      "files": [
-        "calcpad-frontend/src/i18n/menu.ts"
-      ],
-      "kinds": [
-        "catalog",
-        "constant",
-        "data"
-      ],
-      "note": "MENU_KEYS",
-      "flags": []
-    },
-    {
-      "id": "menu.openEllipsis",
-      "en": "Open...",
-      "areas": [
-        "menu"
-      ],
-      "files": [
-        "calcpad-frontend/src/i18n/menu.ts"
-      ],
-      "kinds": [
-        "catalog",
-        "constant",
-        "data"
-      ],
-      "note": "MENU_KEYS",
-      "flags": []
-    },
-    {
-      "id": "menu.openRecent",
-      "en": "Open Recent",
       "areas": [
         "menu"
       ],
@@ -6018,23 +6310,6 @@
     {
       "id": "menu.restartServer",
       "en": "Restart Server",
-      "areas": [
-        "menu"
-      ],
-      "files": [
-        "calcpad-frontend/src/i18n/menu.ts"
-      ],
-      "kinds": [
-        "catalog",
-        "constant",
-        "data"
-      ],
-      "note": "MENU_KEYS",
-      "flags": []
-    },
-    {
-      "id": "menu.saveAsEllipsis",
-      "en": "Save As...",
       "areas": [
         "menu"
       ],
@@ -6239,23 +6514,6 @@
       "flags": [
         "multiArea"
       ]
-    },
-    {
-      "id": "metadata.mode",
-      "en": "Mode",
-      "areas": [
-        "metadata"
-      ],
-      "files": [
-        "calcpad-frontend/src/vue/components/CalcpadMetadataTab.vue"
-      ],
-      "kinds": [
-        "catalog",
-        "data",
-        "t"
-      ],
-      "note": null,
-      "flags": []
     },
     {
       "id": "metadata.offPutsTheUnitInTheControlInstead",
@@ -7597,23 +7855,6 @@
       "kinds": [
         "catalog",
         "data"
-      ],
-      "note": null,
-      "flags": []
-    },
-    {
-      "id": "settings.formatting",
-      "en": "Formatting",
-      "areas": [
-        "settings"
-      ],
-      "files": [
-        "calcpad-frontend/src/vue/components/CalcpadSettingsTab.vue"
-      ],
-      "kinds": [
-        "catalog",
-        "data",
-        "t"
       ],
       "note": null,
       "flags": []

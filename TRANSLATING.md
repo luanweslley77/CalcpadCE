@@ -1,8 +1,9 @@
 # Translation sources
 
-> A migration from English-text keys to stable message IDs is being designed.
+> The migration from English-text keys to stable message IDs is in progress.
+> Catalogs and literal call sites already use IDs; a temporary bridge still
+> covers data-driven labels and error messages.
 > See `Calcpad.Web/frontend/scripts/i18n/MESSAGE-IDS.md`.
-> The rules below still describe the current catalogs until that migration lands.
 
 CalcpadCE records where every translation came from.
 Provenance is part of the review, not an afterthought.

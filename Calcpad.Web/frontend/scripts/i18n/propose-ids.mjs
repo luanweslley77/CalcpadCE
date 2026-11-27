@@ -38,6 +38,7 @@ const AREA_RULES = [
     [/calcpad-web\/src\/main\.ts$/, 'editor'],
     [/i18n\/menu\.ts$/, 'menu'],
     [/i18n\/index\.ts$/, 'common'],
+    [/scripts\/i18n\/data\/vscode\.index\.json$/, 'common'],
     [/calcpad-web\/src\/editor\//, 'editor'],
     [/calcpad-frontend\/src\/services\//, 'service'],
     [/calcpad-frontend\/src\/api\//, 'api'],
@@ -60,6 +61,14 @@ function walk(directory, output = []) {
             output.push(full);
     }
     return output;
+}
+
+function skipSource(file) {
+    const relative = path.relative(frontendRoot, file).replace(/\\/g, '/');
+    return relative.includes('/i18n/community/')
+        || relative.includes('/i18n/messages/')
+        || relative.endsWith('/i18n/legacy-keys.generated.ts')
+        || relative.endsWith('/i18n/locales.generated.ts');
 }
 
 function decode(raw, quote) {
@@ -188,7 +197,7 @@ function menuKeys() {
 
 const map = new Map();
 const dynamic = [];
-const files = roots.flatMap(root => walk(root));
+const files = roots.flatMap(root => walk(root)).filter(file => !skipSource(file));
 for (const file of files) extractFromFile(file, map, dynamic);
 const uniqueDynamic = [];
 const seenDynamic = new Set();
@@ -210,7 +219,6 @@ const catalogSet = new Set(catalog);
 for (const key of catalog) addCatalog(map, key);
 
 for (const file of files) {
-    if (file.includes('/i18n/messages/')) continue;
     const source = fs.readFileSync(file, 'utf8');
     const strings = /(?:'((?:[^'\\]|\\.)*)'|"((?:[^"\\]|\\.)*)"|`((?:[^`\\]|\\.)*)`)/g;
     let match;
@@ -224,6 +232,10 @@ for (const file of files) {
 }
 
 for (const key of menuKeys()) addConstant(map, key, path.join(frontendRoot, 'calcpad-frontend/src/i18n/menu.ts'), 'MENU_KEYS');
+
+const indexPath = path.join(frontendRoot, 'scripts/i18n/data/vscode.index.json');
+const index = JSON.parse(fs.readFileSync(indexPath, 'utf8'));
+for (const key of Object.keys(index.keys ?? {})) addConstant(map, key, indexPath, 'VS_CODE_INDEX');
 
 const filesTab = path.join(frontendRoot, 'calcpad-frontend/src/vue/components/CalcpadFilesTab.vue');
 const filesSource = fs.readFileSync(filesTab, 'utf8');

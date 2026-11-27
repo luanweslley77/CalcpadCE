@@ -1204,7 +1204,7 @@ async function bootstrap(): Promise<void> {
         };
         ed.addAction({
             id: 'calcpad.saveAsCustomSnippet',
-            label: (i18n.global as unknown as Composer).t('Save as Custom Snippet'),
+            label: (i18n.global as unknown as Composer).t('editor.saveAsCustomSnippet'),
             contextMenuGroupId: 'navigation',
             contextMenuOrder: 1.7,
             run: async (edEditor) => {
@@ -1224,7 +1224,7 @@ async function bootstrap(): Promise<void> {
         // Focus-the-preview-to-line context action (targets this group).
         ed.addAction({
             id: 'calcpad.focusPreviewToLine',
-            label: translate('Focus Preview to Line'),
+            label: translate('editor.focusPreviewToLine'),
             contextMenuGroupId: 'navigation',
             contextMenuOrder: 1.5,
             run: () => syncPreviewToCursorFor(group, true),
@@ -1234,7 +1234,7 @@ async function bootstrap(): Promise<void> {
         // shortcut comes from the `keybindings` setting, dispatched at the window level.
         ed.addAction({
             id: 'calcpad.runPreview',
-            label: translate('Run Preview'),
+            label: translate('editor.runPreview'),
             contextMenuGroupId: 'navigation',
             contextMenuOrder: 1.4,
             run: () => { void runRefresh(); },
@@ -1245,7 +1245,7 @@ async function bootstrap(): Promise<void> {
         // Code `editMetadataProperties` command.
         ed.addAction({
             id: 'calcpad.editMetadata',
-            label: translate('Edit Metadata Properties'),
+            label: translate('editor.editMetadataProperties'),
             contextMenuGroupId: 'navigation',
             contextMenuOrder: 1.6,
             run: (edEditor) => {

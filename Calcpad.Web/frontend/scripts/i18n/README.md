@@ -47,10 +47,10 @@ locale catalogs next to it.
 
 ## Message-ID migration
 
-The current catalogs use English text as the key.
-A migration to stable message IDs is being designed; see
-[`MESSAGE-IDS.md`](MESSAGE-IDS.md) for the proposed convention, the community
-file format, and the draft inventory.
+The catalogs now use stable message IDs.
+A temporary English-to-ID bridge still covers data-driven labels while the
+remaining sources migrate; see [`MESSAGE-IDS.md`](MESSAGE-IDS.md) for the
+convention, the community file format, and the remaining inventory.
 
 ## Rules
 
