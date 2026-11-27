@@ -45,6 +45,9 @@ CI runs this check; no English source file is committed.
 ```
 scripts/i18n/
 ├── i18n.mjs
+├── check-vscode-english.mjs
+├── message-ids.json
+├── MESSAGE-IDS.md
 ├── README.md
 └── data/
     ├── vscode.index.json        English -> VS Code module/key
@@ -61,7 +64,7 @@ locale catalogs next to it.
 The catalogs now use stable message IDs.
 A temporary English-to-ID bridge still covers data-driven labels while the
 remaining sources migrate; see [`MESSAGE-IDS.md`](MESSAGE-IDS.md) for the
-convention, the community file format, and the remaining inventory.
+convention, the community file format, and the remaining bridge.
 
 ## Rules
 
@@ -78,7 +81,8 @@ convention, the community file format, and the remaining inventory.
   catalogs and maps.
 - `community/<locale>.provenance.json` is generated: missing origins come from
   `git blame` on the community `.ts` file.
-- `zh` is `"catalog": false` because its shared UI catalog is community-authored.
+- `zh` is `"catalog": true`; its shared UI catalog combines the VS Code pack
+  with the community file.
   Its Monaco map still comes from `vscode-language-pack-zh-hans`.
 - The pseudo-locale pack `vscode-language-pack-qps-ploc` is intentionally
   excluded.
@@ -95,6 +99,6 @@ convention, the community file format, and the remaining inventory.
   shared pack; leave it English or add a reviewed community entry.
 - `vscodeSource` records `vscode-monaco` or `vscode-shared-ui`.
 - Community overrides use `source: "community"` and `replaces: "vscode"`.
-  The script preserves them; their human review workflow is still being defined.
+  The script preserves them; review happens in the community file.
 
 See `TRANSLATING.md` for the provenance policy.

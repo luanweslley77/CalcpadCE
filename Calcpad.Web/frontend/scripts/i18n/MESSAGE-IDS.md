@@ -4,7 +4,6 @@ Status: in progress.
 The catalogs and literal call sites use IDs.
 A temporary English-to-ID bridge still covers data-driven labels and error
 messages until those sources return IDs directly.
-The generated draft is a snapshot of the lookup sites that remain to migrate.
 
 ## Target model
 
@@ -109,45 +108,17 @@ Rules:
   `Ellipsis` in the proposed slug.
   These are review hints, not a hard rule.
 
-## Review draft
+## Adding a message
 
-Regenerate the inventory with:
-
-```sh
-cd Calcpad.Web/frontend
-node scripts/i18n/propose-ids.mjs
-```
-
-Outputs:
-
-- `scripts/i18n/drafts/message-ids.draft.json` — machine-readable inventory.
-- `scripts/i18n/drafts/message-ids.draft.md` — tables grouped by area.
-
-The current snapshot has:
-
-- 580 entries.
-- 27 areas.
-- 25 dynamic lookup sites.
-- 83 multi-area or shared entries.
-- 41 long strings.
-- 61 catalog keys not found in source or data.
-
-Flags to review:
-
-| Flag | Meaning | Action |
-|---|---|---|
-| `shared` | Common word used in several areas. | Usually keep `common.<word>`. |
-| `multiArea` | Same English text in several areas. | Decide one shared ID or split by context. |
-| `long` | Text longer than 80 characters. | Rename to a short semantic ID. |
-| `unused` | Only in the `zh` catalog, not in source or data. | Remove or find the missing data source. |
-| `collision` | The automatic slug collided with another string. | Rename one of them. |
-
-The IDs are proposals.
-The final map will be reviewed before any call site changes.
+1. Add the English text with a new ID to `messages/en.ts`.
+2. Add the English-to-ID mapping to `scripts/i18n/message-ids.json`.
+3. Add the translation to `community/<locale>.ts` when one exists.
+4. Run `node scripts/i18n/i18n.mjs --locale=<locale>`.
+5. Run `node scripts/i18n/i18n.mjs --check`.
 
 ## Dynamic lookups
 
-The draft lists 25 call sites that read a key from data:
+Some call sites still read a key from data:
 
 - `t(group.label)` in the export groups.
 - `t(REFERENCE_LABELS[kind].relative/absolute)`.
@@ -158,7 +129,6 @@ The draft lists 25 call sites that read a key from data:
 - `t(currentMode.label)`, `t(mode.label)`, `t(action.label)` in the web shell.
 - `t(error.message, error.params)` in the insert tab.
 
-The table below is the Phase 0 snapshot.
 Most of those sites now receive IDs from their data source.
 The remaining categories are:
 
@@ -173,16 +143,16 @@ service at a time.
 
 ## Current implementation
 
-- `messages/en.ts` is the English source (610 IDs).
+- `messages/en.ts` is the English source (612 IDs).
 - `scripts/i18n/message-ids.json` is the English-to-ID map.
 - `messages/<locale>.ts` catalogs are keyed by ID.
-- `community/zh.ts` holds the 512 community entries; 38 of them override
+- `community/zh.ts` holds the 514 community entries; 38 of them override
   VS Code entries and are marked `replaces: "vscode"` automatically.
 - `community/<locale>.provenance.json` caches the origin of each community
   entry. Missing origins are derived from `git blame` on the `.ts` file.
 - `legacy-keys.generated.ts` and `useCalcpadI18n()` keep English data labels
   working while the remaining sources migrate.
-- Literal calls were codemodded (508 replacements).
+- Literal calls use IDs (508 replacements during the migration).
 - Data labels in settings, PDF, keybindings, setting actions, hotkeys, export
   groups, desktop actions, file/insert constants, `#UI` property catalogs,
   addable fields, and the native menu now carry IDs.
@@ -193,8 +163,9 @@ service at a time.
   `en` plus `formatMessage()`.
 - Other service errors, agent-provided labels, and a few export details still
   need IDs.
-- `scripts/i18n/apply-ids.mjs`, `codemod-ids.mjs`, and `codemod-data-ids.mjs`
-  are one-time migration helpers; do not rerun them after the catalogs use IDs.
+- The one-time inventory and codemod helpers were removed after the migration.
+  `en.ts`, `message-ids.json`, and `community/<locale>.ts` are the editable
+  sources; generated catalogs and provenance are rebuilt by the script.
 
 ## Migration phases
 
@@ -212,7 +183,7 @@ service at a time.
 5. **Remove the legacy key path** — delete `legacy-keys.generated.ts` and the
    English-key fallback.
 
-`zh` was the first community migration because it already had 512 translated
+`zh` was the first community migration because it already had translated
 entries.
 Moving them to `community/zh.ts` proved the override and provenance flow with
 real data.
@@ -230,12 +201,3 @@ The generator and `--check` should eventually enforce:
 - A community key that replaces a generated key records `replaces: "vscode"`.
 - No duplicate IDs and no empty translations.
 - `community/<locale>.ts` is type-checked against `CommunityCatalog`.
-
-## Open decisions
-
-- Approve the `<area>.<component>.<element>` convention.
-- Decide whether shared words default to `common.*` or to their first area.
-- Decide whether long settings descriptions use `settings.info.<setting>`
-  (preferred) or a truncated automatic slug.
-- Decide whether the `zh` migration lands with the infrastructure or in a
-  separate commit.
