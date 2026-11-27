@@ -45,6 +45,13 @@ The registry lives in
 The script writes `calcpad-frontend/src/i18n/locales.generated.ts` and the
 locale catalogs next to it.
 
+## Message-ID migration
+
+The current catalogs use English text as the key.
+A migration to stable message IDs is being designed; see
+[`MESSAGE-IDS.md`](MESSAGE-IDS.md) for the proposed convention, the community
+file format, and the draft inventory.
+
 ## Rules
 
 - `locales.json` decides which packs are processed.

@@ -1,5 +1,9 @@
 # Translation sources
 
+> A migration from English-text keys to stable message IDs is being designed.
+> See `Calcpad.Web/frontend/scripts/i18n/MESSAGE-IDS.md`.
+> The rules below still describe the current catalogs until that migration lands.
+
 CalcpadCE records where every translation came from.
 Provenance is part of the review, not an afterthought.
 
