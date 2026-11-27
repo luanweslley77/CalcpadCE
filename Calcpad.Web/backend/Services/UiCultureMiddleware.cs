@@ -8,7 +8,8 @@ namespace Calcpad.Server.Services
     /// <summary>Sets CurrentUICulture from Accept-Language; CurrentCulture (math/output numbers) is left alone.</summary>
     public static class UiCultureMiddleware
     {
-        private static readonly string[] Supported = ["en", "bg", "zh", "pt-BR"];
+        private static readonly string[] Supported =
+            ["en", "bg", "cs", "de", "es", "fr", "it", "ja", "ko", "pl", "pt-BR", "ru", "tr", "zh", "zh-Hant"];
 
         public static IApplicationBuilder UseUiCulture(this IApplicationBuilder app) =>
             app.Use(async (context, next) =>
@@ -39,7 +40,22 @@ namespace Calcpad.Server.Services
                 var tag = part.Split(';')[0].Trim();
                 if (tag.Length == 0 || tag == "*") continue;
                 var normalized = tag.Replace('_', '-');
+                var lower = normalized.ToLowerInvariant();
+                if (lower == "zh" || lower.StartsWith("zh-", StringComparison.Ordinal))
+                {
+                    var traditional = lower.Contains("-hant", StringComparison.Ordinal)
+                        || lower.Contains("-tw", StringComparison.Ordinal)
+                        || lower.Contains("-hk", StringComparison.Ordinal)
+                        || lower.Contains("-mo", StringComparison.Ordinal);
+                    return CultureInfo.GetCultureInfo(traditional ? "zh-Hant" : "zh");
+                }
                 // Bare "pt" is ambiguous (Portugal vs Brazil); require an explicit pt-BR tag.
+                if (lower == "pt" || lower.StartsWith("pt-", StringComparison.Ordinal))
+                {
+                    if (lower == "pt-br" || lower.StartsWith("pt-br-", StringComparison.Ordinal))
+                        return CultureInfo.GetCultureInfo("pt-BR");
+                    continue;
+                }
                 var match = Supported.FirstOrDefault(candidate =>
                     string.Equals(normalized, candidate, StringComparison.OrdinalIgnoreCase) ||
                     normalized.StartsWith(candidate + "-", StringComparison.OrdinalIgnoreCase));

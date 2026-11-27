@@ -6,26 +6,31 @@
  * manual choice overrides both.
  */
 import { createI18n, type I18n } from 'vue-i18n'
+import cs from './messages/cs'
+import de from './messages/de'
 import en from './messages/en'
-import zh from './messages/zh'
+import es from './messages/es'
+import fr from './messages/fr'
+import it from './messages/it'
+import ja from './messages/ja'
+import ko from './messages/ko'
+import pl from './messages/pl'
 import ptBR from './messages/pt-BR'
+import ru from './messages/ru'
+import tr from './messages/tr'
+import zh from './messages/zh'
+import zhHant from './messages/zh-Hant'
+import { LOCALES, LOCALE_LABELS, SUPPORTED_LOCALES, type CalcpadLocale } from './locales.generated'
 
 export { menuLabels, MENU_KEYS } from './menu'
+export { LOCALE_LABELS, SUPPORTED_LOCALES }
+export type { CalcpadLocale }
 
-export const SUPPORTED_LOCALES = ['en', 'zh', 'pt-BR'] as const
-export type CalcpadLocale = (typeof SUPPORTED_LOCALES)[number]
 export type LocaleSetting = 'auto' | CalcpadLocale
 
 export const LOCALE_STORAGE_KEY = 'calcpad.locale'
 /** Fired after a locale change so hosts can rebuild the editor. */
 export const LOCALE_CHANGED_EVENT = 'calcpad:locale-changed'
-
-// Endonyms: language names are never translated.
-const LOCALE_LABELS: Record<CalcpadLocale, string> = {
-    en: 'English',
-    zh: '中文',
-    'pt-BR': 'Português (Brasil)',
-}
 
 export const LOCALE_OPTIONS: { value: LocaleSetting; label: string; translatable: boolean }[] = [
     { value: 'auto', label: 'Auto', translatable: true },
@@ -47,12 +52,23 @@ export function setCurrentCulture(locale: string | undefined): void {
 
 export function matchLocale(tag: string): CalcpadLocale | null {
     const normalized = tag.replace('_', '-').toLowerCase()
-    for (const locale of SUPPORTED_LOCALES) {
-        const candidate = locale.toLowerCase()
-        if (normalized === candidate || normalized.startsWith(`${candidate}-`)) return locale
+    for (const locale of LOCALES) {
+        if (locale.tag.toLowerCase() === normalized) return locale.tag
+        if (locale.aliases.some(alias => alias.toLowerCase() === normalized)) return locale.tag
     }
-    // Bare "pt" is ambiguous (Portugal vs Brazil); require an explicit pt-BR tag.
-    return null
+    const language = normalized.split('-')[0]
+    if (language === 'zh') {
+        // Unlisted Chinese variants default to Simplified; Traditional regions do not.
+        const traditional = /(?:^|-)hant(?:-|$)/.test(normalized)
+            || /(?:^|-)(?:tw|hk|mo)(?:-|$)/.test(normalized)
+        return traditional ? 'zh-Hant' : 'zh'
+    }
+    if (language === 'pt') {
+        // Bare "pt" is ambiguous (Portugal vs Brazil); require an explicit pt-BR tag.
+        return normalized === 'pt-br' || normalized.startsWith('pt-br-') ? 'pt-BR' : null
+    }
+    const fallback = LOCALES.find(locale => locale.languageFallback && locale.tag.toLowerCase() === language)
+    return fallback?.tag ?? null
 }
 
 function browserLocaleTags(): string[] {
@@ -129,7 +145,22 @@ export function createCalcpadI18n(setting: LocaleSetting = readLocaleSetting()):
         legacy: false,
         locale,
         fallbackLocale: 'en',
-        messages: { en, zh, 'pt-BR': ptBR },
+        messages: {
+            en,
+            cs,
+            de,
+            es,
+            fr,
+            it,
+            ja,
+            ko,
+            pl,
+            'pt-BR': ptBR,
+            ru,
+            tr,
+            zh,
+            'zh-Hant': zhHant,
+        },
         missingWarn: false,
         fallbackFormat: true,
         fallbackWarn: false,

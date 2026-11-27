@@ -2,8 +2,7 @@
   "vscode": {
     "tag": "1.96.2",
     "locTag": "v1.96.2024121109",
-    "locCommit": "110df563b65cd2a1f9d8b58e3bdcadce90427f6d",
-    "pack": "vscode-language-pack-pt-BR"
+    "locCommit": "110df563b65cd2a1f9d8b58e3bdcadce90427f6d"
   },
   "keys": {
     "Error": [

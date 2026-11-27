@@ -11,7 +11,7 @@ A translated key has one of three sources.
 | Label | Meaning |
 |---|---|
 | `community` | Translations contributed by the CalcpadCE community, including the initial Chinese catalog and future locales. |
-| `vscode` | Reused from the pinned `microsoft/vscode-loc` pack, in Monaco or a shared Calcpad UI surface: Vue sidebar, Tauri menu, webview. |
+| `vscode` | Reused from the pinned `microsoft/vscode-loc` packs, in Monaco or a shared Calcpad UI surface: Vue sidebar, Tauri menu, webview. |
 
 `vscode` describes the origin, not the surface.
 The same source label applies whether the string lands in Monaco, Vue, the native menu, or a webview.
@@ -21,6 +21,7 @@ A `vscode` entry also records `vscodeSource`: `vscode-monaco` or `vscode-shared-
 
 - **Shared UI catalogs:** `Calcpad.Web/frontend/calcpad-frontend/src/i18n/messages/`.
   `sources.json` declares the source labels and the VS Code pack pin.
+  `locales.json` next to it lists the tags, endonyms, aliases, and pack folders.
   Each locale catalog has its own `provenance.<locale>.json`; every key has an
   explicit entry and there is no blanket default.
   `origins` records the commit, author and date that last changed the string.
@@ -67,18 +68,20 @@ list are only used when the current culture is unavailable.
 
 A catalog may contain only the keys that have been translated.
 Missing keys fall back to English; every key that is present must have explicit provenance.
-`pt-BR.ts` currently contains the strings verified against the pinned VS Code pack, marked `vscode`.
+Generated catalogs contain the strings verified against the pinned VS Code packs, marked `vscode`.
+`zh.ts` is the community-authored catalog; the others are generated.
 Community translations are added as new entries with `source: "community"` and an `origin`.
 
 ## Shared UI from VS Code
 
-The shared UI catalog imports exact matches from the pinned VS Code UI pack.
-The pack is keyed by `module::key`, not by English text, so the repo also carries an index:
+The shared UI catalogs import exact matches from the pinned VS Code UI packs.
+Each pack is keyed by `module::key`, not by English text, so the repo also carries an index:
 
 - `scripts/i18n/data/vscode.index.json` — English string to `module`/`key`.
 - `scripts/i18n/data/vscode.langpack.<locale>.json` — pinned pack subset.
+- `calcpad-frontend/src/i18n/locales.json` — tag, endonym, aliases, fallback, and pack folder per locale.
 
-Run `node scripts/i18n/i18n.mjs` to process every langpack, or
+Run `node scripts/i18n/i18n.mjs` to process every registered langpack, or
 `--locale=<tag>` for one. It extracts the pinned subset, writes
 `messages/<locale>.ts` and `provenance.<locale>.json`, and regenerates the
 Monaco maps.

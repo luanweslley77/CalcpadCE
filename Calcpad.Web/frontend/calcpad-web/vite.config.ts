@@ -7,40 +7,99 @@ import fs from 'node:fs';
 // Monaco's ESM build calls localize('key', 'English') with a string key, so the
 // numeric NLS table used by its AMD build is never consulted. The maps carry the
 // same (module, key) pairs from the pinned VS Code language packs.
-function loadMonacoNls(file: string): Record<string, Record<string, string>> {
-    const fullPath = path.resolve(__dirname, `src/editor/monaco-nls/${file}`);
+interface LocaleEntry {
+    tag: string;
+    aliases: string[];
+    languageFallback: boolean;
+    monaco: boolean;
+}
+
+type NlsMap = Record<string, Record<string, string>>;
+
+const monacoNlsDir = path.resolve(__dirname, 'src/editor/monaco-nls');
+const localeConfig = JSON.parse(
+    fs.readFileSync(path.resolve(__dirname, '../calcpad-frontend/src/i18n/locales.json'), 'utf8'),
+) as { locales: LocaleEntry[] };
+
+function loadMonacoNls(file: string): NlsMap {
+    const fullPath = path.join(monacoNlsDir, file);
     return fs.existsSync(fullPath)
         ? JSON.parse(fs.readFileSync(fullPath, 'utf8'))
         : {};
 }
 
-function mergeMonacoNls(
-    base: Record<string, Record<string, string>>,
-    overrides: Record<string, Record<string, string>>,
-): Record<string, Record<string, string>> {
+function mergeMonacoNls(base: NlsMap, overrides: NlsMap): NlsMap {
     for (const [module, entries] of Object.entries(overrides))
         base[module] = { ...(base[module] ?? {}), ...entries };
     return base;
 }
 
-const monacoNls = {
-    zh: mergeMonacoNls(loadMonacoNls('zh.json'), loadMonacoNls('overrides/zh.json')),
-    'pt-BR': mergeMonacoNls(loadMonacoNls('pt-BR.json'), loadMonacoNls('overrides/pt-BR.json')),
-};
+const monacoNls: Record<string, NlsMap> = {};
+for (const locale of localeConfig.locales.filter(entry => entry.monaco)) {
+    const base = loadMonacoNls(`${locale.tag}.json`);
+    const overrideFile = `overrides/${locale.tag}.json`;
+    monacoNls[locale.tag] = fs.existsSync(path.join(monacoNlsDir, overrideFile))
+        ? mergeMonacoNls(base, loadMonacoNls(overrideFile))
+        : base;
+}
 
-const MONACO_NLS_HELPER =
-    "const __calcpadLocale=()=>{try{const s=localStorage.getItem('calcpad.locale');" +
-    "if(s==='en'||s==='zh'||s==='pt-BR')return s}catch(e){}" +
-    "const c=typeof window!=='undefined'?window.__CALCPAD_CURRENT_CULTURE__:'';" +
-    "const h=typeof window!=='undefined'?window.__CALCPAD_HOST_LOCALE__:'';" +
-    "const tags=c?[c]:h?[h]:[...(typeof navigator!=='undefined'&&navigator.languages||[])," +
-    "typeof navigator!=='undefined'?navigator.language:''];" +
-    "for(const t of tags){if(!t)continue;const n=String(t).replace('_','-').toLowerCase();" +
-    "if(n==='zh'||n.startsWith('zh-'))return 'zh';" +
-    "if(n==='pt-br'||n.startsWith('pt-br-'))return 'pt-BR'}" +
-    "return 'en'};" +
-    "const __calcpadTr=(en,zh,pt)=>{const l=__calcpadLocale();" +
-    "return l==='zh'?(zh||en):l==='pt-BR'?(pt||en):en};";
+const translatedKeys = new Set<string>();
+for (const map of Object.values(monacoNls)) {
+    for (const [module, entries] of Object.entries(map)) {
+        for (const key of Object.keys(entries))
+            translatedKeys.add(`${module}::${key}`);
+    }
+}
+
+const localeMatches = localeConfig.locales.map(locale => ({
+    tag: locale.tag,
+    aliases: locale.aliases,
+    languageFallback: locale.languageFallback,
+}));
+
+const MONACO_NLS_MODULE = `const __calcpadMaps = ${JSON.stringify(monacoNls)};
+const __calcpadLocales = ${JSON.stringify(localeMatches)};
+const __calcpadTraditional = /(?:^|-)hant(?:-|$)|(?:^|-)(?:tw|hk|mo)(?:-|$)/;
+let __calcpadResolved;
+function __calcpadMatch(tag) {
+    if (!tag) return null;
+    const n = String(tag).replace('_', '-').toLowerCase();
+    for (const locale of __calcpadLocales) {
+        if (locale.tag.toLowerCase() === n) return locale.tag;
+        for (const alias of locale.aliases)
+            if (alias.toLowerCase() === n) return locale.tag;
+    }
+    const language = n.split('-')[0];
+    if (language === 'zh') return __calcpadTraditional.test(n) ? 'zh-Hant' : 'zh';
+    if (language === 'pt') return n === 'pt-br' || n.startsWith('pt-br-') ? 'pt-BR' : null;
+    const fallback = __calcpadLocales.find(locale => locale.languageFallback && locale.tag.toLowerCase() === language);
+    return fallback ? fallback.tag : null;
+}
+function __calcpadLocale() {
+    if (__calcpadResolved) return __calcpadResolved;
+    let tag;
+    try { tag = localStorage.getItem('calcpad.locale'); } catch {}
+    if (tag && tag !== 'auto') __calcpadResolved = __calcpadMatch(tag);
+    if (!__calcpadResolved && typeof window !== 'undefined') {
+        __calcpadResolved = __calcpadMatch(window.__CALCPAD_CURRENT_CULTURE__)
+            || __calcpadMatch(window.__CALCPAD_HOST_LOCALE__);
+    }
+    if (!__calcpadResolved && typeof navigator !== 'undefined') {
+        for (const tag of [...(navigator.languages || []), navigator.language]) {
+            __calcpadResolved = __calcpadMatch(tag);
+            if (__calcpadResolved) break;
+        }
+    }
+    return __calcpadResolved || (__calcpadResolved = 'en');
+}
+export function __calcpadTr(module, key, english) {
+    const map = __calcpadMaps[__calcpadLocale()];
+    return map?.[module]?.[key] || english;
+}
+`;
+
+const MONACO_NLS_ID = 'virtual:calcpad-monaco-nls';
+const MONACO_NLS_RESOLVED = '\0' + MONACO_NLS_ID;
 
 const MONACO_LOCALIZE =
     /(\blocalize2?\s*\(\s*(?:'((?:[^'\\]|\\.)*)'|"((?:[^"\\]|\\.)*)")\s*,\s*)(?:'((?:[^'\\]|\\.)*)'|"((?:[^"\\]|\\.)*)")/g;
@@ -61,32 +120,30 @@ function monacoModule(id: string): string | null {
 }
 
 function translateMonacoLiterals(code: string, module: string): string {
-    const zhMap = monacoNls.zh[module];
-    const ptMap = monacoNls['pt-BR'][module];
-    if (!zhMap && !ptMap) return code;
-
     let changed = false;
     const out = code.replace(
         MONACO_LOCALIZE,
         (match, head, keySingle, keyDouble, bodySingle, bodyDouble) => {
             const key = decodeString(keySingle ?? keyDouble);
+            if (!translatedKeys.has(`${module}::${key}`)) return match;
             const english = decodeString(bodySingle ?? bodyDouble);
-            const zh = zhMap?.[key];
-            const pt = ptMap?.[key];
-            if (!zh && !pt) return match;
             changed = true;
-            const zhArg = zh ? JSON.stringify(zh) : 'undefined';
-            const ptArg = pt ? JSON.stringify(pt) : 'undefined';
-            return `${head}__calcpadTr(${JSON.stringify(english)}, ${zhArg}, ${ptArg})`;
+            return `${head}__calcpadTr(${JSON.stringify(module)}, ${JSON.stringify(key)}, ${JSON.stringify(english)})`;
         },
     );
-    return changed ? MONACO_NLS_HELPER + '\n' + out : code;
+    return changed ? `import { __calcpadTr } from ${JSON.stringify(MONACO_NLS_ID)};\n${out}` : code;
 }
 
 function monacoLanguagePacks() {
     return {
         name: 'monaco-language-packs',
         enforce: 'pre' as const,
+        resolveId(id: string) {
+            return id === MONACO_NLS_ID ? MONACO_NLS_RESOLVED : null;
+        },
+        load(id: string) {
+            return id === MONACO_NLS_RESOLVED ? MONACO_NLS_MODULE : null;
+        },
         transform(code: string, id: string) {
             const cleanId = id.split('?')[0].split('#')[0];
             if (!cleanId.includes('monaco-editor/esm/') || !cleanId.endsWith('.js')) return null;
