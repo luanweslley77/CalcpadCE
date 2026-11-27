@@ -16,6 +16,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -286,6 +287,39 @@ function readCommunityOrigins(locale) {
     return readJson(file).ui ?? {};
 }
 
+function blameCommunity(locale) {
+    const file = path.join(communityDir, `${locale}.ts`);
+    const relative = path.relative(frontendRoot, file).replace(/\\/g, '/');
+    const output = execFileSync('git', ['blame', '--line-porcelain', '--', relative], {
+        cwd: frontendRoot,
+        encoding: 'utf8',
+    });
+    const origins = {};
+    let commit = null;
+    for (const line of output.split('\n')) {
+        const header = /^([0-9a-f]{40}) \d+ (\d+)(?: \d+)?$/.exec(line);
+        if (header) {
+            commit = header[1];
+            continue;
+        }
+        if (!commit || !line.startsWith('\t')) continue;
+        const match = /^\s*"([^"]+)"\s*:/.exec(line.slice(1));
+        if (match && match[1] !== 'ui' && match[1] !== 'monaco' && !match[1].includes('::'))
+            origins[match[1]] = commit.slice(0, 8);
+        commit = null;
+    }
+    return origins;
+}
+
+function gitMetadata(commit) {
+    const [author, date, ...subject] = execFileSync(
+        'git',
+        ['show', '-s', '--format=%an%n%ad%n%s', '--date=short', commit],
+        { cwd: frontendRoot, encoding: 'utf8' },
+    ).trim().split('\n');
+    return { author, date, subject: subject.join(' ') };
+}
+
 function importCatalogs() {
     const packs = selectedCatalogPacks();
     if (!packs.length) return;
@@ -344,6 +378,23 @@ function importCatalogs() {
 
         const community = readCommunity(locale);
         const origins = readCommunityOrigins(locale);
+        const missingOrigins = Object.keys(community.ui).filter(id => !origins[id]);
+        if (missingOrigins.length) {
+            let blamed = {};
+            try {
+                blamed = blameCommunity(locale);
+            } catch (error) {
+                errors.push(`community/${locale}.ts: commit the file before running the i18n script (${error.message})`);
+            }
+            for (const id of missingOrigins) {
+                const origin = blamed[id];
+                if (!origin || origin.startsWith('0000000')) {
+                    errors.push(`community "${id}" has no origin; commit community/${locale}.ts first`);
+                    continue;
+                }
+                origins[id] = origin;
+            }
+        }
         const merged = {};
         for (const [id, entry] of Object.entries(selected)) {
             merged[id] = {
@@ -402,6 +453,24 @@ export default catalog
             }
         }
         const originsMap = existingProvenance.origins ?? {};
+        for (const origin of new Set(Object.values(origins))) {
+            if (originsMap[origin]) continue;
+            try {
+                originsMap[origin] = gitMetadata(origin);
+            } catch (error) {
+                errors.push(`community origin ${origin}: ${error.message}`);
+            }
+        }
+        const sortedOrigins = Object.fromEntries(
+            Object.entries(origins).sort(([a], [b]) => a.localeCompare(b, 'en')),
+        );
+        const sidecarText = JSON.stringify({ ui: sortedOrigins }, null, 2) + '\n';
+        const sidecarFile = path.join(communityDir, `${locale}.provenance.json`);
+        if (Object.keys(community.ui).length && check) {
+            const currentSidecar = fs.existsSync(sidecarFile) ? fs.readFileSync(sidecarFile, 'utf8') : '';
+            if (currentSidecar !== sidecarText)
+                errors.push(`community/${locale}.provenance.json is out of date; run:\n  node scripts/i18n/i18n.mjs --locale=${locale}`);
+        }
         const provenance = {
             locale,
             vscode: pack.vscode,
@@ -428,6 +497,7 @@ export default catalog
             continue;
         }
 
+        if (Object.keys(community.ui).length) fs.writeFileSync(sidecarFile, sidecarText);
         fs.writeFileSync(catalogFile, catalog);
         fs.writeFileSync(provenanceFile, provenanceText);
         console.log(

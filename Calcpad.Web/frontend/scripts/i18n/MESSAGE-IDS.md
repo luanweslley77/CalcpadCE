@@ -65,8 +65,9 @@ export default {
   They can remain generated artifacts or be removed.
 - The `origin` for a community entry is the short commit that last changed its
   line in the community file.
-  The generator can derive it with `git blame` so contributors do not edit
-  provenance by hand.
+  Commit `community/<locale>.ts` first; the generator derives missing origins
+  with `git blame` and writes `community/<locale>.provenance.json`.
+  Contributors do not edit the sidecar by hand.
 
 ## ID convention
 
@@ -174,6 +175,8 @@ service at a time.
 - `messages/<locale>.ts` catalogs are keyed by ID.
 - `community/zh.ts` holds the 512 community entries; 38 of them override
   VS Code entries and are marked `replaces: "vscode"` automatically.
+- `community/<locale>.provenance.json` caches the origin of each community
+  entry. Missing origins are derived from `git blame` on the `.ts` file.
 - `legacy-keys.generated.ts` and `useCalcpadI18n()` keep English data labels
   working while the remaining sources migrate.
 - Literal calls were codemodded (508 replacements).

@@ -62,6 +62,11 @@ convention, the community file format, and the remaining inventory.
   `provenance.<locale>.json` are generated for every locale with
   `"catalog": true`. The script rewrites `vscode` entries and preserves entries
   marked `community`; do not edit generated entries.
+- `calcpad-frontend/src/i18n/community/<locale>.ts` is the human-editable
+  community source. Its `ui` and `monaco` sections are merged into the generated
+  catalogs and maps.
+- `community/<locale>.provenance.json` is generated: missing origins come from
+  `git blame` on the community `.ts` file.
 - `zh` is `"catalog": false` because its shared UI catalog is community-authored.
   Its Monaco map still comes from `vscode-language-pack-zh-hans`.
 - The pseudo-locale pack `vscode-language-pack-qps-ploc` is intentionally
