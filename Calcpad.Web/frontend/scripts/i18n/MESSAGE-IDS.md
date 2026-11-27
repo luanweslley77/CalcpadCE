@@ -61,8 +61,11 @@ export default {
 - An override is automatic:
   a community key that also exists in the generated VS Code set wins, and
   provenance records `source: "community"` and `replaces: "vscode"`.
-- The separate `overrides/<locale>.json` files stop being a contribution surface.
-  They can remain generated artifacts or be removed.
+- The generator writes `overrides/<locale>.json` from the `monaco` section and
+  validates each `module::key` against the base Monaco map.
+  `SOURCES.json` declares a community override for every locale.
+  The separate override files are generated artifacts, not a contribution
+  surface.
 - The `origin` for a community entry is the short commit that last changed its
   line in the community file.
   Commit `community/<locale>.ts` first; the generator derives missing origins

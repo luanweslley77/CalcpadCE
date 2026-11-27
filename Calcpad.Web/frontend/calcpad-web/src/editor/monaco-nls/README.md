@@ -40,5 +40,7 @@ None of the entries are hand-written.
 
 Community overrides live in `overrides/<locale>.json` and are declared in
 `SOURCES.json` with `replaces: vscode`.
+Every locale has an override file; it is empty until a community entry is added
+to the `monaco` section of `community/<locale>.ts`.
 Monaco maps record `vscodeSource: vscode-monaco`; shared UI entries use `vscode-shared-ui`.
 The Vite plugin merges them over the generated map at build time.

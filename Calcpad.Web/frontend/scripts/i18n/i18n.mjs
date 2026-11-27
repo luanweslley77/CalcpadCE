@@ -646,6 +646,36 @@ async function generateMonacoMaps() {
             fs.writeFileSync(target, serialized);
             console.log(`  wrote ${path.relative(frontendRoot, target)}`);
         }
+
+        const community = readCommunity(pack.output);
+        const overrides = {};
+        for (const [key, value] of Object.entries(community.monaco)) {
+            const separator = key.indexOf('::');
+            const module = separator > 0 ? key.slice(0, separator) : '';
+            const messageKey = separator > 0 ? key.slice(separator + 2) : '';
+            if (!module || !messageKey || !sorted[module]?.[messageKey]) {
+                fail(`${pack.output}: monaco override "${key}" is not in the base map`);
+                continue;
+            }
+            if (typeof value !== 'string' || !value) {
+                fail(`${pack.output}: monaco override "${key}" has an empty value`);
+                continue;
+            }
+            (overrides[module] ??= {})[messageKey] = value;
+        }
+        const sortedOverrides = sortMap(overrides);
+        const overrideTarget = path.join(monacoDir, 'overrides', `${pack.output}.json`);
+        const overrideSerialized = JSON.stringify(sortedOverrides, null, 2) + '\n';
+        if (check) {
+            const current = fs.existsSync(overrideTarget) ? fs.readFileSync(overrideTarget, 'utf8') : '';
+            if (current !== overrideSerialized)
+                fail(`  out of date: ${path.relative(frontendRoot, overrideTarget)}`);
+        } else {
+            fs.mkdirSync(path.dirname(overrideTarget), { recursive: true });
+            fs.writeFileSync(overrideTarget, overrideSerialized);
+            if (Object.keys(sortedOverrides).length)
+                console.log(`  wrote ${path.relative(frontendRoot, overrideTarget)}`);
+        }
     }
 }
 
