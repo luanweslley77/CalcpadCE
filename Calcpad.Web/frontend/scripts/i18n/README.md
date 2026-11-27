@@ -20,6 +20,7 @@ node scripts/i18n/i18n.mjs --check         # verify generated catalogs/provenanc
 node scripts/i18n/i18n.mjs --monaco-cache  # refresh only the Monaco cache
 node scripts/i18n/i18n.mjs --locale=pt-BR
 node scripts/i18n/i18n.mjs --verbose
+node scripts/i18n/check-vscode-english.mjs # verify English at each module/key
 ```
 
 ```sh
@@ -33,6 +34,11 @@ catalogs or provenance are stale.
 `--monaco-cache` writes only the build cache under
 `calcpad-web/node_modules/.cache/calcpad-monaco-nls/`; the maps and overrides
 are not committed.
+`check-vscode-english.mjs` verifies the English text at every
+`vscode.index.json` module/key.
+Monaco entries use the installed editor; shared-UI entries are fetched from the
+pinned VS Code source and cached under `node_modules/.cache`.
+CI runs this check; no English source file is committed.
 
 ## Layout
 

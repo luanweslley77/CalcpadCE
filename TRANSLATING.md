@@ -102,7 +102,11 @@ Community overrides of a generated key also set `replaces: "vscode"`.
 ### Adding a shared UI term
 
 A Calcpad UI string may reuse a VS Code translation only when VS Code has the
-same English text at the pinned tag:
+same English text at the pinned tag.
+CI runs `scripts/i18n/check-vscode-english.mjs` to verify that English text:
+Monaco entries against the installed editor, and shared-UI entries against the
+pinned VS Code source, cached under `node_modules/.cache`.
+No English source file is committed.
 
 1. Find the `localize` call in VS Code at that tag and note its module and key.
 2. Add the English text to `scripts/i18n/data/vscode.index.json` with that
