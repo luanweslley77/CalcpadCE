@@ -1,0 +1,46 @@
+{
+  "cli_version": "0.13.4",
+  "checkpoint_id": "01M8FP8DKRD0F2CW5HJEZHAGAC",
+  "session_id": "ses_de1e96ae0fferTqpIRYXBjr2ry",
+  "strategy": "manual-commit",
+  "created_at": "2026-11-27T23:43:21.165647707Z",
+  "branch": "i18n/monaco-nls",
+  "checkpoints_count": 2,
+  "save_step_count": 1,
+  "files_touched": [],
+  "agent": "OpenCode",
+  "model": "deepseek/deepseek-v4.1-flash",
+  "turn_id": "0d45524c2a6c",
+  "compact_transcript_start": 0,
+  "token_usage": {
+    "input_tokens": 121812,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 14483584,
+    "output_tokens": 43086,
+    "api_call_count": 64
+  },
+  "session_token_usage": {
+    "input_tokens": 1239550,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 185712256,
+    "output_tokens": 628185,
+    "api_call_count": 503
+  },
+  "redaction": {
+    "replacements": 72,
+    "layers": {
+      "betterleaks": 54,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 0,
+      "credentialed_uri": 4,
+      "entropy": 18,
+      "key_context": 0,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  },
+  "session_metrics": {
+    "turn_count": 19
+  }
+}

@@ -1,0 +1,37 @@
+Sem abrir PR, quero entender como está o fluxo vi bastante o ué parece ser artefatos aqui
+
+---
+
+Monaco nls e Monaco nls override não deve existir, uma vez que o langpack já contém isso
+
+---
+
+pode atualizar o PR e deletar as branches o PR ainda fica como draft
+
+---
+
+esse draft não entendi o que é
+
+---
+
+essa pasta draft não entendi o que é
+
+---
+
+isso foi para alterar código em massa correto ?
+
+---
+
+isso foi para alterar código em massa para colocar ids correto ?
+
+---
+
+não precisamos mais disso vamos tirar tudo o que foi só helper
+
+---
+
+Ainda vi legacy keys presente
+
+---
+
+Sim faça isso mas mesmo assim ainda não é fase final depois conversamos mais
