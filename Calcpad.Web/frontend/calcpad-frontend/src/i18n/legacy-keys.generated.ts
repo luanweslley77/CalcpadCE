@@ -581,6 +581,14 @@ const legacyKeys: Record<string, string> = {
     "Loading variables...": "variables.loadingVariablesEllipsis",
     "No variables found. Open a CalcpadCE document to see variables, macros, and functions.": "variables.noVariablesFoundOpenACalcpadceDocumentTo",
     "Search variables, macros, functions, custom units...": "variables.searchVariablesMacrosFunctionsCustomUnitsEllipsis",
+    "{message} In the body of {name} on line {line}.": "run.errorInBody",
+    "Error in the body of {name}": "run.errorBody",
+    "Called in the body of {name}": "run.calledInBody",
+    "{message} At the call on line {line}.": "run.atCall",
+    "{message} In {name}, at the call on line {line}.": "run.inAtCall",
+    "Call to {name}": "run.callTo",
+    "From {base}: {message}": "lint.fromBase",
+    "Reported in {base}": "lint.reportedIn",
 }
 
 export default legacyKeys

@@ -25,6 +25,7 @@ import { LOCALES, LOCALE_LABELS, SUPPORTED_LOCALES, type CalcpadLocale } from '.
 
 export { menuLabels, MENU_KEYS } from './menu'
 export { LOCALE_LABELS, SUPPORTED_LOCALES }
+export { formatMessage } from './format'
 export { resolveMessageKey }
 export { useCalcpadI18n as useI18n } from './use-calcpad-i18n'
 export type { CalcpadLocale }
@@ -119,10 +120,12 @@ export function getActiveLocale(): CalcpadLocale {
 }
 
 /** Translate a key with the active catalog; missing keys return the key. */
-export function translate(key: string): string {
+export function translate(key: string, named?: Record<string, unknown>): string {
     if (!activeI18n) return key
-    const composer = activeI18n.global as unknown as { t: (key: string) => string }
-    return composer.t(resolveMessageKey(key))
+    const composer = activeI18n.global as unknown as {
+        t: (key: string, named?: Record<string, unknown>) => string
+    }
+    return composer.t(resolveMessageKey(key), named)
 }
 
 function notifyLocaleChanged(setting: LocaleSetting, locale: CalcpadLocale): void {

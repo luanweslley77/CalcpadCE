@@ -580,6 +580,14 @@ const en: Record<string, string> = {
     "variables.loadingVariablesEllipsis": "Loading variables...",
     "variables.noVariablesFoundOpenACalcpadceDocumentTo": "No variables found. Open a CalcpadCE document to see variables, macros, and functions.",
     "variables.searchVariablesMacrosFunctionsCustomUnitsEllipsis": "Search variables, macros, functions, custom units...",
+    "run.errorInBody": "{message} In the body of {name} on line {line}.",
+    "run.errorBody": "Error in the body of {name}",
+    "run.calledInBody": "Called in the body of {name}",
+    "run.atCall": "{message} At the call on line {line}.",
+    "run.inAtCall": "{message} In {name}, at the call on line {line}.",
+    "run.callTo": "Call to {name}",
+    "lint.fromBase": "From {base}: {message}",
+    "lint.reportedIn": "Reported in {base}",
 }
 
 export default en
