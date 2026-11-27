@@ -10,6 +10,7 @@ const messageIds = JSON.parse(fs.readFileSync(path.join(here, 'message-ids.json'
 const targets = [
     { file: 'calcpad-frontend/src/types/settings.ts', props: ['label', 'detail'] },
     { file: 'calcpad-frontend/src/types/pdf-settings.ts', props: ['label', 'detail'] },
+    { file: 'calcpad-frontend/src/text/ui-directive.ts', props: ['label', 'detail'] },
     { file: 'calcpad-frontend/src/services/keybindings.ts', props: ['label'], formatArgs: true },
     { file: 'calcpad-frontend/src/services/setting-actions.ts', props: ['label'], extraArgs: true },
     { file: 'calcpad-frontend/src/services/hotkeys.ts', props: [], tuples: true, validateReturn: true },

@@ -161,7 +161,6 @@ The remaining categories are:
 - Other service errors that still return English text to `t(error.message)`.
   Quick-type validation, run-error wrappers, and included-lint wrappers are
   already structured; the server-provided message stays a parameter.
-- UI property labels and addable-field labels that are not in `en.ts` yet.
 - Agent or server-provided labels and question options.
 - Export group details that have no catalog entry yet.
 
@@ -170,7 +169,7 @@ service at a time.
 
 ## Current implementation
 
-- `messages/en.ts` is the English source (588 IDs).
+- `messages/en.ts` is the English source (610 IDs).
 - `scripts/i18n/message-ids.json` is the English-to-ID map.
 - `messages/<locale>.ts` catalogs are keyed by ID.
 - `community/zh.ts` holds the 512 community entries; 38 of them override
@@ -179,15 +178,15 @@ service at a time.
   working while the remaining sources migrate.
 - Literal calls were codemodded (508 replacements).
 - Data labels in settings, PDF, keybindings, setting actions, hotkeys, export
-  groups, desktop actions, file/insert constants, and the native menu now carry
-  IDs (167 replacements).
+  groups, desktop actions, file/insert constants, `#UI` property catalogs,
+  addable fields, and the native menu now carry IDs.
 - `en.ts` is used where a host shows a label without a translator: validation
   messages, search indexes, and the VS Code status bar.
 - `run-errors.ts` and `included-lint.ts` now add `messageId` and `params` to
   client-generated wrappers; the web translates them and the VS Code host uses
   `en` plus `formatMessage()`.
-- Other service errors, UI property labels, agent-provided labels, and a few
-  export details still need IDs.
+- Other service errors, agent-provided labels, and a few export details still
+  need IDs.
 - `scripts/i18n/apply-ids.mjs`, `codemod-ids.mjs`, and `codemod-data-ids.mjs`
   are one-time migration helpers; do not rerun them after the catalogs use IDs.
 
@@ -198,11 +197,12 @@ service at a time.
    `en.ts`, `community/zh.ts`, and the legacy bridge exist.
 3. **Bulk literal migration** — done for literal `t('…')` calls.
 4. **Data-driven migration** — in progress.
-   Settings/metadata specs, export groups, keybindings, setting actions,
-   hotkeys, desktop actions, file/insert constants, the native menu, quick-type
-   validation, and run/included-lint wrappers use IDs.
-   Remaining: other service errors, UI property labels, agent-provided labels,
-   and a few export details.
+   Settings/metadata specs, `#UI` property catalogs, addable fields, export
+   groups, keybindings, setting actions, hotkeys, desktop actions, file/insert
+   constants, the native menu, quick-type validation, and run/included-lint
+   wrappers use IDs.
+   Remaining: other service errors, agent-provided labels, and a few export
+   details.
 5. **Remove the legacy key path** — delete `legacy-keys.generated.ts` and the
    English-key fallback.
 

@@ -745,17 +745,17 @@ const showPdf = computed(() =>
 const addableFields = computed(() => {
   const out: { id: string; label: string }[] = []
   if (isDefinition.value) return out
-  if (!showDesc.value) out.push({ id: 'desc', label: 'Description' })
-  if (!showParams.value) out.push({ id: 'params', label: 'Parameter types & descriptions' })
-  if (!showReturnType.value) out.push({ id: 'returnType', label: 'Return type' })
+  if (!showDesc.value) out.push({ id: 'desc', label: 'common.description' })
+  if (!showParams.value) out.push({ id: 'params', label: 'metadata.parameterTypesDescriptions' })
+  if (!showReturnType.value) out.push({ id: 'returnType', label: 'insert.returnType' })
   return out
 })
 
 const addableSettings = computed(() => {
   const out: { id: string; label: string }[] = []
   if (isDefinition.value) return out
-  if (!showPdf.value) out.push({ id: 'pdf', label: 'PDF export' })
-  if (!showLint.value) out.push({ id: 'lint', label: 'Lint ignore' })
+  if (!showPdf.value) out.push({ id: 'pdf', label: 'metadata.pdfExport' })
+  if (!showLint.value) out.push({ id: 'lint', label: 'metadata.lintIgnore' })
   return out
 })
 
