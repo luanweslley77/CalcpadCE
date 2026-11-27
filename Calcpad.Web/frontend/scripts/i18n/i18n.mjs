@@ -757,19 +757,6 @@ function checkProvenance() {
             errors.push(`en.ts: "${id}" has no entry in message-ids.json`);
     }
 
-    const legacyFile = path.join(frontendRoot, 'calcpad-frontend/src/i18n/legacy-keys.generated.ts');
-    if (fs.existsSync(legacyFile)) {
-        const legacy = readCatalog(fs.readFileSync(legacyFile, 'utf8'));
-        for (const [text, id] of Object.entries(messageIds)) {
-            if (legacy[text] !== id)
-                errors.push(`legacy-keys.generated.ts: "${text}" does not map to "${id}"`);
-        }
-        for (const text of Object.keys(legacy)) {
-            if (!(text in messageIds))
-                errors.push(`legacy-keys.generated.ts: "${text}" is not in message-ids.json`);
-        }
-    }
-
     const index = readJsonSafe(path.join(dataDir, 'vscode.index.json'));
     for (const text of Object.keys(index.keys ?? {})) {
         const id = index.ids?.[text];

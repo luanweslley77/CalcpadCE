@@ -62,9 +62,10 @@ locale catalogs next to it.
 ## Message-ID migration
 
 The catalogs now use stable message IDs.
-A temporary English-to-ID bridge still covers data-driven labels while the
-remaining sources migrate; see [`MESSAGE-IDS.md`](MESSAGE-IDS.md) for the
-convention, the community file format, and the remaining bridge.
+Some data sources still hold English labels; those labels stay English until
+the source returns an ID.
+See [`MESSAGE-IDS.md`](MESSAGE-IDS.md) for the convention and the community
+file format.
 
 ## Rules
 

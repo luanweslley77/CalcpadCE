@@ -1,9 +1,9 @@
 # Message-ID migration
 
 Status: in progress.
-The catalogs and literal call sites use IDs.
-A temporary English-to-ID bridge still covers data-driven labels and error
-messages until those sources return IDs directly.
+The catalogs and call sites use IDs.
+Some data sources still hold English labels; those labels stay English until
+the source returns an ID.
 
 ## Target model
 
@@ -150,8 +150,8 @@ service at a time.
   VS Code entries and are marked `replaces: "vscode"` automatically.
 - `community/<locale>.provenance.json` caches the origin of each community
   entry. Missing origins are derived from `git blame` on the `.ts` file.
-- `legacy-keys.generated.ts` and `useCalcpadI18n()` keep English data labels
-  working while the remaining sources migrate.
+- The English-to-ID bridge was removed.
+  `t()` and `translate()` resolve IDs directly.
 - Literal calls use IDs (508 replacements during the migration).
 - Data labels in settings, PDF, keybindings, setting actions, hotkeys, export
   groups, desktop actions, file/insert constants, `#UI` property catalogs,
@@ -171,7 +171,7 @@ service at a time.
 
 1. **Inventory and convention** — done.
 2. **Community source and English catalog** — done.
-   `en.ts`, `community/zh.ts`, and the legacy bridge exist.
+   `en.ts` and `community/zh.ts` exist.
 3. **Bulk literal migration** — done for literal `t('…')` calls.
 4. **Data-driven migration** — in progress.
    Settings/metadata specs, `#UI` property catalogs, addable fields, export
@@ -180,8 +180,13 @@ service at a time.
    wrappers use IDs.
    Remaining: other service errors, agent-provided labels, and a few export
    details.
-5. **Remove the legacy key path** — delete `legacy-keys.generated.ts` and the
-   English-key fallback.
+5. **Remove the legacy key path** — done.
+   `legacy-keys.generated.ts`, the resolver, and the English-key fallback are
+   gone.
+
+This does not finish the migration.
+Data sources that still hold English labels need IDs before those labels can be
+translated.
 
 `zh` was the first community migration because it already had translated
 entries.
