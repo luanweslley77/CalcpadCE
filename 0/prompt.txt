@@ -1,0 +1,9 @@
+Sem abrir PR, quero entender como está o fluxo vi bastante o ué parece ser artefatos aqui
+
+---
+
+Monaco nls e Monaco nls override não deve existir, uma vez que o langpack já contém isso
+
+---
+
+pode atualizar o PR e deletar as branches o PR ainda fica como draft
