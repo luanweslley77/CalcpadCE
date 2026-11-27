@@ -1,0 +1,51 @@
+{
+  "cli_version": "0.13.4",
+  "checkpoint_id": "01M8FE44NTNRAXAJM9J9Y86QKP",
+  "session_id": "ses_de1e96ae0fferTqpIRYXBjr2ry",
+  "strategy": "manual-commit",
+  "created_at": "2026-11-27T21:21:10.173587215Z",
+  "branch": "i18n/message-ids",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "Calcpad.Web/frontend/calcpad-web/src/editor/monaco-nls/README.md",
+    "Calcpad.Web/frontend/scripts/i18n/MESSAGE-IDS.md",
+    "Calcpad.Web/frontend/scripts/i18n/i18n.mjs"
+  ],
+  "agent": "OpenCode",
+  "model": "deepseek/deepseek-v4.1-flash",
+  "turn_id": "e5d2c843d1d5",
+  "checkpoint_transcript_start": 297,
+  "transcript_lines_at_start": 297,
+  "compact_transcript_start": 297,
+  "token_usage": {
+    "input_tokens": 17261,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 7872000,
+    "output_tokens": 12014,
+    "api_call_count": 11
+  },
+  "session_token_usage": {
+    "input_tokens": 857071,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 124475648,
+    "output_tokens": 446268,
+    "api_call_count": 297
+  },
+  "redaction": {
+    "replacements": 56,
+    "layers": {
+      "betterleaks": 40,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 0,
+      "credentialed_uri": 4,
+      "entropy": 16,
+      "key_context": 0,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  },
+  "session_metrics": {
+    "turn_count": 8
+  }
+}
