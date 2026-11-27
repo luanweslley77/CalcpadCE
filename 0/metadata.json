@@ -1,0 +1,59 @@
+{
+  "cli_version": "0.13.4",
+  "checkpoint_id": "01M8FD05NK7D69ZYER2QBTMPCN",
+  "session_id": "ses_de1e96ae0fferTqpIRYXBjr2ry",
+  "strategy": "manual-commit",
+  "created_at": "2026-11-27T21:01:30.82393092Z",
+  "branch": "i18n/message-ids",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "Calcpad.Web/frontend/calcpad-frontend/src/i18n/menu.ts",
+    "Calcpad.Web/frontend/calcpad-frontend/src/index.ts",
+    "Calcpad.Web/frontend/calcpad-frontend/src/types/catalog.ts",
+    "Calcpad.Web/frontend/calcpad-frontend/src/vue/components/CalcpadApp.vue",
+    "Calcpad.Web/frontend/calcpad-frontend/src/vue/components/CalcpadExportTab.vue",
+    "Calcpad.Web/frontend/calcpad-frontend/src/vue/components/CalcpadFilesTab.vue",
+    "Calcpad.Web/frontend/calcpad-frontend/src/vue/components/CalcpadMetadataTab.vue",
+    "Calcpad.Web/frontend/calcpad-frontend/src/vue/components/CalcpadSettingsTab.vue",
+    "Calcpad.Web/frontend/scripts/i18n/MESSAGE-IDS.md",
+    "Calcpad.Web/frontend/scripts/i18n/codemod-data-ids.mjs",
+    "Calcpad.Web/frontend/vscode-calcpad/src/calcpadVueUIProvider.ts"
+  ],
+  "agent": "OpenCode",
+  "model": "deepseek/deepseek-v4.1-flash",
+  "turn_id": "9da222008685",
+  "checkpoint_transcript_start": 214,
+  "transcript_lines_at_start": 214,
+  "compact_transcript_start": 214,
+  "token_usage": {
+    "input_tokens": 74405,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 22066688,
+    "output_tokens": 44443,
+    "api_call_count": 36
+  },
+  "session_token_usage": {
+    "input_tokens": 769585,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 85640576,
+    "output_tokens": 382894,
+    "api_call_count": 240
+  },
+  "redaction": {
+    "replacements": 56,
+    "layers": {
+      "betterleaks": 40,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 0,
+      "credentialed_uri": 4,
+      "entropy": 16,
+      "key_context": 0,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  },
+  "session_metrics": {
+    "turn_count": 7
+  }
+}
