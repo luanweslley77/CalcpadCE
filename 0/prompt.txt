@@ -1,0 +1,21 @@
+podemos fazer o seguinte então colocar o remote como o fork e não o origin assim podemos colocar o push não é ?
+
+---
+
+agora mais uma duvida tenho um PR aberto no origin do imartinei e vem de uma branch do meu fork, se eu fizer esses pushes isso vai aparecer no PR ?
+
+---
+
+então acho que seja adequado sim colocar isso
+
+---
+
+quero que escreva umd ocmuento com essas descobertas que fizemos aqui
+
+---
+
+quero que escreva um docmuento com essas descobertas que fizemos aqui sobre o entire e git
+
+---
+
+quero voltar a trabalhar, ao invés de adicionar apenas português adicionar tbm todos os idiomas que o vscode pack lang fornece

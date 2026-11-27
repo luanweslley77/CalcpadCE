@@ -1,0 +1,61 @@
+{
+  "cli_version": "0.13.4",
+  "checkpoint_id": "01M8F97HT0VVQQJ54B4WHRMFTT",
+  "session_id": "ses_de1e96ae0fferTqpIRYXBjr2ry",
+  "strategy": "manual-commit",
+  "created_at": "2026-11-27T19:55:35.687529736Z",
+  "branch": "i18n/all-language-packs",
+  "checkpoints_count": 5,
+  "files_touched": [
+    "Calcpad.Core/Messages.PROVENANCE.md",
+    "Calcpad.Tests/Server/UiCultureMiddlewareTests.cs",
+    "Calcpad.Web/backend/Services/UiCultureMiddleware.cs",
+    "Calcpad.Web/frontend/calcpad-frontend/src/i18n/index.ts",
+    "Calcpad.Web/frontend/calcpad-frontend/src/i18n/locales.json",
+    "Calcpad.Web/frontend/calcpad-frontend/src/i18n/messages/README.md",
+    "Calcpad.Web/frontend/calcpad-web/src/editor/monaco-nls/README.md",
+    "Calcpad.Web/frontend/calcpad-web/src/editor/monaco-nls/SOURCES.json",
+    "Calcpad.Web/frontend/calcpad-web/vite.config.ts",
+    "Calcpad.Web/frontend/scripts/i18n/README.md",
+    "Calcpad.Web/frontend/scripts/i18n/data/vscode.index.json",
+    "Calcpad.Web/frontend/scripts/i18n/i18n.mjs",
+    "THIRD-PARTY-NOTICES.txt",
+    "TRANSLATING.md",
+    "tools/license-scan/notices-preamble.md"
+  ],
+  "agent": "OpenCode",
+  "model": "deepseek/deepseek-v4.1-flash",
+  "turn_id": "19afcf836341",
+  "compact_transcript_start": 0,
+  "token_usage": {
+    "input_tokens": 465890,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 23974528,
+    "output_tokens": 184941,
+    "api_call_count": 120
+  },
+  "session_token_usage": {
+    "input_tokens": 465890,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 23974528,
+    "output_tokens": 184941,
+    "api_call_count": 120
+  },
+  "redaction": {
+    "replacements": 56,
+    "layers": {
+      "betterleaks": 40,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 0,
+      "credentialed_uri": 4,
+      "entropy": 16,
+      "key_context": 0,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  },
+  "session_metrics": {
+    "turn_count": 5
+  }
+}
