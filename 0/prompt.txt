@@ -1,0 +1,5 @@
+Sem abrir PR, quero entender como está o fluxo vi bastante o ué parece ser artefatos aqui
+
+---
+
+Monaco nls e Monaco nls override não deve existir, uma vez que o langpack já contém isso
