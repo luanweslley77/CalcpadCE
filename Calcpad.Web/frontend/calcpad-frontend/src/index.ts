@@ -42,6 +42,7 @@ export { CalcpadTokenType, CalcpadTypeId } from './types/api';
 
 export type { ILogger, IFileSystem } from './types/interfaces';
 
+export { default as en } from './i18n/messages/en';
 export type { SettingOption, MetadataSettingKey } from './types/catalog';
 export { specForKey, validateCatalogValue } from './types/catalog';
 

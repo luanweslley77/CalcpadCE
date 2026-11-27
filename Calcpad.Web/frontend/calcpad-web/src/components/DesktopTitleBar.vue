@@ -86,10 +86,10 @@ const shortcuts: Record<string, string> = {
   save: 'Ctrl+S', 'save-as': 'Ctrl+Shift+S', 'close-tab': 'Ctrl+W',
 }
 const actions = [
-  { id: 'save', label: 'Save document', title: 'Save document (Ctrl+S)', path: 'M1 1h11l3 3v11H1zM4 1v5h7V1M4 15V9h8v6' },
-  { id: 'open', label: 'Open document', title: 'Open document (Ctrl+O)', path: 'M1 7V2h5l2 2h7v11H1zM1 7h14' },
-  { id: 'export-pdf', label: 'Export to PDF', title: 'Export report to PDF and open (Ctrl+E)', format: 'pdf', path: 'M10 1H3v13h11V5zM10 1v4h4' },
-  { id: 'export-docx', label: 'Export to Word', title: 'Export report to Word and open', format: 'word', path: 'M10 1H4v13h11V5zM10 1v4h5' },
+  { id: 'save', label: 'desktop.saveDocument', title: 'desktop.saveDocumentCtrlS', path: 'M1 1h11l3 3v11H1zM4 1v5h7V1M4 15V9h8v6' },
+  { id: 'open', label: 'desktop.openDocument', title: 'desktop.openDocumentCtrlO', path: 'M1 7V2h5l2 2h7v11H1zM1 7h14' },
+  { id: 'export-pdf', label: 'desktop.exportToPdf', title: 'desktop.exportReportToPdfAndOpenCtrlE', format: 'pdf', path: 'M10 1H3v13h11V5zM10 1v4h4' },
+  { id: 'export-docx', label: 'desktop.exportToWord', title: 'desktop.exportReportToWordAndOpen', format: 'word', path: 'M10 1H4v13h11V5zM10 1v4h5' },
 ]
 let unlistenResize: (() => void) | undefined
 

@@ -130,13 +130,13 @@
               <div class="sub-row">
                 <span class="sub-label">{{ t('common.type') }}</span>
                 <select v-model="model.ui.type">
-                  <option v-for="opt in uiTypeOptions" :key="opt.value" :value="opt.value">{{ opt.label }}</option>
+                  <option v-for="opt in uiTypeOptions" :key="opt.value" :value="opt.value">{{ tt(opt.label) }}</option>
                 </select>
               </div>
               <div class="sub-row">
                 <span class="sub-label">{{ t('common.mode') }}</span>
                 <select v-model="model.ui.mode">
-                  <option v-for="opt in uiModeOptions" :key="opt.value" :value="opt.value">{{ opt.label }}</option>
+                  <option v-for="opt in uiModeOptions" :key="opt.value" :value="opt.value">{{ tt(opt.label) }}</option>
                 </select>
               </div>
               <div class="sub-row">
@@ -224,7 +224,7 @@
                   @change="addField(($event.target as HTMLSelectElement).value); ($event.target as HTMLSelectElement).value = ''"
                 >
                   <option value="">(select a field to add…)</option>
-                  <option v-for="f in addableFields" :key="f.id" :value="f.id">{{ f.label }}</option>
+                  <option v-for="f in addableFields" :key="f.id" :value="f.id">{{ tt(f.label) }}</option>
                 </select>
               </div>
             </div>
@@ -373,7 +373,7 @@
                   @change="addField(($event.target as HTMLSelectElement).value); ($event.target as HTMLSelectElement).value = ''"
                 >
                   <option value="">(select a field to add…)</option>
-                  <option v-for="f in addableSettings" :key="f.id" :value="f.id">{{ f.label }}</option>
+                  <option v-for="f in addableSettings" :key="f.id" :value="f.id">{{ tt(f.label) }}</option>
                 </select>
               </div>
             </div>
@@ -400,6 +400,7 @@
 
 <script setup lang="ts">
 import { useI18n } from '../../i18n'
+import en from '../../i18n/messages/en'
 import { reactive, ref, computed, watch, nextTick, onBeforeUnmount } from 'vue'
 import {
   PARAM_TYPES,
@@ -477,7 +478,7 @@ const searchQuery = ref('')
 const query = computed(() => searchQuery.value.trim().toLowerCase())
 const searchActive = computed(() => query.value.length > 0)
 
-const keyLabels = (keys: { key: string; label: string }[]) => keys.map(k => `${k.key} ${k.label}`).join(' ')
+const keyLabels = (keys: { key: string; label: string }[]) => keys.map(k => `${k.key} ${en[k.label] ?? k.label}`).join(' ')
 
 // Section titles and per-row search keywords, as in the Settings tab.
 const SECTION_META: Record<string, { title: string; rows: Record<string, string> }> = {

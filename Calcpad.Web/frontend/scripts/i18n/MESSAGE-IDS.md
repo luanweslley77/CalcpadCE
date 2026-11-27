@@ -154,13 +154,18 @@ The draft lists 25 call sites that read a key from data:
 - `t(currentMode.label)`, `t(mode.label)`, `t(action.label)` in the web shell.
 - `t(error.message, error.params)` in the insert tab.
 
-The last one is the largest risk.
-Error messages currently come from services such as
-`calcpad-frontend/src/services/customizations.ts` and
-`calcpad-frontend/src/services/run-errors.ts`.
-A full ID migration needs those services to return an ID plus parameters
-instead of an English string.
-That should be a separate, explicit step.
+The table below is the Phase 0 snapshot.
+Most of those sites now receive IDs from their data source.
+The remaining categories are:
+
+- Error messages from `customizations.ts`, `run-errors.ts`, and related
+  services; these need to return an ID plus parameters.
+- UI property labels and addable-field labels that are not in `en.ts` yet.
+- Agent or server-provided labels and question options.
+- Export group details that have no catalog entry yet.
+
+The error-message conversion is the largest remaining risk and should be a
+separate, explicit step.
 
 ## Current implementation
 
@@ -172,9 +177,15 @@ That should be a separate, explicit step.
 - `legacy-keys.generated.ts` and `useCalcpadI18n()` keep English data labels
   working while the remaining sources migrate.
 - Literal calls were codemodded (508 replacements).
-- The data-driven labels and error messages still need to return IDs.
-- `scripts/i18n/apply-ids.mjs` and `scripts/i18n/codemod-ids.mjs` are one-time
-  migration helpers; do not rerun them after the catalogs use IDs.
+- Data labels in settings, PDF, keybindings, setting actions, hotkeys, export
+  groups, desktop actions, file/insert constants, and the native menu now carry
+  IDs (167 replacements).
+- `en.ts` is used where a host shows a label without a translator: validation
+  messages, search indexes, and the VS Code status bar.
+- Error messages, UI property labels, agent-provided labels, and a few export
+  details still need IDs.
+- `scripts/i18n/apply-ids.mjs`, `codemod-ids.mjs`, and `codemod-data-ids.mjs`
+  are one-time migration helpers; do not rerun them after the catalogs use IDs.
 
 ## Migration phases
 
@@ -182,9 +193,11 @@ That should be a separate, explicit step.
 2. **Community source and English catalog** — done.
    `en.ts`, `community/zh.ts`, and the legacy bridge exist.
 3. **Bulk literal migration** — done for literal `t('…')` calls.
-4. **Data-driven migration** — replace the 25 dynamic lookup sources with IDs:
-   export groups, settings/metadata specs, agent modes, desktop actions,
-   hotkey validation, and error messages.
+4. **Data-driven migration** — in progress.
+   Settings/metadata specs, export groups, keybindings, setting actions,
+   hotkeys, desktop actions, file/insert constants, and the native menu use IDs.
+   Remaining: service error messages, UI property labels, agent-provided
+   labels, and a few export details.
 5. **Remove the legacy key path** — delete `legacy-keys.generated.ts` and the
    English-key fallback.
 

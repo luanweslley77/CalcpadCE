@@ -60,13 +60,13 @@
       </template>
       <div v-if="menuReferenceKinds.length" class="context-menu-separator" />
       <button class="context-menu" @click="onOpenContainingFolder">
-        Open Containing Folder
+        {{ t('common.openContainingFolder') }}
       </button>
       <button class="context-menu" @click="onCopyFullPath">
-        Copy Full Path
+        {{ t('catalog.copyFullPath') }}
       </button>
       <button class="context-menu" @click="onCopyRelativePath">
-        Copy Relative Path
+        {{ t('common.copyRelativePath') }}
       </button>
     </div>
   </div>
@@ -186,9 +186,9 @@ const REFERENCE_EXTENSIONS: Record<FileReferenceKind, readonly string[]> = {
 }
 
 const REFERENCE_LABELS: Record<FileReferenceKind, { relative: string; absolute: string }> = {
-  include: { relative: 'Insert #include (Relative Path)', absolute: 'Insert #include (Absolute Path)' },
-  read: { relative: 'Insert #read (Relative Path)', absolute: 'Insert #read (Absolute Path)' },
-  image: { relative: 'Insert Image (Relative Path)', absolute: 'Insert Image (Absolute Path)' },
+  include: { relative: 'files.insertHashIncludeRelativePath', absolute: 'files.insertHashIncludeAbsolutePath' },
+  read: { relative: 'files.insertHashReadRelativePath', absolute: 'files.insertHashReadAbsolutePath' },
+  image: { relative: 'files.insertImageRelativePath', absolute: 'files.insertImageAbsolutePath' },
 }
 
 const menuReferenceKinds = computed(() =>

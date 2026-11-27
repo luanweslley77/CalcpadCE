@@ -15,7 +15,7 @@
         :title="tabUnavailable(tab.id) ? INPUT_MODE_NOTE : undefined"
         @click="activateTab(pane, tab.id)"
       >
-        {{ tab.label }}
+        {{ t(tab.label) }}
       </button>
       <!-- Grouped so the pair wraps as a unit rather than splitting across rows at
            the sidebar's minimum width. -->

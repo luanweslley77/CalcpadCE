@@ -527,14 +527,14 @@
                   v-for="t in darkThemes"
                   :key="t.label"
                   :value="t.label"
-                >{{ t.label }}</option>
+                >{{ tt(t.label) }}</option>
               </optgroup>
               <optgroup v-if="lightThemes.length" :label="t('settings.light')">
                 <option
                   v-for="t in lightThemes"
                   :key="t.label"
                   :value="t.label"
-                >{{ t.label }}</option>
+                >{{ tt(t.label) }}</option>
               </optgroup>
             </select>
           </SettingRow>
@@ -797,6 +797,7 @@ import { getDefaultSettings, METADATA_SETTINGS_KEYS, validateSettingValue, SETTI
 import { PDF_SETTING_KEYS, validatePdfValue } from '../../types/pdf-settings'
 import { specForKey } from '../../types/catalog'
 import { LOCALE_OPTIONS, readLocaleSetting, setLocale, type LocaleSetting } from '../../i18n'
+import en from '../../i18n/messages/en'
 import {
   DEFAULT_PREVIEW_SIZE_MB, MIN_PREVIEW_SIZE_MB, MAX_PREVIEW_SIZE_MB,
   DEFAULT_CONSOLE_MESSAGES_PER_DOCUMENT, MIN_CONSOLE_MESSAGES_PER_DOCUMENT,
@@ -1111,7 +1112,7 @@ const SECTION_META: Record<string, { title: string; rows: Record<string, string>
   },
   shortcuts: {
     title: 'Keyboard Shortcuts',
-    rows: Object.fromEntries(KEYBINDING_COMMANDS.map(c => [c.id, ('keyboard shortcut hotkey keybinding ' + c.label).toLowerCase()]))
+    rows: Object.fromEntries(KEYBINDING_COMMANDS.map(c => [c.id, ('keyboard shortcut hotkey keybinding ' + (en[c.label] ?? c.label)).toLowerCase()]))
   },
   server: {
     title: 'Server Settings',

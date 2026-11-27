@@ -6,7 +6,7 @@
           <span class="expand-icon" :class="{ collapsed: isCollapsed('documents') }">&#x25BC;</span>{{ t('export.htmlPdfWord') }}</h3>
         <div v-show="!isCollapsed('documents')" class="section-body">
           <div v-for="group in visibleExportGroups" :key="group.variant" class="export-group">
-            <h4 class="export-group-title" :title="group.detail">{{ group.label }}</h4>
+            <h4 class="export-group-title" :title="t(group.detail)">{{ t(group.label) }}</h4>
             <div class="header-actions">
               <button @click="$emit('savePdf', group.variant)" :title="t('export.saveThisDocumentsVariantAsAPdf', { variant: t(group.label).toLowerCase() })">{{ t('export.savePdfEllipsis') }}</button>
               <button
@@ -28,7 +28,7 @@
             <label for="writeMode">{{ t('export.writeFilesLabel') }}<span class="setting-info" :title="writeModeDetail">ⓘ</span>
             </label>
             <select id="writeMode" v-model="localWriteMode" @change="$emit('updateWriteMode', localWriteMode)">
-              <option v-for="opt in WRITE_MODE_OPTIONS" :key="opt.value" :value="opt.value">{{ opt.label }}</option>
+              <option v-for="opt in WRITE_MODE_OPTIONS" :key="opt.value" :value="opt.value">{{ t(opt.label) }}</option>
             </select>
           </div>
           <div class="header-actions">
@@ -145,13 +145,13 @@ const PORTABLE_DETAIL =
 const EXPORT_GROUPS: { variant: ExportVariant; label: string; detail: string; word: boolean }[] = [
   {
     variant: 'report',
-    label: 'Report',
+    label: 'app.report',
     detail: '#pre hidden, #post shown, entered #UI values applied.',
     word: true,
   },
   {
     variant: 'preview',
-    label: 'Preview',
+    label: 'common.preview',
     detail: 'What the results pane shows: #pre and #post, and the same #UI values it renders.',
     word: true,
   },
@@ -163,7 +163,7 @@ const EXPORT_GROUPS: { variant: ExportVariant; label: string; detail: string; wo
   },
   {
     variant: 'unwrapped',
-    label: 'Unwrapped',
+    label: 'app.unwrapped',
     detail: 'The source listing with macros and includes resolved.',
     word: false,
   },
@@ -199,7 +199,7 @@ const localWriteMode = ref<WriteMode>(props.writeMode)
 watch(() => props.writeMode, v => { localWriteMode.value = v })
 
 const writeModeDetail = computed(() =>
-  WRITE_MODE_OPTIONS.map(o => `${o.label} — ${o.detail}`).join('\n')
+  WRITE_MODE_OPTIONS.map(o => `${t(o.label)} — ${t(o.detail)}`).join('\n')
 )
 
 defineEmits<{

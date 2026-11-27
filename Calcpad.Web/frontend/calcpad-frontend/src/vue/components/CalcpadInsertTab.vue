@@ -271,7 +271,7 @@ const toggleFavorite = (item: InsertItem) => {
 
 // Quick type and custom snippet editor
 const SNIPPET_TYPE_LABELS: Record<CustomSnippetType, string> = {
-  Function: 'Function', Macro: 'Macro', Variable: 'Variable', Unit: 'Custom Unit',
+  Function: 'calcpadHoverProvider.function', Macro: 'insert.macro', Variable: 'insert.variable', Unit: 'insert.customUnit',
 }
 const FUNCTION_PARAM_TYPES = ['value', 'vector', 'matrix', 'any']
 const MACRO_PARAM_TYPES = ['Const', 'Variable', 'Function', 'Macro', 'Units', 'Operator', 'Input', 'Keyword', 'Command']
