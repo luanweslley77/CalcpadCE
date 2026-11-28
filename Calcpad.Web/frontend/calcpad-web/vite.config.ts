@@ -69,6 +69,9 @@ const MONACO_NLS_MODULE = `const __calcpadMaps = ${JSON.stringify(monacoNls)};
 const __calcpadLocales = ${JSON.stringify(localeMatches)};
 const __calcpadTraditional = /(?:^|-)hant(?:-|$)|(?:^|-)(?:tw|hk|mo)(?:-|$)/;
 let __calcpadResolved;
+const __calcpadEnglishById = Object.create(null);
+const __calcpadEnglishIndex = new Map();
+let __calcpadReverse;
 function __calcpadMatch(tag) {
     if (!tag) return null;
     const n = String(tag).replace('_', '-').toLowerCase();
@@ -100,7 +103,50 @@ function __calcpadLocale() {
     }
     return __calcpadResolved || (__calcpadResolved = 'en');
 }
+function __calcpadAddReverse(text, id) {
+    let ids = __calcpadReverse.get(text);
+    if (!ids) __calcpadReverse.set(text, ids = new Set());
+    ids.add(id);
+}
+function __calcpadReverseIndex() {
+    if (__calcpadReverse) return __calcpadReverse;
+    __calcpadReverse = new Map();
+    for (const map of Object.values(__calcpadMaps)) {
+        for (const [module, entries] of Object.entries(map)) {
+            for (const [key, value] of Object.entries(entries))
+                __calcpadAddReverse(value, module + '::' + key);
+        }
+    }
+    for (const [english, ids] of __calcpadEnglishIndex) {
+        for (const id of ids) __calcpadAddReverse(english, id);
+    }
+    return __calcpadReverse;
+}
+export function __calcpadSetLocale(tag) {
+    __calcpadResolved = __calcpadMatch(tag) || 'en';
+}
+export function __calcpadTranslate(text, target) {
+    const ids = __calcpadReverseIndex().get(text);
+    if (!ids) return undefined;
+    const values = new Set();
+    for (const id of ids) {
+        const cut = id.indexOf('::');
+        const module = id.slice(0, cut);
+        const key = id.slice(cut + 2);
+        const translated = __calcpadMaps[target]?.[module]?.[key] ?? __calcpadEnglishById[id];
+        if (typeof translated === 'string' && translated) values.add(translated);
+    }
+    return values.size === 1 ? [...values][0] : undefined;
+}
 export function __calcpadTr(module, key, english) {
+    const id = module + '::' + key;
+    if (!(id in __calcpadEnglishById)) __calcpadEnglishById[id] = english;
+    let ids = __calcpadEnglishIndex.get(english);
+    if (!ids) __calcpadEnglishIndex.set(english, ids = new Set());
+    if (!ids.has(id)) {
+        ids.add(id);
+        if (__calcpadReverse) __calcpadAddReverse(english, id);
+    }
     const map = __calcpadMaps[__calcpadLocale()];
     return map?.[module]?.[key] || english;
 }
