@@ -20,12 +20,8 @@ interface RegistryInternals {
 
 function retranslate(value: Localized, locale: string): Localized {
     if (typeof value === 'string') return __calcpadTranslate(value, locale) ?? value;
-    if (value && typeof value === 'object') {
-        if (typeof value.value === 'string')
-            value.value = __calcpadTranslate(value.value, locale) ?? value.value;
-        if (typeof value.original === 'string')
-            value.original = __calcpadTranslate(value.original, locale) ?? value.original;
-    }
+    if (value && typeof value === 'object' && typeof value.value === 'string')
+        value.value = __calcpadTranslate(value.value, locale) ?? value.value;
     return value;
 }
 
@@ -35,16 +31,22 @@ function retranslateCommand(command: { title?: Localized; shortTitle?: Localized
     command.shortTitle = retranslate(command.shortTitle, locale);
 }
 
+function updateCalcpadEditorActions(editor: monaco.editor.ICodeEditor): void {
+    for (const [actionId, messageId] of Object.entries(CALCPAD_ACTIONS)) {
+        const label = translate(messageId);
+        const action = editor.getAction(actionId);
+        if (!action) continue;
+        (action as { label: string }).label = label;
+        (action as { alias: string }).alias = label;
+    }
+}
+
 function updateCalcpadActions(registry: RegistryInternals | undefined): void {
     for (const editor of monaco.editor.getEditors()) {
+        updateCalcpadEditorActions(editor);
+        if (!registry) continue;
         for (const [actionId, messageId] of Object.entries(CALCPAD_ACTIONS)) {
             const label = translate(messageId);
-            const action = editor.getAction(actionId);
-            if (action) {
-                (action as { label: string }).label = label;
-                (action as { alias: string }).alias = label;
-            }
-            if (!registry) continue;
             const commandId = `${editor.getId()}:${actionId}`;
             const command = registry._commands.get(commandId);
             if (command) command.title = label;
@@ -55,6 +57,16 @@ function updateCalcpadActions(registry: RegistryInternals | undefined): void {
             }
         }
     }
+}
+
+function retranslateEditor(editor: monaco.editor.ICodeEditor, locale: string): void {
+    for (const action of editor.getSupportedActions()) {
+        const label = __calcpadTranslate(action.label, locale);
+        if (label) (action as { label: string }).label = label;
+        const alias = __calcpadTranslate(action.alias, locale);
+        if (alias) (action as { alias: string }).alias = alias;
+    }
+    updateCalcpadEditorActions(editor);
 }
 
 // Keep this to widgets whose text is UI chrome. Suggest items, parameter hints
@@ -72,6 +84,14 @@ const MONACO_UI_SELECTOR = [
 let activeLocale = 'en';
 let translatedValues = new WeakMap<Node, string>();
 let observer: MutationObserver | undefined;
+let editorListener: monaco.IDisposable | undefined;
+
+function ensureEditorListener(): void {
+    if (editorListener) return;
+    editorListener = monaco.editor.onDidCreateEditor(editor => {
+        retranslateEditor(editor, activeLocale);
+    });
+}
 
 function translateText(node: Text): void {
     const value = node.nodeValue;
@@ -167,14 +187,9 @@ export function applyMonacoLocale(locale: string): void {
             disposable.dispose();
         }
     }
-    for (const editor of monaco.editor.getEditors()) {
-        for (const action of editor.getSupportedActions()) {
-            const label = __calcpadTranslate(action.label, locale);
-            if (label) (action as { label: string }).label = label;
-            const alias = __calcpadTranslate(action.alias, locale);
-            if (alias) (action as { alias: string }).alias = alias;
-        }
-    }
+    for (const editor of monaco.editor.getEditors())
+        retranslateEditor(editor, locale);
+    ensureEditorListener();
     translateUi();
     ensureObserver();
 }
