@@ -31,6 +31,7 @@ function retranslateCommand(command: { title?: Localized; shortTitle?: Localized
 // and peek views can contain user symbols, so they stay out of the walk.
 const MONACO_UI_SELECTOR = [
     '.find-widget',
+    '.suggest-widget .message',
     '.quick-input-widget',
     '.monaco-menu',
     '.monaco-dialog-box',
