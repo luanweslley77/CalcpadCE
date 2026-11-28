@@ -104,9 +104,8 @@ Rules:
 - The English text is not part of the key.
   Rewriting English does not rename IDs.
 - IDs are not translated.
-- A trailing `:` becomes `Label`, `?` becomes `Question`, and `…` becomes
-  `Ellipsis` in the proposed slug.
-  These are review hints, not a hard rule.
+- Use `Label`, `Question`, and `Ellipsis` suffixes for trailing punctuation.
+  This is a convention, not enforced by a tool.
 
 ## Adding a message
 
@@ -153,9 +152,11 @@ service at a time.
 - The English-to-ID bridge was removed.
   `t()` and `translate()` resolve IDs directly.
 - Literal calls use IDs (508 replacements during the migration).
-- Data labels in settings, PDF, keybindings, setting actions, hotkeys, export
-  groups, desktop actions, file/insert constants, `#UI` property catalogs,
-  addable fields, and the native menu now carry IDs.
+- Most data labels in settings, PDF, keybindings, setting actions, hotkeys,
+  export groups, desktop actions, file/insert constants, `#UI` property
+  catalogs, addable fields, and the native menu carry IDs.
+  Some still hold English text, such as `SETTING_TOGGLES`, reserved hotkeys,
+  a few PDF details, and the export group label `Input form`.
 - `en.ts` is used where a host shows a label without a translator: validation
   messages, search indexes, and the VS Code status bar.
 - `run-errors.ts` and `included-lint.ts` now add `messageId` and `params` to
@@ -174,12 +175,12 @@ service at a time.
    `en.ts` and `community/zh.ts` exist.
 3. **Bulk literal migration** — done for literal `t('…')` calls.
 4. **Data-driven migration** — in progress.
-   Settings/metadata specs, `#UI` property catalogs, addable fields, export
+   Most settings/metadata specs, `#UI` property catalogs, addable fields, export
    groups, keybindings, setting actions, hotkeys, desktop actions, file/insert
    constants, the native menu, quick-type validation, and run/included-lint
    wrappers use IDs.
-   Remaining: other service errors, agent-provided labels, and a few export
-   details.
+   Remaining: other service errors, agent-provided labels, a few export details,
+   and the English labels listed above.
 5. **Remove the legacy key path** — done.
    `legacy-keys.generated.ts`, the resolver, and the English-key fallback are
    gone.

@@ -16,7 +16,7 @@ Run from `Calcpad.Web/frontend`, or use the `calcpad-web` package scripts:
 
 ```sh
 node scripts/i18n/i18n.mjs                 # update generated files and Monaco cache
-node scripts/i18n/i18n.mjs --check         # verify generated catalogs/provenance
+node scripts/i18n/i18n.mjs --check         # verify catalogs, provenance and Monaco overrides
 node scripts/i18n/i18n.mjs --monaco-cache  # refresh only the Monaco cache
 node scripts/i18n/i18n.mjs --locale=pt-BR
 node scripts/i18n/i18n.mjs --verbose
@@ -30,7 +30,9 @@ npm run i18n:check
 
 `--locale` limits extraction, catalog import, and Monaco generation to one
 locale. `--check` never writes repository files and exits non-zero when the
-catalogs or provenance are stale.
+catalogs, provenance, or Monaco override keys are stale.
+It compares the Monaco cache only when the cache exists; the maps and overrides
+are build output.
 `--monaco-cache` writes only the build cache under
 `calcpad-web/node_modules/.cache/calcpad-monaco-nls/`; the maps and overrides
 are not committed.
@@ -71,12 +73,12 @@ file format.
 
 - `locales.json` decides which packs are processed.
   Edit it first, then run the script.
-- `vscode.langpack.<locale>.json` is copied from the pinned VS Code pack.
+- `vscode.langpack.<locale>.json` is extracted from the pinned VS Code pack.
   It is created on first run and must not be edited by hand.
 - `calcpad-frontend/src/i18n/messages/<locale>.ts` and
   `provenance.<locale>.json` are generated for every locale with
-  `"catalog": true`. The script rewrites `vscode` entries and preserves entries
-  marked `community`; do not edit generated entries.
+  `"catalog": true` by merging the pack with `community/<locale>.ts`; do not
+  edit generated entries.
 - `calcpad-frontend/src/i18n/community/<locale>.ts` is the human-editable
   community source. Its `ui` and `monaco` sections are merged into the generated
   catalogs and maps.
@@ -87,8 +89,8 @@ file format.
   Its Monaco map still comes from `vscode-language-pack-zh-hans`.
 - The pseudo-locale pack `vscode-language-pack-qps-ploc` is intentionally
   excluded.
-- A catalog is only overwritten when it starts with the generated header;
-  community-authored catalogs are refused.
+- Generated catalogs are overwritten by the script; edit
+  `community/<locale>.ts` instead.
 - The VS Code pack is keyed by `module::key`, not by English text.
   `vscode.index.json` is the English bridge.
   Every index entry must point at a real `localize` call with the same English
@@ -100,6 +102,6 @@ file format.
   shared pack; leave it English or add a reviewed community entry.
 - `vscodeSource` records `vscode-monaco` or `vscode-shared-ui`.
 - Community overrides use `source: "community"` and `replaces: "vscode"`.
-  The script preserves them; review happens in the community file.
+  The generator derives both from `community/<locale>.ts`; review happens there.
 
 See `TRANSLATING.md` for the provenance policy.

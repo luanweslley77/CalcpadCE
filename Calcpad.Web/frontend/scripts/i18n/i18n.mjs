@@ -381,6 +381,9 @@ function importCatalogs() {
 
         const community = readCommunity(locale);
         const origins = readCommunityOrigins(locale);
+        for (const id of Object.keys(origins)) {
+            if (!(id in community.ui)) delete origins[id];
+        }
         const missingOrigins = Object.keys(community.ui).filter(id => !origins[id]);
         if (missingOrigins.length) {
             let blamed = {};
@@ -455,8 +458,12 @@ export default catalog
                 errors.push(`${path.basename(provenanceFile)}: ${error.message}`);
             }
         }
-        const originsMap = existingProvenance.origins ?? {};
-        for (const origin of new Set(Object.values(origins))) {
+        const usedOrigins = new Set(Object.values(origins));
+        const originsMap = Object.fromEntries(
+            Object.entries(existingProvenance.origins ?? {})
+                .filter(([origin]) => usedOrigins.has(origin)),
+        );
+        for (const origin of usedOrigins) {
             if (originsMap[origin]) continue;
             try {
                 originsMap[origin] = gitMetadata(origin);
@@ -646,8 +653,12 @@ async function generateMonacoMaps() {
         const serialized = JSON.stringify(sorted, null, 2) + '\n';
         const target = path.join(monacoMapsDir, `${pack.output}.json`);
         if (check) {
-            const current = fs.existsSync(target) ? fs.readFileSync(target, 'utf8') : '';
-            if (current !== serialized) fail(`  out of date: ${path.relative(frontendRoot, target)}`);
+            if (fs.existsSync(target)) {
+                const current = fs.readFileSync(target, 'utf8');
+                if (current !== serialized) fail(`  out of date: ${path.relative(frontendRoot, target)}`);
+            } else {
+                console.log(`  cache not present: ${path.relative(frontendRoot, target)}`);
+            }
         } else {
             fs.writeFileSync(target, serialized);
             console.log(`  wrote ${path.relative(frontendRoot, target)}`);
@@ -673,9 +684,13 @@ async function generateMonacoMaps() {
         const overrideTarget = path.join(monacoOverridesDir, `${pack.output}.json`);
         const overrideSerialized = JSON.stringify(sortedOverrides, null, 2) + '\n';
         if (check) {
-            const current = fs.existsSync(overrideTarget) ? fs.readFileSync(overrideTarget, 'utf8') : '';
-            if (current !== overrideSerialized)
-                fail(`  out of date: ${path.relative(frontendRoot, overrideTarget)}`);
+            if (fs.existsSync(overrideTarget)) {
+                const current = fs.readFileSync(overrideTarget, 'utf8');
+                if (current !== overrideSerialized)
+                    fail(`  out of date: ${path.relative(frontendRoot, overrideTarget)}`);
+            } else {
+                console.log(`  cache not present: ${path.relative(frontendRoot, overrideTarget)}`);
+            }
         } else {
             fs.mkdirSync(path.dirname(overrideTarget), { recursive: true });
             fs.writeFileSync(overrideTarget, overrideSerialized);
@@ -824,7 +839,6 @@ function checkProvenance() {
         const originCounts = new Map();
         const vscodeSourceCounts = new Map();
         let overrides = 0;
-        let vscodeMatches = 0;
         for (const key of keys) {
             if (typeof english[key] !== 'string') {
                 errors.push(`${catalog.file}: key "${key}" is missing from en.ts`);
@@ -863,12 +877,6 @@ function checkProvenance() {
             } else if (source === 'community') {
                 errors.push(`${catalog.label}: community key "${key}" has no origin`);
             }
-            if (typeof entry === 'object' && entry.vscodeMatch !== undefined) {
-                if (typeof entry.vscodeMatch !== 'boolean')
-                    errors.push(`${catalog.label}: key "${key}" vscodeMatch must be a boolean`);
-                else if (entry.vscodeMatch)
-                    vscodeMatches++;
-            }
             if (!sources[source]) {
                 errors.push(`${catalog.label}: key "${key}" uses undeclared source "${source}"`);
                 continue;
@@ -895,7 +903,6 @@ function checkProvenance() {
             originCounts,
             vscodeSourceCounts,
             overrides,
-            vscodeMatches,
         });
     }
 
@@ -950,7 +957,7 @@ function checkProvenance() {
         const vscodeDetail = result.vscodeSourceCounts.size
             ? ` (${[...result.vscodeSourceCounts].map(([source, count]) => `${count} ${source}`).join(', ')})`
             : '';
-        console.log(`Shared UI ${result.label} catalog: ${result.total} keys (${summary}; ${result.vscodeMatches} VS Code matches; ${result.overrides} overrides)${vscodeDetail}`);
+        console.log(`Shared UI ${result.label} catalog: ${result.total} keys (${summary}; ${result.overrides} overrides)${vscodeDetail}`);
         if (result.originCounts.size) {
             const topOrigins = [...result.originCounts]
                 .sort((a, b) => b[1] - a[1])
@@ -973,7 +980,7 @@ if (monacoOnly) {
 } else {
     await extractLangpacks();
     importCatalogs();
-    if (!check) await generateMonacoMaps();
+    await generateMonacoMaps();
     checkProvenance();
     if (failed) process.exitCode = 1;
     else console.log(check ? 'i18n: OK' : 'i18n: updated');
