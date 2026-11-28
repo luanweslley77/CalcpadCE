@@ -241,8 +241,10 @@ export default defineConfig(() => ({
     // itself and dies with "callback is not a function". Naming the top-level Monaco
     // entrypoints forces vite to bundle them once at startup.
     optimizeDeps: {
+        // The optimizer prebundles with esbuild, bypassing the localize()
+        // transform. Keep Monaco out so dev uses the transformed ESM modules.
+        exclude: ['monaco-editor'],
         include: [
-            'monaco-editor',
             'monaco-editor/esm/vs/editor/editor.worker',
             'monaco-editor/esm/vs/language/typescript/ts.worker',
             'monaco-editor/esm/vs/language/json/json.worker',
