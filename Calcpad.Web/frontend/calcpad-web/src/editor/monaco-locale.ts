@@ -1,12 +1,20 @@
 import * as monaco from 'monaco-editor';
 import { MenuId, MenuRegistry } from 'monaco-editor/esm/vs/platform/actions/common/actions.js';
+import { translate } from 'calcpad-frontend/i18n';
 import { __calcpadSetLocale, __calcpadTranslate } from 'virtual:calcpad-monaco-nls';
 
 type Localized = string | { value?: string; original?: string } | undefined;
 
+const CALCPAD_ACTIONS: Record<string, string> = {
+    'calcpad.saveAsCustomSnippet': 'editor.saveAsCustomSnippet',
+    'calcpad.focusPreviewToLine': 'editor.focusPreviewToLine',
+    'calcpad.runPreview': 'editor.runPreview',
+    'calcpad.editMetadata': 'editor.editMetadataProperties',
+};
+
 interface RegistryInternals {
     _commands: Map<string, { title?: Localized; shortTitle?: Localized }>;
-    _menuItems: Map<unknown, Iterable<{ command?: { title?: Localized; shortTitle?: Localized }; alt?: { title?: Localized }; title?: Localized }>>;
+    _menuItems: Map<unknown, Iterable<{ command?: { id?: string; title?: Localized; shortTitle?: Localized }; alt?: { title?: Localized }; title?: Localized }>>;
     appendMenuItem(id: unknown, item: unknown): { dispose(): void };
 }
 
@@ -25,6 +33,28 @@ function retranslateCommand(command: { title?: Localized; shortTitle?: Localized
     if (!command) return;
     command.title = retranslate(command.title, locale);
     command.shortTitle = retranslate(command.shortTitle, locale);
+}
+
+function updateCalcpadActions(registry: RegistryInternals | undefined): void {
+    for (const editor of monaco.editor.getEditors()) {
+        for (const [actionId, messageId] of Object.entries(CALCPAD_ACTIONS)) {
+            const label = translate(messageId);
+            const action = editor.getAction(actionId);
+            if (action) {
+                (action as { label: string }).label = label;
+                (action as { alias: string }).alias = label;
+            }
+            if (!registry) continue;
+            const commandId = `${editor.getId()}:${actionId}`;
+            const command = registry._commands.get(commandId);
+            if (command) command.title = label;
+            for (const items of registry._menuItems.values()) {
+                for (const item of items) {
+                    if (item.command?.id === commandId) item.command.title = label;
+                }
+            }
+        }
+    }
 }
 
 // Keep this to widgets whose text is UI chrome. Suggest items, parameter hints
@@ -115,7 +145,9 @@ export function applyMonacoLocale(locale: string): void {
     activeLocale = locale;
     translatedValues = new WeakMap();
     const registry = MenuRegistry as unknown as RegistryInternals;
-    if (registry._commands && registry._menuItems && typeof registry.appendMenuItem === 'function') {
+    const usableRegistry = !!(registry._commands && registry._menuItems && typeof registry.appendMenuItem === 'function');
+    updateCalcpadActions(usableRegistry ? registry : undefined);
+    if (usableRegistry) {
         for (const command of registry._commands.values())
             retranslateCommand(command, locale);
         const menus = new Set<unknown>(registry._menuItems.keys());
