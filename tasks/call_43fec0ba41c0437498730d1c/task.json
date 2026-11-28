@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "call_43fec0ba41c0437498730d1c",
+  "agent_id": "ses_de01f2fdbffeSyJRRnDcuh5DFi",
+  "subagent_type": "explore",
+  "task_description": "Editor lifecycle and locale state",
+  "token_usage": {
+    "input_tokens": 169458,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 1952512,
+    "output_tokens": 14759,
+    "api_call_count": 19
+  },
+  "started_at": "2026-11-27T22:59:16.769-03:00",
+  "completed_at": "2026-11-27T23:06:42.794870814-03:00"
+}

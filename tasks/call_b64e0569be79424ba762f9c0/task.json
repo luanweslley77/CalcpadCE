@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "call_b64e0569be79424ba762f9c0",
+  "agent_id": "ses_de01f2fdcffe4uFU8bmAmJnK3Y",
+  "subagent_type": "explore",
+  "task_description": "Monaco live locale feasibility",
+  "token_usage": {
+    "input_tokens": 184911,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 6347264,
+    "output_tokens": 17557,
+    "api_call_count": 61
+  },
+  "started_at": "2026-11-27T22:59:16.769-03:00",
+  "completed_at": "2026-11-27T23:09:24.868843632-03:00"
+}
