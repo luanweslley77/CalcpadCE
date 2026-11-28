@@ -1,0 +1,86 @@
+Sem abrir PR, quero entender como está o fluxo vi bastante o ué parece ser artefatos aqui
+
+---
+
+Monaco nls e Monaco nls override não deve existir, uma vez que o langpack já contém isso
+
+---
+
+pode atualizar o PR e deletar as branches o PR ainda fica como draft
+
+---
+
+esse draft não entendi o que é
+
+---
+
+essa pasta draft não entendi o que é
+
+---
+
+isso foi para alterar código em massa correto ?
+
+---
+
+isso foi para alterar código em massa para colocar ids correto ?
+
+---
+
+não precisamos mais disso vamos tirar tudo o que foi só helper
+
+---
+
+Ainda vi legacy keys presente
+
+---
+
+Sim faça isso mas mesmo assim ainda não é fase final depois conversamos mais
+
+---
+
+Vamos revisar aqui comigo devagarinho seja conciso e não verboso, imagina ué estamos começando a traduzir agora, rodamos o script com isso já conseguimos o Monaco e o uma parte do sharedui o script lida com isso, inicialmente é criado um index em inglês do vscode então o Monaco é todo traduzido e o shared ui se a string do texto bater com o que tem em inglês e cumprir mis alguns requisitos então é traduzido e entra no Json da tradução com esse Json é construído o ts que é usado, existe o community que coloca lá o id e a tradução e faz override na tradução
+
+---
+
+Mande o explore ver se não deixamos passar nenhum detalhe
+
+---
+
+sim
+
+---
+
+sim vamos consertar isso tbm
+
+---
+
+esse message-ids.json precisa existir ?
+
+---
+
+sim remova isso, check-vscode-english.mjs tbm me parece um candidato a sair
+
+---
+
+Meu veredito: a arquitetura está bem encaminhada, mas eu ainda não aprovaria o PR. Encontrei dois problemas funcionais importantes e algumas questões de validação.
+Problemas encontrados
+1. [P2] A troca de idioma não atualiza o Monaco na versão Web
+Arquivo: calcpad-web/src/main.ts⁠
+O código registra o listener de LOCALE_CHANGED_EVENT dentro deste bloco:
+Isso significa que o listener só existe na versão desktop.
+O problema é que a implementação do Monaco resolve as traduções durante a inicialização dos módulos. O próprio código reconhece isso e prevê recarregar a WebView quando o idioma muda.
+
+
+Aqui está um Review de um llm
+
+---
+
+mais um detalhe não precisa ficar fazendo push toda hora isso gasta recurso de computação no CI
+
+---
+
+Está instalado aqui ? Se não substitua minha instalação or essa build
+
+---
+
+porque no editor de texto vi que existe copiar traduzido para no editor mas não tem copiar traduzido na parte direita do app, ambos consegui visualizar com o clique direito do mouse, a parte direita tem um shortcut na string, pensei que já tinha conseguido resolver isso antes mas pelo visto houve regressão quanto a isso
