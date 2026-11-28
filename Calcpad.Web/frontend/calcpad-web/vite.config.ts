@@ -188,6 +188,16 @@ function translateMonacoLiterals(code: string, module: string): string {
     return changed ? `import { __calcpadTr } from ${JSON.stringify(MONACO_NLS_ID)};\n${out}` : code;
 }
 
+function monacoTransform(code: string, id: string) {
+    const cleanId = id.split('?')[0].split('#')[0];
+    if (!cleanId.includes('monaco-editor/esm/') || !cleanId.endsWith('.js')) return null;
+    if (!code.includes('localize(') && !code.includes('localize2(')) return null;
+    const module = monacoModule(cleanId);
+    if (!module) return null;
+    const out = translateMonacoLiterals(code, module);
+    return out === code ? null : { code: out, map: null };
+}
+
 function monacoLanguagePacks() {
     return {
         name: 'monaco-language-packs',
@@ -198,15 +208,21 @@ function monacoLanguagePacks() {
         load(id: string) {
             return id === MONACO_NLS_RESOLVED ? MONACO_NLS_MODULE : null;
         },
-        transform(code: string, id: string) {
-            const cleanId = id.split('?')[0].split('#')[0];
-            if (!cleanId.includes('monaco-editor/esm/') || !cleanId.endsWith('.js')) return null;
-            if (!code.includes('localize(') && !code.includes('localize2(')) return null;
-            const module = monacoModule(cleanId);
-            if (!module) return null;
-            const out = translateMonacoLiterals(code, module);
-            return out === code ? null : { code: out, map: null };
+        transform: monacoTransform,
+    };
+}
+
+/** The dev dep optimizer serves Monaco pre-bundled, bypassing the Vite transform. */
+function monacoPrebundle() {
+    return {
+        name: 'calcpad-monaco-nls-prebundle',
+        resolveId(id: string) {
+            return id === MONACO_NLS_ID ? MONACO_NLS_RESOLVED : null;
         },
+        load(id: string) {
+            return id === MONACO_NLS_RESOLVED ? MONACO_NLS_MODULE : null;
+        },
+        transform: monacoTransform,
     };
 }
 
@@ -241,10 +257,8 @@ export default defineConfig(() => ({
     // itself and dies with "callback is not a function". Naming the top-level Monaco
     // entrypoints forces vite to bundle them once at startup.
     optimizeDeps: {
-        // The optimizer prebundles with esbuild, bypassing the localize()
-        // transform. Keep Monaco out so dev uses the transformed ESM modules.
-        exclude: ['monaco-editor'],
         include: [
+            'monaco-editor',
             'monaco-editor/esm/vs/editor/editor.worker',
             'monaco-editor/esm/vs/language/typescript/ts.worker',
             'monaco-editor/esm/vs/language/json/json.worker',
@@ -252,6 +266,9 @@ export default defineConfig(() => ({
             'monaco-editor/esm/vs/language/css/css.worker',
             'vue',
         ],
+        rolldownOptions: {
+            plugins: [monacoPrebundle()],
+        },
     },
     // Tauri consumes JS on the same port during `tauri dev`; keep the port
     // stable so vite.config's port matches tauri.conf.json's devUrl.
