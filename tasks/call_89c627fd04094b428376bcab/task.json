@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "call_89c627fd04094b428376bcab",
+  "agent_id": "ses_de09090c0ffeK654DqXigg2l3s",
+  "subagent_type": "explore",
+  "task_description": "Auditar pipeline i18n",
+  "token_usage": {
+    "input_tokens": 354950,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 22570240,
+    "output_tokens": 49313,
+    "api_call_count": 126
+  },
+  "started_at": "2026-11-27T20:55:26.398-03:00",
+  "completed_at": "2026-11-27T21:18:12.839601683-03:00"
+}
