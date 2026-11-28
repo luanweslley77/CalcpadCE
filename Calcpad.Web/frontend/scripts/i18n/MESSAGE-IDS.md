@@ -110,10 +110,9 @@ Rules:
 ## Adding a message
 
 1. Add the English text with a new ID to `messages/en.ts`.
-2. Add the English-to-ID mapping to `scripts/i18n/message-ids.json`.
-3. Add the translation to `community/<locale>.ts` when one exists.
-4. Run `node scripts/i18n/i18n.mjs --locale=<locale>`.
-5. Run `node scripts/i18n/i18n.mjs --check`.
+2. Add the translation to `community/<locale>.ts` when one exists.
+3. Run `node scripts/i18n/i18n.mjs --locale=<locale>`.
+4. Run `node scripts/i18n/i18n.mjs --check`.
 
 ## Dynamic lookups
 
@@ -143,7 +142,6 @@ service at a time.
 ## Current implementation
 
 - `messages/en.ts` is the English source (612 IDs).
-- `scripts/i18n/message-ids.json` is the English-to-ID map.
 - `messages/<locale>.ts` catalogs are keyed by ID.
 - `community/zh.ts` holds the 514 community entries; 38 of them override
   VS Code entries and are marked `replaces: "vscode"` automatically.
@@ -165,8 +163,8 @@ service at a time.
 - Other service errors, agent-provided labels, and a few export details still
   need IDs.
 - The one-time inventory and codemod helpers were removed after the migration.
-  `en.ts`, `message-ids.json`, and `community/<locale>.ts` are the editable
-  sources; generated catalogs and provenance are rebuilt by the script.
+  `en.ts` and `community/<locale>.ts` are the editable sources; generated
+  catalogs and provenance are rebuilt by the script.
 
 ## Migration phases
 

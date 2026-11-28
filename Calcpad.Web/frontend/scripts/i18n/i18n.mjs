@@ -755,21 +755,9 @@ function checkProvenance() {
     };
 
     const english = readEnglish();
-    const messageIds = readJsonSafe(path.join(here, 'message-ids.json'));
-    const messageIdValues = new Set(Object.values(messageIds));
-    for (const [text, id] of Object.entries(messageIds)) {
-        if (typeof id !== 'string' || !id) {
-            errors.push(`message-ids.json: "${text}" has no ID`);
-            continue;
-        }
-        if (english[id] !== text)
-            errors.push(`message-ids.json: "${text}" -> "${id}" does not match en.ts`);
-    }
     for (const [id, text] of Object.entries(english)) {
         if (typeof text !== 'string' || !text)
             errors.push(`en.ts: "${id}" has an empty English value`);
-        if (!messageIdValues.has(id))
-            errors.push(`en.ts: "${id}" has no entry in message-ids.json`);
     }
 
     const index = readJsonSafe(path.join(dataDir, 'vscode.index.json'));

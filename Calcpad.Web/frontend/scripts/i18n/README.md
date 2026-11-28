@@ -48,7 +48,6 @@ CI runs this check; no English source file is committed.
 scripts/i18n/
 ├── i18n.mjs
 ├── check-vscode-english.mjs
-├── message-ids.json
 ├── MESSAGE-IDS.md
 ├── README.md
 └── data/
